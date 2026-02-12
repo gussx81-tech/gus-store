@@ -29,13 +29,13 @@
         .cat-pill { background: #111; border: 2px solid #222; padding: 18px 45px; border-radius: 100px; cursor: pointer; color: #555; font-weight: 900; font-size: 16px; text-transform: uppercase; white-space: nowrap; transition: 0.3s; }
         .cat-pill.active { border-color: #3b82f6; color: white; background: #3b82f6; }
 
-        /* MARCAS (CUADRADITOS) */
+        /* --- MODIFICACIÓN SOLO AQUÍ (MARCAS/CUADRADOS) --- */
         #grid-marcas { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 0 5% 40px; }
-        .marca-item { background: #0d0e14; width: 100px; height: 100px; border-radius: 25px; border: 1px solid #1a1b26; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.3s; padding: 10px; }
-        .marca-item:hover, .marca-item.active { border-color: #3b82f6; background: #1a1b26; transform: scale(1.1); }
-        .marca-item img { width: 45px; height: 45px; object-fit: contain; margin-bottom: 5px; }
-        .marca-item span { font-size: 9px; font-weight: 900; text-transform: uppercase; color: #666; }
-        .marca-item.active span { color: white; }
+        .marca-item { background: #0d0e14; width: 100px; height: 100px; border-radius: 25px; border: 1px solid #1a1b26; cursor: pointer; transition: 0.3s; position: relative; overflow: hidden; }
+        .marca-item:hover, .marca-item.active { border-color: #3b82f6; transform: scale(1.1); }
+        .marca-item img { width: 100%; height: 100%; object-fit: cover; } /* IMAGEN CUBRE TODO */
+        .marca-item span { display: none; } /* SE OCULTA EL TEXTO */
+        /* ------------------------------------------------ */
 
         /* GRID TARJETAS */
         #grid-productos { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; justify-items: end; padding: 0 5% 60px; max-width: 1400px; margin: 0 auto; }
@@ -135,7 +135,7 @@
              <div id="tab-plat" class="admin-sec">
                 <div class="bg-[#0d0d0d] p-10 rounded-[45px] border border-zinc-800 max-w-lg mb-10">
                     <h2 class="text-2xl font-black mb-6 uppercase italic text-blue-500">Nueva Marca</h2>
-                    <div class="bg-zinc-900 p-8 rounded-3xl text-center cursor-pointer mb-5 border border-zinc-800" onclick="triggerFile('file-plat','plat')"><p id="plat-label" class="font-bold text-xs uppercase text-zinc-500">Logo de Marca</p></div>
+                    <div id="plat-upload-box" class="bg-zinc-900 p-8 rounded-3xl text-center cursor-pointer mb-5 border border-zinc-800 h-40 flex items-center justify-center overflow-hidden" onclick="triggerFile('file-plat','plat')"><p id="plat-label" class="font-bold text-xs uppercase text-zinc-500">Logo de Marca</p></div>
                     <input type="file" id="file-plat" class="hidden" onchange="startCropping(this,1)">
                     <input type="text" id="plat-n" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-4 text-white" placeholder="Nombre Marca">
                     <select id="plat-cat-select" class="w-full p-4 bg-zinc-900 rounded-xl border border-zinc-800 mb-6 text-white"></select>
@@ -296,6 +296,8 @@
         };
         window.switchTab = (id) => { document.querySelectorAll('.admin-sec').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); };
         window.triggerFile = (id, type) => { upType = type; document.getElementById(id).click(); };
+        
+        // --- MODIFICACIÓN SOLO AQUÍ (FUNCIÓN DE RECORTE) ---
         window.startCropping = (input) => {
             const reader = new FileReader();
             reader.onload = (e) => {
@@ -306,7 +308,20 @@
             };
             reader.readAsDataURL(input.files[0]);
         };
-        window.doneCrop = () => { finalBase64 = cropper.getCroppedCanvas().toDataURL('image/jpeg', 0.8); document.getElementById('cropper-modal').style.display = 'none'; document.getElementById(upType === 'plat' ? 'plat-label' : 'p-label').innerText = "✓ LISTO"; };
+        window.doneCrop = () => { 
+            finalBase64 = cropper.getCroppedCanvas().toDataURL('image/jpeg', 0.8); 
+            document.getElementById('cropper-modal').style.display = 'none'; 
+            
+            // Si es una plataforma, mostramos la imagen en el cuadro de subida
+            if (upType === 'plat') {
+                const box = document.getElementById('plat-upload-box');
+                box.innerHTML = `<img src="${finalBase64}" class="w-full h-full object-cover">`;
+                box.classList.remove('p-8'); // Quitamos el padding para que la imagen llene todo
+            } else {
+                document.getElementById('p-label').innerText = "✓ IMAGEN LISTA";
+            }
+        };
+        // ------------------------------------------------
         window.cancelCrop = () => document.getElementById('cropper-modal').style.display='none';
 
         // AUTH CHECK
