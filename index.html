@@ -18,7 +18,7 @@
         .profile-pic { width: 80px; height: 80px; border-radius: 50%; border: 3px solid #3b82f6; overflow: hidden; background: #111; }
         .profile-pic img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* EL GIGA-TÍTULO QUE TE GUSTA */
+        /* GIGA-TÍTULO */
         .hero-section { text-align: center; padding: 0 20px 40px; }
         .hero-title { font-size: 5rem; line-height: 0.8; font-weight: 900; font-style: italic; text-transform: uppercase; margin-bottom: 40px; letter-spacing: -3px; }
         @media (min-width: 768px) { .hero-title { font-size: 11rem; } }
@@ -27,11 +27,13 @@
         .cat-pill { background: #111; border: 2px solid #222; padding: 18px 45px; border-radius: 100px; cursor: pointer; color: #555; font-weight: 900; font-size: 16px; text-transform: uppercase; transition: 0.3s; }
         .cat-pill.active { border-color: #3b82f6; color: white; background: #3b82f6; }
 
+        /* MARCAS FULL IMAGEN */
         #grid-marcas { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 0 5% 40px; }
         .marca-item { background: #0d0e14; width: 100px; height: 100px; border-radius: 25px; border: 1px solid #1a1b26; cursor: pointer; transition: 0.3s; position: relative; overflow: hidden; }
         .marca-item:hover, .marca-item.active { border-color: #3b82f6; transform: scale(1.05); }
         .marca-item img { width: 100%; height: 100%; object-fit: cover; }
 
+        /* TARJETAS PREMIUM */
         #grid-productos { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; justify-items: end; padding: 0 5% 60px; max-width: 1400px; margin: 0 auto; }
         .card-producto { background: #0d0e14; width: 320px; border-radius: 45px; padding: 12px; border: 1px solid #1a1b26; cursor: pointer; position: relative; }
         .card-img-wrap { width: 100%; height: 320px; border-radius: 35px; background: #000; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; }
@@ -79,7 +81,7 @@
             <div class="profile-pic"><img src="https://files.catbox.moe/nao1lj.jpg"></div>
             <div class="text-3xl font-black italic uppercase tracking-tighter text-white">GUS <span class="text-blue-500">STORE</span></div>
         </header>
-        <section class="hero-section">
+        <section class="hero-section text-center">
             <h1 class="hero-title">ENTRETENIMIENTO<br><span class="hero-gradient">SIN LÍMITES</span></h1>
             <input type="text" id="gus-search" class="search-gus mt-5" placeholder="¿Qué buscas hoy?" onkeyup="searchFilter()">
             <div id="pills-box" class="flex justify-center gap-4 overflow-x-auto no-scrollbar mb-10"></div>
@@ -127,7 +129,7 @@
              </div>
              <div id="tab-cat" class="admin-sec">
                 <div class="bg-[#0d0d0d] p-10 rounded-[45px] border border-zinc-800 max-w-lg mb-10">
-                    <h2 class="text-2xl font-black mb-6 uppercase italic text-blue-500 text-white">Categorías</h2>
+                    <h2 class="text-2xl font-black mb-6 uppercase italic text-blue-500">Categorías</h2>
                     <input type="text" id="new-cat" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-4 text-white" placeholder="Nombre">
                     <button onclick="addCat()" class="bg-blue-600 w-full p-4 rounded-xl font-black uppercase text-white">Añadir</button>
                 </div>
@@ -177,7 +179,7 @@
             const opts = '<option value="">Elegir...</option>' + data.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
             document.getElementById('p-cat-select').innerHTML = opts;
             document.getElementById('plat-cat-select').innerHTML = opts;
-            document.getElementById('admin-list-cat').innerHTML = data.map(c => `<div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl"><span>${c.name}</span><button onclick="deleteDoc(doc(db,'categorias','${c.id}'))" class="text-red-500"><i class="fas fa-trash"></i></button></div>`).join('');
+            document.getElementById('admin-list-cat').innerHTML = data.map(c => `<div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2"><span>${c.name}</span><button onclick="deleteDoc(doc(db,'categorias','${c.id}'))" class="text-red-500"><i class="fas fa-trash"></i></button></div>`).join('');
             if(!activeCat && data.length > 0) window.setCat(data[0].name);
         });
         
@@ -244,16 +246,10 @@
             document.getElementById('grid-marcas').innerHTML = filtered.map(p => `<div class="marca-item ${p.id===activePlatId?'active':''}" onclick="window.setPlat('${p.id}')"><img src="${p.logo||defaultLogo}"></div>`).join('');
         }
 
-        // --- MODIFICACIÓN: FILTRO SOLO STREAMING ---
+        // --- LIBERADO: TODAS LAS CATEGORÍAS MUESTRAN TARJETAS ---
         function renderGrid() {
             const grid = document.getElementById('grid-productos'); grid.innerHTML = ""; 
             if(!activePlatId) return;
-
-            // Bloqueo: Si no es STREAMING, no mostramos tarjetas
-            if(activeCat.toUpperCase() !== 'STREAMING') {
-                grid.innerHTML = `<div class="no-stock-full">PRÓXIMAMENTE DISPONIBLE</div>`;
-                return;
-            }
 
             const prods = window.allProds.filter(pr => pr.platId === activePlatId);
             if(prods.length === 0) grid.innerHTML = `<div class="no-stock-full">SIN STOCK POR EL MOMENTO</div>`;
@@ -265,7 +261,6 @@
                 grid.appendChild(card);
             });
         }
-        // ------------------------------------------
 
         window.openModal = (p) => {
             document.getElementById('m-img').src = p.img || defaultLogo;
