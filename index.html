@@ -21,56 +21,39 @@
         .hero-title { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 900; font-style: italic; text-transform: uppercase; line-height: 0.85; letter-spacing: -3px; margin: 0; }
         .hero-gradient { background: linear-gradient(to right, #3b82f6, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* --- CARRUSEL LOGOS BLANCOS --- */
-        .slider { height: 90px; margin-top: 20px; overflow: hidden; position: relative; width: 100%; background: #080808; display: flex; align-items: center; border-y: 1px solid #1a1a1a; }
-        .slider .slide-track { display: flex; width: calc(200px * 14); animation: scroll 30s linear infinite; }
-        .slider .slide { width: 200px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .slider img { height: 35px; filter: brightness(0) invert(1); opacity: 0.6; }
-        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-200px * 7)); } }
-
-        /* --- BUSCADOR (IZQUIERDA) --- */
+        /* --- BUSCADOR --- */
         .search-wrapper { max-width: 1400px; margin: 40px auto 20px auto; padding: 0 20px; }
         .search-container { position: relative; max-width: 500px; }
         .search-input { width: 100%; background: #0a0a0a; border: 1px solid #222; padding: 18px 20px 18px 55px; border-radius: 14px; color: white; font-size: 16px; outline: none; transition: 0.3s; font-weight: 600; }
         .search-input:focus { border-color: #3b82f6; box-shadow: 0 0 20px rgba(59, 130, 246, 0.2); }
         .search-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: #444; font-size: 18px; }
 
-        /* --- PASTILLAS NEÓN --- */
+        /* --- PASTILLAS --- */
         .pill-wrapper { max-width: 1400px; margin: 0 auto 30px auto; padding: 0 20px; display: flex; justify-content: flex-start; }
         .pill-container { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; width: 100%; }
-        .cat-pill { display: flex; align-items: center; gap: 8px; background: #111; border: 1px solid #222; padding: 12px 24px; border-radius: 100px; cursor: pointer; transition: 0.3s; color: #777; font-weight: 800; font-style: italic; font-size: 13px; white-space: nowrap; flex-shrink: 0; text-transform: uppercase; }
-        .cat-pill.active { border-color: #4ade80; color: #a3e635; box-shadow: 0 0 15px rgba(163, 230, 53, 0.1); }
+        .cat-pill { background: #111; border: 1px solid #222; padding: 12px 24px; border-radius: 100px; cursor: pointer; transition: 0.3s; color: #777; font-weight: 800; font-style: italic; font-size: 13px; white-space: nowrap; text-transform: uppercase; }
+        .cat-pill.active { border-color: #3b82f6; color: #3b82f6; }
 
         /* --- MENSAJE PROXIMAMENTE --- */
         #empty-view { display: none; width: 90%; max-width: 800px; margin: 50px auto; text-align: center; padding: 100px 20px; border: 2px dashed #333; border-radius: 40px; background: #080808; }
         .empty-text { font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 900; font-style: italic; text-transform: uppercase; color: #ffffff; letter-spacing: 2px; }
-        .empty-sub { color: #3b82f6; font-weight: 800; margin-top: 15px; font-size: 14px; letter-spacing: 8px; }
 
-        /* --- GRID PRODUCTOS --- */
+        /* --- GRID --- */
         .grid-container { display: flex; flex-wrap: wrap; gap: 25px; padding-bottom: 100px; padding-left: 20px; padding-right: 20px; max-width: 1400px; margin: 0 auto; justify-content: flex-start; }
         .card-producto { background: #12141c; width: 310px; border-radius: 28px; padding: 16px; border: 1px solid #232635; cursor: pointer; transition: 0.3s; }
-        .card-producto:hover { transform: translateY(-10px); border-color: #3b82f6; }
         .card-img-wrap { position: relative; width: 100%; height: 260px; border-radius: 20px; overflow: hidden; background: #0a0a0a; display: flex; align-items: center; justify-content: center; }
-        .card-img-wrap img.logo-plat { max-width: 50%; object-fit: contain; }
-        .badge-stock { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: white; color: black; padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 900; white-space: nowrap; }
+        .card-img-wrap img { max-width: 60%; object-fit: contain; }
         .card-info-wrap { display: flex; margin-top: 18px; gap: 12px; }
         .avatar-tienda { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #232635; object-fit: cover; }
-        .product-title { color: white; font-size: 18px; font-weight: 900; line-height: 1.2; }
-        .price-pill { background: white; color: black; display: inline-flex; padding: 6px 16px; border-radius: 20px; font-weight: 900; font-size: 15px; margin-top: 12px; }
+        .price-pill { background: white; color: black; display: inline-flex; padding: 6px 16px; border-radius: 20px; font-weight: 900; margin-top: 12px; }
 
-        /* --- MODAL --- */
-        #modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 20px; }
-        .modal-content { background: #12141c; border: 1px solid #333; width: 100%; max-width: 450px; border-radius: 32px; padding: 40px; text-align: center; position: relative; }
-        .modal-desc-box { background: #080808; border-radius: 20px; padding: 20px; text-align: left; margin: 20px 0; border: 1px solid #222; }
-        .desc-item { display: flex; align-items: center; gap: 10px; color: #bbb; margin-bottom: 8px; font-size: 14px; font-weight: 600; }
-        .desc-item i { color: #10b981; }
-        .modal-btn { background: #25D366; color: white; width: 100%; padding: 18px; border-radius: 18px; font-weight: 900; font-style: italic; text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; }
-
-        /* --- ADMIN --- */
+        /* --- ADMIN STYLES --- */
         #admin-panel { display: none; background: #000; min-height: 100vh; width: 100%; position: absolute; top: 0; z-index: 5000; }
         .sidebar { width: 280px; background: #080808; border-right: 1px solid #111; padding: 40px 20px; }
         .input-gus { width: 100%; background: #0a0a0a; border: 1px solid #222; padding: 15px; border-radius: 12px; color: white; margin-bottom: 15px; outline: none; }
-        .btn-gus { background: #3b82f6; width: 100%; padding: 15px; border-radius: 12px; font-weight: 900; text-transform: uppercase; cursor: pointer; color: white; text-align: center; display: block; }
+        .btn-gus { background: #3b82f6; width: 100%; padding: 15px; border-radius: 12px; font-weight: 900; text-transform: uppercase; cursor: pointer; color: white; text-align: center; border: none; }
+        .admin-sec { display: none; }
+        .admin-sec.active { display: block; }
     </style>
 </head>
 <body onload="init()">
@@ -81,7 +64,6 @@
             <input type="text" id="u-in" placeholder="Usuario" class="input-gus">
             <input type="password" id="p-in" placeholder="Contraseña" class="input-gus">
             <button onclick="login()" class="btn-gus w-full">Entrar</button>
-            <p onclick="window.location.hash=''" class="text-zinc-600 text-[10px] mt-6 cursor-pointer uppercase font-bold">Cerrar</p>
         </div>
     </div>
 
@@ -96,19 +78,6 @@
             <h1 class="hero-title hero-gradient">SIN LÍMITES</h1>
         </div>
 
-        <div class="slider">
-            <div class="slide-track">
-                <div class="slide"><img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg"></div>
-                <div class="slide"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg"></div>
-                <div class="slide"><img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg"></div>
-                <div class="slide"><img src="https://upload.wikimedia.org/wikipedia/commons/1/11/Amazon_Prime_Video_logo.svg"></div>
-                <div class="slide"><img src="https://upload.wikimedia.org/wikipedia/commons/1/17/HBO_Max_Logo.svg"></div>
-                <div class="slide"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg"></div>
-                <div class="slide"><img src="https://upload.wikimedia.org/wikipedia/commons/2/28/Apple_TV_Plus_Logo.svg"></div>
-                <div class="slide"><img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg"></div>
-            </div>
-        </div>
-
         <div class="search-wrapper">
             <div class="search-container">
                 <i class="fas fa-search search-icon"></i>
@@ -118,148 +87,172 @@
 
         <div id="empty-view">
             <div class="empty-text">GUS STORE: PRÓXIMAMENTE</div>
-            <div class="empty-sub">ESTAMOS CARGANDO STOCK</div>
         </div>
 
         <div class="pill-wrapper"><div class="pill-container" id="pills-box"></div></div>
         <div id="grid-productos" class="grid-container"></div>
     </div>
 
-    <div id="modal-overlay" onclick="closeModal(event)">
-        <div class="modal-content">
-            <span onclick="closeModal(event, true)" style="cursor:pointer; position:absolute; top:20px; right:30px; font-size:30px;">&times;</span>
-            <img id="m-img" src="" class="w-20 mx-auto mb-4 object-contain">
-            <h2 id="m-title" class="text-2xl font-black italic uppercase text-white"></h2>
-            <div id="m-price" class="text-[#3b82f6] text-3xl font-black italic my-4"></div>
-            <div id="m-desc-box" class="modal-desc-box"></div>
-            <a id="m-btn" href="#" target="_blank" class="modal-btn">
-                <i class="fab fa-whatsapp text-2xl"></i> COMPRAR AHORA
-            </a>
-        </div>
-    </div>
-
     <div id="admin-panel" class="flex">
         <aside class="sidebar">
-            <div class="text-white font-black italic text-xl mb-10">GUS ADMIN</div>
-            <button onclick="showSec('add')" class="text-left w-full p-4 mb-2 bg-[#111] rounded-xl font-bold text-xs uppercase text-blue-500">Añadir Producto</button>
-            <button onclick="showSec('list')" class="text-left w-full p-4 mb-2 bg-[#111] rounded-xl font-bold text-xs uppercase text-zinc-500">Ver Lista / Borrar</button>
+            <div class="text-white font-black italic text-xl mb-10">GUS PANEL</div>
+            <button onclick="switchTab('tab-prod')" class="text-left w-full p-4 mb-2 bg-[#111] rounded-xl font-bold text-xs uppercase text-blue-500">Añadir Producto</button>
+            <button onclick="switchTab('tab-cat')" class="text-left w-full p-4 mb-2 bg-[#111] rounded-xl font-bold text-xs uppercase text-white">Añadir Categoría</button>
+            <button onclick="switchTab('tab-plat')" class="text-left w-full p-4 mb-2 bg-[#111] rounded-xl font-bold text-xs uppercase text-white">Añadir Plataforma</button>
+            <button onclick="switchTab('tab-list')" class="text-left w-full p-4 mb-2 bg-[#111] rounded-xl font-bold text-xs uppercase text-zinc-500">Ver / Borrar Todo</button>
             <button onclick="logout()" class="text-left w-full p-4 mt-10 border border-red-900 text-red-500 rounded-xl font-bold text-xs uppercase">Salir</button>
         </aside>
+
         <main class="flex-1 p-10 overflow-y-auto">
-            <div id="sec-add">
-                <h2 class="text-3xl font-black italic uppercase mb-8">Nuevo Producto</h2>
+            <div id="tab-prod" class="admin-sec active">
+                <h2 class="text-3xl font-black italic uppercase mb-8">Añadir Producto (Tarjeta)</h2>
                 <div class="grid grid-cols-2 gap-6 max-w-4xl">
-                    <div>
-                        <input type="text" id="n-name" class="input-gus" placeholder="Nombre (Ej: Spotify)">
-                        <input type="number" id="n-price" class="input-gus" placeholder="Precio (S/)">
-                        <input type="text" id="n-cat" class="input-gus" placeholder="Categoría (Ej: STREAMING)">
-                    </div>
-                    <div>
-                        <input type="number" id="n-stock" class="input-gus" placeholder="Stock">
-                        <select id="n-type" class="input-gus"><option value="perfil">Perfil</option><option value="completa">Completa</option></select>
-                        <textarea id="n-desc" class="input-gus h-24" placeholder="Descripción (1 por línea)"></textarea>
-                    </div>
+                    <input type="text" id="p-name" class="input-gus" placeholder="Nombre (Ej: Netflix 1 Perfil)">
+                    <input type="number" id="p-price" class="input-gus" placeholder="Precio (S/)">
+                    <select id="p-cat-select" class="input-gus"></select>
+                    <select id="p-plat-select" class="input-gus"></select>
+                    <input type="number" id="p-stock" class="input-gus" placeholder="Stock">
+                    <textarea id="p-desc" class="input-gus" placeholder="Beneficios (uno por línea)"></textarea>
                 </div>
-                <button onclick="saveProduct()" class="btn-gus w-full max-w-sm mt-4">Guardar</button>
+                <button onclick="saveProduct()" class="btn-gus w-full max-w-sm mt-4">Publicar Tarjeta</button>
             </div>
-            <div id="sec-list" class="hidden">
-                <h2 class="text-3xl font-black italic uppercase mb-8">Productos</h2>
-                <div id="admin-list" class="space-y-4 max-w-2xl"></div>
+
+            <div id="tab-cat" class="admin-sec">
+                <h2 class="text-3xl font-black italic uppercase mb-8">Gestionar Categorías</h2>
+                <input type="text" id="new-cat-name" class="input-gus max-w-sm" placeholder="Nombre (Ej: STREAMING)">
+                <button onclick="addCategory()" class="btn-gus max-w-sm">Crear Categoría</button>
+                <div id="cat-list-admin" class="mt-10 space-y-2"></div>
+            </div>
+
+            <div id="tab-plat" class="admin-sec">
+                <h2 class="text-3xl font-black italic uppercase mb-8">Gestionar Plataformas (Logos)</h2>
+                <input type="text" id="plat-name" class="input-gus max-w-sm" placeholder="Nombre (Ej: Netflix)">
+                <input type="text" id="plat-logo" class="input-gus max-w-sm" placeholder="URL del Logo (Ej: https://...)">
+                <button onclick="addPlatform()" class="btn-gus max-w-sm">Guardar Plataforma</button>
+                <div id="plat-list-admin" class="mt-10 space-y-2"></div>
+            </div>
+
+            <div id="tab-list" class="admin-sec">
+                <h2 class="text-3xl font-black italic uppercase mb-8">Inventario Total</h2>
+                <div id="full-list-admin" class="space-y-4 max-w-2xl"></div>
             </div>
         </main>
     </div>
 
     <script>
-        const logos = { 'Spotify': 'https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg', 'Disney': 'https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg', 'Netflix': 'https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg', 'Prime': 'https://upload.wikimedia.org/wikipedia/commons/1/11/Amazon_Prime_Video_logo.svg' };
-        let db = JSON.parse(localStorage.getItem('gus_db')) || [];
-        let activeCat = '';
+        // Bases de datos locales
+        let db_prod = JSON.parse(localStorage.getItem('gus_prod')) || [];
+        let db_cat = JSON.parse(localStorage.getItem('gus_cat')) || ['STREAMING', 'JUEGOS'];
+        let db_plat = JSON.parse(localStorage.getItem('gus_plat')) || [
+            {n: 'Netflix', l: 'https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg'},
+            {n: 'Spotify', l: 'https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg'}
+        ];
 
         function init() {
             checkAuth();
             window.onhashchange = checkAuth;
-            refreshHome();
+            updateSelectors();
+            renderHome();
         }
 
-        function refreshHome() {
-            const emptyView = document.getElementById('empty-view');
-            const grid = document.getElementById('grid-productos');
-            const pills = document.querySelector('.pill-wrapper');
-            if (db.length === 0) {
-                emptyView.style.display = 'block';
-                grid.style.display = 'none';
-                pills.style.display = 'none';
-            } else {
-                emptyView.style.display = 'none';
-                grid.style.display = 'flex';
-                pills.style.display = 'flex';
-                renderPills();
-                renderGrid(activeCat || db[0].cat);
-            }
+        // --- FUNCIONES DE NAVEGACIÓN ---
+        function switchTab(id) {
+            document.querySelectorAll('.admin-sec').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            if(id === 'tab-cat') renderCatAdmin();
+            if(id === 'tab-plat') renderPlatAdmin();
+            if(id === 'tab-list') renderFullAdmin();
         }
 
-        function searchRealTime() {
-            const q = document.getElementById('searchInput').value.toLowerCase();
-            if (q === '') { refreshHome(); return; }
-            document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
-            renderGrid(q, true);
+        // --- GESTIÓN DE CATEGORÍAS ---
+        function addCategory() {
+            const val = document.getElementById('new-cat-name').value.toUpperCase();
+            if(val) { db_cat.push(val); localStorage.setItem('gus_cat', JSON.stringify(db_cat)); updateSelectors(); renderCatAdmin(); }
         }
-
-        function renderGrid(filter, isSearch = false) {
-            const grid = document.getElementById('grid-productos');
-            // FILTRO POR COMIENZO DE LETRA (STARTSWITH)
-            let data = isSearch ? db.filter(p => p.nombre.toLowerCase().startsWith(filter)) : db.filter(p => p.cat === filter);
-            
-            if (data.length === 0) {
-                grid.innerHTML = `<div class="empty-state"><div class="empty-text">AUN NO HAY ${filter.toUpperCase()} DISPONIBLE</div></div>`;
-                return;
-            }
-
-            grid.innerHTML = data.map(p => {
-                const brand = Object.keys(logos).find(k => p.nombre.includes(k)) || 'Spotify';
-                return `
-                <div class="card-producto" onclick="openModal(${p.id})">
-                    <div class="card-img-wrap"><img src="${logos[brand]}" class="logo-plat"><div class="badge-stock">👁 ${p.stock} Stock</div></div>
-                    <div class="card-info-wrap">
-                        <img src="https://files.catbox.moe/nao1lj.jpg" class="avatar-tienda">
-                        <div class="card-text-wrap"><div class="store-name">✓ gusstore</div><div class="product-title">⭐️ ${p.nombre}</div><div class="price-pill">👉 s/${p.precio}</div></div>
-                    </div>
-                </div>`;
-            }).join('');
+        function renderCatAdmin() {
+            document.getElementById('cat-list-admin').innerHTML = db_cat.map(c => `<div class="bg-[#111] p-4 rounded-xl flex justify-between"><span>${c}</span><button onclick="delCat('${c}')" class="text-red-500">Borrar</button></div>`).join('');
         }
+        function delCat(c) { db_cat = db_cat.filter(x => x !== c); localStorage.setItem('gus_cat', JSON.stringify(db_cat)); updateSelectors(); renderCatAdmin(); }
 
-        function renderPills() {
-            const container = document.getElementById('pills-box');
-            const categories = [...new Set(db.map(p => p.cat))];
-            container.innerHTML = categories.map(c => `<div class="cat-pill ${c === activeCat ? 'active' : ''}" onclick="selectCat('${c}', this)">${c}</div>`).join('');
+        // --- GESTIÓN DE PLATAFORMAS ---
+        function addPlatform() {
+            const n = document.getElementById('plat-name').value;
+            const l = document.getElementById('plat-logo').value;
+            if(n && l) { db_plat.push({n, l}); localStorage.setItem('gus_plat', JSON.stringify(db_plat)); updateSelectors(); renderPlatAdmin(); }
         }
-
-        function selectCat(cat, el) { activeCat = cat; document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active')); el.classList.add('active'); renderGrid(cat); }
-
-        function openModal(id) {
-            const p = db.find(x => x.id === id);
-            const brand = Object.keys(logos).find(k => p.nombre.includes(k)) || 'Spotify';
-            document.getElementById('m-img').src = logos[brand];
-            document.getElementById('m-title').innerText = p.nombre;
-            document.getElementById('m-price').innerText = "S/ " + p.precio;
-            document.getElementById('m-desc-box').innerHTML = p.desc.split('\n').map(l => `<div class="desc-item"><i class="fas fa-check-circle"></i> ${l}</div>`).join('');
-            const msg = `Hola Gus, vengo de tu web Gus Store. Quiero la ${p.type === 'completa' ? 'cuenta completa' : 'Perfil'} de ${p.nombre} de S/ ${p.precio}. ¿A dónde te Yapeo?`;
-            document.getElementById('m-btn').href = `https://wa.me/51928862832?text=${encodeURIComponent(msg)}`;
-            document.getElementById('modal-overlay').style.display = 'flex';
+        function renderPlatAdmin() {
+            document.getElementById('plat-list-admin').innerHTML = db_plat.map(p => `<div class="bg-[#111] p-4 rounded-xl flex justify-between"><span>${p.n}</span><button onclick="delPlat('${p.n}')" class="text-red-500">Borrar</button></div>`).join('');
         }
+        function delPlat(n) { db_plat = db_plat.filter(x => x.n !== n); localStorage.setItem('gus_plat', JSON.stringify(db_plat)); updateSelectors(); renderPlatAdmin(); }
 
-        function closeModal(e, f) { if(f || e.target.id === 'modal-overlay') document.getElementById('modal-overlay').style.display = 'none'; }
-        function showSec(s) { document.getElementById('sec-add').classList.toggle('hidden', s !== 'add'); document.getElementById('sec-list').classList.toggle('hidden', s !== 'list'); if(s==='list') renderAdminList(); }
+        // --- GESTIÓN DE PRODUCTOS ---
+        function updateSelectors() {
+            document.getElementById('p-cat-select').innerHTML = db_cat.map(c => `<option value="${c}">${c}</option>`).join('');
+            document.getElementById('p-plat-select').innerHTML = db_plat.map(p => `<option value="${p.l}">${p.n}</option>`).join('');
+        }
         function saveProduct() {
-            db.push({ id: Date.now(), nombre: document.getElementById('n-name').value, precio: document.getElementById('n-price').value, cat: document.getElementById('n-cat').value.toUpperCase(), stock: document.getElementById('n-stock').value, type: document.getElementById('n-type').value, desc: document.getElementById('n-desc').value });
-            localStorage.setItem('gus_db', JSON.stringify(db));
+            const p = {
+                id: Date.now(),
+                nombre: document.getElementById('p-name').value,
+                precio: document.getElementById('p-price').value,
+                cat: document.getElementById('p-cat-select').value,
+                logo: document.getElementById('p-plat-select').value,
+                stock: document.getElementById('p-stock').value,
+                desc: document.getElementById('p-desc').value
+            };
+            db_prod.push(p);
+            localStorage.setItem('gus_prod', JSON.stringify(db_prod));
+            alert("¡Tarjeta publicada!");
             location.reload();
         }
-        function renderAdminList() {
-            document.getElementById('admin-list').innerHTML = db.map(p => `<div class="flex justify-between items-center bg-[#0a0a0a] p-4 rounded-2xl border border-zinc-900"><div>${p.nombre}</div><button onclick="delP(${p.id})" class="text-red-500 font-bold">BORRAR</button></div>`).join('');
+
+        // --- RENDER HOME ---
+        function renderHome() {
+            const grid = document.getElementById('grid-productos');
+            const empty = document.getElementById('empty-view');
+            if(db_prod.length === 0) { empty.style.display = 'block'; grid.style.display = 'none'; return; }
+            empty.style.display = 'none';
+            grid.style.display = 'flex';
+            
+            // Pills
+            const categories = [...new Set(db_prod.map(p => p.cat))];
+            document.getElementById('pills-box').innerHTML = categories.map(c => `<div class="cat-pill" onclick="filterCat('${c}')">${c}</div>`).join('');
+            filterCat(categories[0]);
         }
-        function delP(id) { if(confirm("¿Borrar?")) { db = db.filter(x => x.id !== id); localStorage.setItem('gus_db', JSON.stringify(db)); renderAdminList(); } }
-        function checkAuth() { const h = window.location.hash; document.getElementById('login-screen').classList.toggle('hidden', h !== '#/admin/login'); document.getElementById('admin-panel').style.display = (h === '#/admin/panel' && sessionStorage.getItem('gus_auth')) ? 'flex' : 'none'; }
-        function login() { if(document.getElementById('u-in').value === 'adminGus' && document.getElementById('p-in').value === 'GusStore2026') { sessionStorage.setItem('gus_auth', 'true'); window.location.hash = '#/admin/panel'; } else alert("Error"); }
+
+        function filterCat(c) {
+            const data = db_prod.filter(p => p.cat === c);
+            document.getElementById('grid-productos').innerHTML = data.map(p => `
+                <div class="card-producto">
+                    <div class="card-img-wrap"><img src="${p.logo}"></div>
+                    <div class="card-info-wrap">
+                        <img src="https://files.catbox.moe/nao1lj.jpg" class="avatar-tienda">
+                        <div>
+                            <div class="text-[10px] text-zinc-500 font-bold uppercase">Gus Store</div>
+                            <div class="product-title">${p.nombre}</div>
+                            <div class="price-pill">S/ ${p.precio}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderFullAdmin() {
+            document.getElementById('full-list-admin').innerHTML = db_prod.map(p => `<div class="bg-[#111] p-4 rounded-xl flex justify-between"><span>${p.nombre}</span><button onclick="delProd(${p.id})" class="text-red-500 font-bold">BORRAR</button></div>`).join('');
+        }
+        function delProd(id) { db_prod = db_prod.filter(x => x.id !== id); localStorage.setItem('gus_prod', JSON.stringify(db_prod)); renderFullAdmin(); }
+
+        // --- AUTH ---
+        function login() {
+            if(document.getElementById('u-in').value === 'adminGus' && document.getElementById('p-in').value === 'GusStore2026') {
+                sessionStorage.setItem('gus_auth', 'true'); window.location.hash = '#/admin/panel';
+            } else alert("Error");
+        }
+        function checkAuth() { 
+            const h = window.location.hash; 
+            document.getElementById('login-screen').classList.toggle('hidden', h !== '#/admin/login');
+            document.getElementById('admin-panel').style.display = (h === '#/admin/panel' && sessionStorage.getItem('gus_auth')) ? 'flex' : 'none';
+        }
         function logout() { sessionStorage.removeItem('gus_auth'); window.location.hash = ''; }
     </script>
 </body>
