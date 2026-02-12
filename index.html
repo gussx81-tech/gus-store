@@ -27,13 +27,13 @@
         .cat-pill { background: #111; border: 2px solid #222; padding: 18px 45px; border-radius: 100px; cursor: pointer; color: #555; font-weight: 900; font-size: 16px; text-transform: uppercase; transition: 0.3s; }
         .cat-pill.active { border-color: #3b82f6; color: white; background: #3b82f6; }
 
-        /* MARCAS FULL IMAGEN */
+        /* PLATAFORMAS */
         #grid-marcas { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 0 5% 40px; }
         .marca-item { background: #0d0e14; width: 100px; height: 100px; border-radius: 25px; border: 1px solid #1a1b26; cursor: pointer; transition: 0.3s; position: relative; overflow: hidden; }
         .marca-item:hover, .marca-item.active { border-color: #3b82f6; transform: scale(1.05); }
         .marca-item img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* TARJETAS PREMIUM */
+        /* TARJETAS CON BRANDING */
         #grid-productos { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; justify-items: end; padding: 0 5% 60px; max-width: 1400px; margin: 0 auto; }
         .card-producto { background: #0d0e14; width: 320px; border-radius: 45px; padding: 12px; border: 1px solid #1a1b26; cursor: pointer; position: relative; }
         .card-img-wrap { width: 100%; height: 320px; border-radius: 35px; background: #000; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; }
@@ -42,6 +42,8 @@
         .badge-renovable { position: absolute; top: 18px; right: 18px; background: #ff3b30; color: white; padding: 8px 18px; border-radius: 25px; font-weight: 900; font-size: 12px; text-transform: uppercase; }
         .badge-stock { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); background: #f2f2f2; color: black; padding: 8px 22px; border-radius: 25px; font-weight: 900; font-size: 13px; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
 
+        /* ESTILOS DEL USER/BRANDING */
+        .store-name { color: #00ff88; font-weight: 900; font-size: 19px; text-transform: lowercase; }
         .product-title { font-weight: 900; font-size: 23px; color: white; margin: 12px 0; text-transform: uppercase; font-style: italic; line-height: 1.1; }
         .price-pill { background: white; color: black; padding: 10px 28px; border-radius: 35px; font-weight: 900; font-size: 18px; display: inline-flex; align-items: center; gap: 8px; }
 
@@ -94,7 +96,7 @@
         <aside class="w-full md:w-80 p-10 border-r border-zinc-900 bg-[#080808]">
             <nav class="flex flex-col gap-4">
                 <button onclick="switchTab('tab-prod')" class="text-left p-5 bg-zinc-900 rounded-2xl font-bold uppercase text-xs">📦 Tarjetas</button>
-                <button onclick="switchTab('tab-plat')" class="text-left p-5 bg-zinc-900 rounded-2xl font-bold uppercase text-xs">🖼️ Marcas</button>
+                <button onclick="switchTab('tab-plat')" class="text-left p-5 bg-zinc-900 rounded-2xl font-bold uppercase text-xs">🖼️ Plataformas</button>
                 <button onclick="switchTab('tab-cat')" class="text-left p-5 bg-zinc-900 rounded-2xl font-bold uppercase text-xs">📂 Categorías</button>
                 <button onclick="logout()" class="text-left p-5 mt-10 text-red-500 font-bold uppercase text-xs">Salir</button>
             </nav>
@@ -118,8 +120,8 @@
              </div>
              <div id="tab-plat" class="admin-sec">
                 <div class="bg-[#0d0d0d] p-10 rounded-[45px] border border-zinc-800 max-w-lg mb-10">
-                    <h2 id="form-title-plat" class="text-2xl font-black mb-6 uppercase italic text-blue-500">Nueva Marca</h2>
-                    <div id="plat-upload-box" class="bg-zinc-900 rounded-3xl text-center cursor-pointer mb-5 border border-zinc-800 h-40 flex items-center justify-center overflow-hidden" onclick="triggerFile('file-plat','plat')"><p id="plat-label" class="font-bold text-xs uppercase text-zinc-500">Logo Marca</p></div>
+                    <h2 id="form-title-plat" class="text-2xl font-black mb-6 uppercase italic text-blue-500">Nueva Plataforma</h2>
+                    <div id="plat-upload-box" class="bg-zinc-900 rounded-3xl text-center cursor-pointer mb-5 border border-zinc-800 h-40 flex items-center justify-center overflow-hidden" onclick="triggerFile('file-plat','plat')"><p id="plat-label" class="font-bold text-xs uppercase text-zinc-500">Logo Plataforma</p></div>
                     <input type="file" id="file-plat" class="hidden" onchange="startCropping(this)">
                     <input type="text" id="plat-n" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-4 text-white" placeholder="Nombre">
                     <select id="plat-cat-select" class="w-full p-4 bg-zinc-900 rounded-xl border border-zinc-800 mb-6 text-white"></select>
@@ -129,7 +131,7 @@
              </div>
              <div id="tab-cat" class="admin-sec">
                 <div class="bg-[#0d0d0d] p-10 rounded-[45px] border border-zinc-800 max-w-lg mb-10">
-                    <h2 class="text-2xl font-black mb-6 uppercase italic text-blue-500">Categorías</h2>
+                    <h2 class="text-2xl font-black mb-6 uppercase italic text-blue-500 text-white">Categorías</h2>
                     <input type="text" id="new-cat" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-4 text-white" placeholder="Nombre">
                     <button onclick="addCat()" class="bg-blue-600 w-full p-4 rounded-xl font-black uppercase text-white">Añadir</button>
                 </div>
@@ -217,8 +219,8 @@
             document.getElementById('plat-n').value = p.name;
             document.getElementById('plat-cat-select').value = p.cat;
             if(p.logo) document.getElementById('plat-upload-box').innerHTML = `<img src="${p.logo}" class="w-full h-full object-cover">`;
-            document.getElementById('form-title-plat').innerText = "Editando Marca";
-            document.getElementById('btn-save-plat').innerText = "Actualizar Marca";
+            document.getElementById('form-title-plat').innerText = "Editando Plataforma";
+            document.getElementById('btn-save-plat').innerText = "Actualizar Plataforma";
             window.scrollTo(0,0);
         };
 
@@ -242,32 +244,67 @@
         window.setPlat = (id) => { activePlatId = id; renderPlats(); renderGrid(); };
 
         function renderPlats() {
+            const brandsContainer = document.getElementById('grid-marcas');
+            if (activeCat.toUpperCase() !== 'STREAMING') {
+                brandsContainer.innerHTML = "";
+                return;
+            }
             const filtered = window.allPlats.filter(p => p.cat === activeCat);
-            document.getElementById('grid-marcas').innerHTML = filtered.map(p => `<div class="marca-item ${p.id===activePlatId?'active':''}" onclick="window.setPlat('${p.id}')"><img src="${p.logo||defaultLogo}"></div>`).join('');
+            brandsContainer.innerHTML = filtered.map(p => `<div class="marca-item ${p.id===activePlatId?'active':''}" onclick="window.setPlat('${p.id}')"><img src="${p.logo||defaultLogo}"></div>`).join('');
         }
 
-        // --- LIBERADO: TODAS LAS CATEGORÍAS MUESTRAN TARJETAS ---
+        // --- RESTAURANDO BRANDING EN LA TARJETA ---
         function renderGrid() {
-            const grid = document.getElementById('grid-productos'); grid.innerHTML = ""; 
-            if(!activePlatId) return;
+            const grid = document.getElementById('grid-productos'); 
+            grid.innerHTML = ""; 
+            let prodsToShow = [];
 
-            const prods = window.allProds.filter(pr => pr.platId === activePlatId);
-            if(prods.length === 0) grid.innerHTML = `<div class="no-stock-full">SIN STOCK POR EL MOMENTO</div>`;
-            else prods.forEach(p => {
-                const card = document.createElement('div');
-                card.className = 'card-producto';
-                card.onclick = () => openModal(p);
-                card.innerHTML = `<div class="card-img-wrap"><img src="${p.img || defaultLogo}"><div class="badge-renovable">${p.renovable || 'Renovable'}</div><div class="badge-stock"><i class="fas fa-eye text-black"></i> ${p.stock} Stock</div></div><div class="product-title">⭐ ${p.nombre}</div><div class="price-pill">👉 s/ ${p.precio}</div>`;
-                grid.appendChild(card);
-            });
+            if (activeCat.toUpperCase() === 'STREAMING') {
+                if(!activePlatId) {
+                    grid.innerHTML = `<div class="no-stock-full">ELIGE UNA PLATAFORMA ARRIBA</div>`;
+                    return;
+                }
+                prodsToShow = window.allProds.filter(pr => pr.platId === activePlatId);
+            } else {
+                prodsToShow = window.allProds.filter(pr => pr.cat === activeCat);
+            }
+
+            if(prodsToShow.length === 0) {
+                grid.innerHTML = `<div class="no-stock-full">SIN STOCK POR EL MOMENTO</div>`;
+            } else {
+                prodsToShow.forEach(p => {
+                    const card = document.createElement('div');
+                    card.className = 'card-producto';
+                    card.onclick = () => openModal(p);
+                    card.innerHTML = `
+                        <div class="card-img-wrap">
+                            <img src="${p.img || defaultLogo}">
+                            <div class="badge-renovable">${p.renovable || 'Renovable'}</div>
+                            <div class="badge-stock"><i class="fas fa-eye text-black"></i> ${p.stock} Stock</div>
+                        </div>
+                        <div class="card-footer px-2">
+                            <div class="flex items-center gap-2 mt-4">
+                                <div class="w-10 h-10 rounded-full border border-zinc-800 overflow-hidden bg-zinc-900">
+                                    <img src="https://files.catbox.moe/nao1lj.jpg" class="w-full h-full object-cover">
+                                </div>
+                                <div class="store-name">Gus Store</div>
+                                <i class="fas fa-check-circle text-blue-500 text-[10px]"></i>
+                            </div>
+                            <div class="product-title">⭐ ${p.nombre}</div>
+                            <div class="price-pill">👉 s/ ${p.precio}</div>
+                        </div>`;
+                    grid.appendChild(card);
+                });
+            }
         }
+        // ------------------------------------------
 
         window.openModal = (p) => {
             document.getElementById('m-img').src = p.img || defaultLogo;
             document.getElementById('m-title').innerText = p.nombre;
             document.getElementById('m-price').innerText = "S/ " + p.precio;
             document.getElementById('m-desc').innerText = p.desc || "Sin descripción.";
-            document.getElementById('m-ws-link').href = `https://wa.me/519288632832?text=Gus! Quiero: ${p.nombre}`;
+            document.getElementById('m-ws-link').href = `https://wa.me/519288632832?text=Gus! Quiero comprar: ${p.nombre}`;
             document.getElementById('product-modal').style.display = 'flex';
         };
         window.closeProductModal = () => document.getElementById('product-modal').style.display = 'none';
