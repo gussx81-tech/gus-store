@@ -14,31 +14,31 @@
         body { background: #050505; color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
         .hero-gradient { background: linear-gradient(to right, #3b82f6, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        /* UI COMPONENTS */
         .main-header { padding: 30px 5%; display: flex; align-items: center; justify-content: flex-start; gap: 15px; }
         .profile-pic { width: 85px; height: 85px; border-radius: 50%; border: 3px solid #3b82f6; overflow: hidden; background: #111; }
         .profile-pic img { width: 100%; height: 100%; object-fit: cover; }
+
         .search-gus { background: #0d0d0d; border: 2px solid #1a1a1a; border-radius: 20px; padding: 22px; width: 100%; max-width: 800px; color: white; outline: none; font-weight: 800; font-size: 18px; text-align: center; display: block; margin: 0 auto 30px; }
+
         .cat-pill { background: #111; border: 2px solid #222; padding: 20px 50px; border-radius: 100px; cursor: pointer; color: #555; font-weight: 900; font-size: 16px; text-transform: uppercase; white-space: nowrap; transition: 0.3s; }
         .cat-pill.active { border-color: #3b82f6; color: white; background: #3b82f6; }
 
-        /* GRID Y TARJETAS RÉPLICA */
         #grid-productos { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; justify-items: end; padding: 0 5% 60px; max-width: 1400px; margin: 0 auto; }
-        .card-producto { background: #0d0e14; width: 320px; border-radius: 45px; padding: 12px; border: 1px solid #1a1b26; cursor: pointer; position: relative; }
+
+        .card-producto { background: #0d0e14; width: 320px; border-radius: 45px; padding: 12px; border: 1px solid #1a1b26; cursor: pointer; transition: 0.3s ease; position: relative; }
         .card-img-wrap { width: 100%; height: 320px; border-radius: 35px; background: #000; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; }
         .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
         
-        /* BADGES */
-        .badge-dinamico { position: absolute; top: 18px; right: 18px; background: #ff3b30; color: white; padding: 8px 18px; border-radius: 25px; font-weight: 900; font-size: 12px; text-transform: uppercase; }
-        .badge-stock { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); background: #f2f2f2; color: black; padding: 8px 22px; border-radius: 25px; font-weight: 900; font-size: 13px; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
         .no-stock-box { position: absolute; bottom: 25px; left: 15px; right: 15px; border: 2px solid #ff4444; border-radius: 18px; padding: 12px; background: rgba(0,0,0,0.7); text-align: center; }
+        .no-stock-txt { color: #ff4444; font-weight: 900; text-transform: uppercase; font-size: 13px; }
 
-        /* FOOTER TARJETA */
+        .badge-dinamico { position: absolute; top: 18px; right: 18px; background: #ff3b30; color: white; padding: 8px 18px; border-radius: 25px; font-weight: 900; font-size: 12px; text-transform: uppercase; z-index: 5; }
+        .badge-stock { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); background: #f2f2f2; color: black; padding: 8px 22px; border-radius: 25px; font-weight: 900; font-size: 13px; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); z-index: 5; }
+
         .store-name { color: #00ff88; font-weight: 900; font-size: 19px; text-transform: lowercase; }
         .product-title { font-weight: 900; font-size: 23px; color: white; margin: 12px 0; text-transform: uppercase; font-style: italic; line-height: 1.1; }
         .price-pill { background: white; color: black; padding: 10px 28px; border-radius: 35px; font-weight: 900; font-size: 18px; display: inline-flex; align-items: center; gap: 8px; }
 
-        /* ADMIN */
         #admin-panel { display: none; position: fixed; inset: 0; background: #000; z-index: 9500; }
         #login-screen { position: fixed; inset: 0; background: #000; z-index: 10000; display: none; align-items: center; justify-content: center; }
         .admin-sec { display: none; }
@@ -53,7 +53,7 @@
             <h2 class="text-3xl font-black text-blue-500 mb-8 italic">GUS ADMIN</h2>
             <input type="text" id="user-in" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-4 text-white" placeholder="Usuario">
             <input type="password" id="pass-in" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-6 text-white" placeholder="Contraseña">
-            <button onclick="login()" class="w-full bg-blue-600 p-4 rounded-xl font-black uppercase">Entrar</button>
+            <button onclick="login()" class="w-full bg-blue-600 p-4 rounded-xl font-black uppercase text-white">Entrar</button>
         </div>
     </div>
 
@@ -74,56 +74,59 @@
 
     <div id="admin-panel" class="flex flex-col md:flex-row">
         <aside class="w-full md:w-80 p-10 border-r border-zinc-900 bg-[#080808]">
-            <div class="text-2xl font-black text-blue-500 mb-12 italic uppercase text-center">Admin Gus Pro</div>
+            <div class="text-2xl font-black text-blue-500 mb-12 italic uppercase text-center">Gus Manager</div>
             <nav class="flex flex-col gap-4">
-                <button onclick="switchTab('tab-prod')" class="text-left p-5 bg-zinc-900 rounded-2xl font-bold uppercase text-xs">📦 Tarjetas (Ventas)</button>
-                <button onclick="switchTab('tab-plat')" class="text-left p-5 bg-zinc-900 rounded-2xl font-bold uppercase text-xs">🖼️ Plataformas (Marcas)</button>
+                <button onclick="switchTab('tab-prod')" class="text-left p-5 bg-zinc-900 rounded-2xl font-bold uppercase text-xs">📦 Tarjetas</button>
+                <button onclick="switchTab('tab-plat')" class="text-left p-5 bg-zinc-900 rounded-2xl font-bold uppercase text-xs">🖼️ Plataformas</button>
                 <button onclick="switchTab('tab-cat')" class="text-left p-5 bg-zinc-900 rounded-2xl font-bold uppercase text-xs">📂 Categorías</button>
                 <button onclick="logout()" class="text-left p-5 mt-10 text-red-500 font-bold uppercase text-xs">Salir</button>
             </nav>
         </aside>
         
         <main class="flex-1 p-10 h-screen overflow-y-auto bg-[#050505]">
+             
              <div id="tab-prod" class="admin-sec active">
-                <div class="bg-[#0d0d0d] p-10 rounded-[45px] border border-zinc-900 max-w-2xl">
-                    <h2 class="text-2xl font-black mb-8 italic uppercase text-blue-500">Publicar Nueva Tarjeta</h2>
-                    <div class="bg-zinc-900 p-8 rounded-3xl text-center cursor-pointer mb-5 border-2 border-dashed border-zinc-800" onclick="triggerFile('file-prod','prod')"><p id="p-label" class="font-bold text-xs uppercase text-zinc-500">Subir Foto del Producto</p></div>
+                <div class="bg-[#0d0d0d] p-10 rounded-[45px] border border-zinc-800 max-w-2xl mb-10">
+                    <h2 class="text-2xl font-black mb-6 uppercase text-blue-500">Añadir Tarjeta</h2>
+                    <div class="bg-zinc-900 p-8 rounded-3xl text-center cursor-pointer mb-5 border border-zinc-800" onclick="triggerFile('file-prod','prod')"><p id="p-label" class="font-bold text-xs uppercase text-zinc-500">Subir Imagen Producto</p></div>
                     <input type="file" id="file-prod" class="hidden" onchange="startCropping(this,1)">
+                    <input type="text" id="p-name" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-3 text-white" placeholder="Nombre (Ej: Netflix 1 Mes)">
+                    <input type="number" id="p-price" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-3 text-white" placeholder="Precio S/">
+                    <input type="number" id="p-stock" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-3 text-white" placeholder="Stock">
+                    <input type="text" id="p-badge" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-3 text-white" placeholder="Texto Badge Rojo (Ej: Renovable)">
+                    <textarea id="p-desc-admin" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-6 text-white" placeholder="Descripción"></textarea>
                     
-                    <div class="grid grid-cols-2 gap-4 mb-4">
-                        <input type="text" id="p-name" class="p-4 bg-black rounded-xl border border-zinc-800 text-white" placeholder="Nombre (Ej: Netflix 1 Perfil)">
-                        <input type="number" id="p-price" class="p-4 bg-black rounded-xl border border-zinc-800 text-white" placeholder="Precio S/">
-                    </div>
-                    <div class="grid grid-cols-2 gap-4 mb-4">
-                        <input type="number" id="p-stock" class="p-4 bg-black rounded-xl border border-zinc-800 text-white" placeholder="Stock">
-                        <input type="text" id="p-badge" class="p-4 bg-black rounded-xl border border-zinc-800 text-white" placeholder="Texto Rojo (Ej: Renovable)">
-                    </div>
-                    <textarea id="p-desc-admin" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-4 text-white h-24" placeholder="Descripción de la cuenta..."></textarea>
-                    
-                    <p class="text-[10px] font-bold text-zinc-500 mb-2 uppercase">1. Elige Categoría:</p>
+                    <label class="text-xs font-bold text-zinc-500 block mb-2 uppercase">1. Categoría</label>
                     <select id="p-cat-select" class="w-full p-4 bg-zinc-900 rounded-xl border border-zinc-800 mb-4 text-white" onchange="filterPlatByCat(this.value)"></select>
                     
-                    <p class="text-[10px] font-bold text-zinc-500 mb-2 uppercase">2. Elige la Plataforma:</p>
-                    <select id="p-plat-select" class="w-full p-4 bg-zinc-900 rounded-xl border border-zinc-800 mb-8 text-white">
-                        <option value="">Selecciona una categoría primero</option>
-                    </select>
-
-                    <button onclick="saveProduct()" class="bg-blue-600 w-full p-5 rounded-2xl font-black uppercase text-lg shadow-lg shadow-blue-900/20">Guardar Tarjeta</button>
+                    <label class="text-xs font-bold text-zinc-500 block mb-2 uppercase">2. Marca/Plataforma</label>
+                    <select id="p-plat-select" class="w-full p-4 bg-zinc-900 rounded-xl border border-zinc-800 mb-8 text-white"></select>
+                    <button onclick="saveProduct()" class="bg-blue-600 w-full p-5 rounded-2xl font-black uppercase text-white">Publicar</button>
                 </div>
-                <div id="admin-list-prod" class="mt-10 grid gap-3"></div>
+                <div id="admin-list-prod" class="grid gap-3"></div>
              </div>
 
              <div id="tab-plat" class="admin-sec">
-                <div class="bg-[#0d0d0d] p-10 rounded-[45px] border border-zinc-900 max-w-lg">
-                    <h2 class="text-2xl font-black mb-8 italic uppercase text-blue-500">Crear Nueva Marca</h2>
-                    <div class="bg-zinc-900 p-10 rounded-3xl text-center cursor-pointer mb-5 border-2 border-dashed border-zinc-800" onclick="triggerFile('file-plat','plat')"><p id="plat-label" class="font-bold">Subir Logo de Marca</p></div>
+                <div class="bg-[#0d0d0d] p-10 rounded-[45px] border border-zinc-800 max-w-lg mb-10">
+                    <h2 class="text-2xl font-black mb-6 uppercase text-blue-500">Añadir Marca</h2>
+                    <div class="bg-zinc-900 p-10 rounded-3xl text-center cursor-pointer mb-5 border border-zinc-800" onclick="triggerFile('file-plat','plat')"><p id="plat-label" class="font-bold uppercase text-xs">Subir Logo Marca</p></div>
                     <input type="file" id="file-plat" class="hidden" onchange="startCropping(this,1)">
-                    <input type="text" id="plat-n" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-4 text-white" placeholder="Nombre (Ej: Disney Plus)">
+                    <input type="text" id="plat-n" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-4 text-white" placeholder="Nombre (Ej: Netflix)">
                     <select id="plat-cat-select" class="w-full p-4 bg-zinc-900 rounded-xl border border-zinc-800 mb-6 text-white"></select>
-                    <button onclick="addPlat()" class="bg-blue-600 w-full p-4 rounded-xl font-black uppercase">Crear Plataforma</button>
+                    <button onclick="addPlat()" class="bg-blue-600 w-full p-4 rounded-xl font-black uppercase text-white">Guardar Marca</button>
                 </div>
-                <div id="admin-list-plat" class="mt-10 grid gap-3"></div>
+                <div id="admin-list-plat" class="grid gap-3"></div>
              </div>
+
+             <div id="tab-cat" class="admin-sec">
+                <div class="bg-[#0d0d0d] p-10 rounded-[45px] border border-zinc-800 max-w-lg mb-10">
+                    <h2 class="text-2xl font-black mb-6 uppercase text-blue-500">Gestionar Categorías</h2>
+                    <input type="text" id="new-cat" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-4 text-white" placeholder="Nombre (Ej: STREAMING)">
+                    <button onclick="addCat()" class="bg-blue-600 w-full p-4 rounded-xl font-black uppercase text-white">Crear Categoría</button>
+                </div>
+                <div id="admin-list-cat" class="grid gap-3"></div>
+             </div>
+
         </main>
     </div>
 
@@ -160,120 +163,88 @@
 
         // LOGIN
         window.login = () => {
-            const u = document.getElementById('user-in').value;
-            const p = document.getElementById('pass-in').value;
-            if(u === 'adminGus' && p === 'GusStore2026') {
+            if(document.getElementById('user-in').value === 'adminGus' && document.getElementById('pass-in').value === 'GusStore2026') {
                 localStorage.setItem('gus_auth', 'true');
                 window.location.hash = '#admin/panel';
-            } else alert("Datos incorrectos");
+            } else alert("Error");
         };
         window.logout = () => { localStorage.removeItem('gus_auth'); window.location.hash = ''; location.reload(); };
 
-        // SYNC FIREBASE
+        // REALTIME CATEGORÍAS
         onSnapshot(colCat, snap => {
             const data = snap.docs.map(d => ({id: d.id, ...d.data()}));
             document.getElementById('pills-box').innerHTML = data.map(c => `<div class="cat-pill ${c.name===activeCat?'active':''}" onclick="window.setFilter('${c.name}')">${c.name}</div>`).join('');
             const opts = '<option value="">Elegir Categoría</option>' + data.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
             document.getElementById('p-cat-select').innerHTML = opts;
             document.getElementById('plat-cat-select').innerHTML = opts;
+            document.getElementById('admin-list-cat').innerHTML = data.map(c => `<div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl"><span>${c.name}</span><button onclick="deleteDoc(doc(db,'categorias','${c.id}'))" class="text-red-500 font-bold">X</button></div>`).join('');
             if(!activeCat && data.length > 0) { activeCat = data[0].name; renderGrid(); }
         });
         
         onSnapshot(colPlat, snap => { 
             window.allPlats = snap.docs.map(d => ({id: d.id, ...d.data()})); 
             renderGrid(); 
-            document.getElementById('admin-list-plat').innerHTML = window.allPlats.map(p => `<div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2"><span>${p.name} (${p.cat})</span><button onclick="deleteDoc(doc(db,'plataformas','${p.id}'))" class="text-red-500 font-bold">BORRAR</button></div>`).join('');
+            document.getElementById('admin-list-plat').innerHTML = window.allPlats.map(p => `<div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2"><span>${p.name} (${p.cat})</span><button onclick="deleteDoc(doc(db,'plataformas','${p.id}'))" class="text-red-500 font-bold">X</button></div>`).join('');
         });
         
         onSnapshot(colProd, snap => { 
             window.allProds = snap.docs.map(d => ({id: d.id, ...d.data()})); 
             renderGrid();
-            document.getElementById('admin-list-prod').innerHTML = window.allProds.map(p => `<div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2"><span>${p.nombre}</span><button onclick="deleteDoc(doc(db,'productos','${p.id}'))" class="text-red-500 font-bold">BORRAR</button></div>`).join('');
+            document.getElementById('admin-list-prod').innerHTML = window.allProds.map(p => `<div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2"><span>${p.nombre}</span><button onclick="deleteDoc(doc(db,'productos','${p.id}'))" class="text-red-500 font-bold">X</button></div>`).join('');
         });
 
-        // FILTRO DINÁMICO ADMIN
         window.filterPlatByCat = (c) => {
             const filtered = window.allPlats.filter(p => p.cat === c);
             document.getElementById('p-plat-select').innerHTML = filtered.length > 0 
                 ? filtered.map(p => `<option value="${p.id}">${p.name}</option>`).join('')
-                : '<option value="">No hay plataformas en esta categoría</option>';
+                : '<option value="">No hay marcas en esta categoría</option>';
         };
 
         window.setFilter = (c) => { activeCat = c; renderGrid(); };
 
         function renderGrid() {
-            const grid = document.getElementById('grid-productos'); 
-            grid.innerHTML = ""; 
+            const grid = document.getElementById('grid-productos'); grid.innerHTML = ""; 
             const platsInCat = window.allPlats.filter(pl => pl.cat === activeCat);
-            
             platsInCat.forEach(plat => {
                 const prodsOfPlat = window.allProds.filter(pr => pr.platId === plat.id && pr.cat === activeCat);
-                
                 if(prodsOfPlat.length === 0) {
-                    grid.innerHTML += `
-                        <div class="card-producto">
-                            <div class="card-img-wrap">
-                                <img src="${plat.logo || defaultLogo}">
-                                <div class="no-stock-box"><div class="no-stock-txt text-red-500 font-black uppercase text-sm">NO HAY DISPONIBLE AUN ${plat.name}</div></div>
-                            </div>
-                            <div class="p-4 text-center"><div class="product-title">${plat.name}</div></div>
-                        </div>`;
+                    grid.innerHTML += `<div class="card-producto"><div class="card-img-wrap"><img src="${plat.logo || defaultLogo}"><div class="no-stock-box"><div class="no-stock-txt font-black">NO HAY DISPONIBLE AUN ${plat.name}</div></div></div><div class="p-4 text-center"><div class="product-title">${plat.name}</div></div></div>`;
                 } else {
                     prodsOfPlat.forEach(p => {
                         const card = document.createElement('div');
                         card.className = 'card-producto';
                         card.onclick = () => window.open(`https://wa.me/519288632832?text=Gus! Quiero comprar: ${p.nombre}`, '_blank');
-                        card.innerHTML = `
-                            <div class="card-img-wrap">
-                                <img src="${p.img || plat.logo || defaultLogo}">
-                                <div class="badge-dinamico">${p.renovable || 'Renovable'}</div>
-                                <div class="badge-stock"><i class="fas fa-eye"></i> ${p.stock || 0} Con stock</div>
-                            </div>
-                            <div class="card-footer">
-                                <div class="store-line flex items-center gap-2">
-                                    <div class="store-logo-mini w-10 h-10 rounded-full border border-zinc-800 overflow-hidden"><img src="${defaultLogo}" class="w-full h-full object-cover"></div>
-                                    <div class="store-name">Gus Store</div><i class="fas fa-check-circle text-blue-500 text-xs"></i>
-                                </div>
-                                <div class="product-title">⭐ ${p.nombre} ✦</div>
-                                <div class="price-pill">👉 s/ ${p.precio}</div>
-                            </div>`;
+                        card.innerHTML = `<div class="card-img-wrap"><img src="${p.img || plat.logo || defaultLogo}"><div class="badge-dinamico">${p.renovable || 'Renovable'}</div><div class="badge-stock"><i class="fas fa-eye"></i> ${p.stock || 0} Con stock</div></div><div class="card-footer"><div class="store-line flex items-center gap-2"><div class="store-logo-mini w-10 h-10 rounded-full border border-zinc-800 overflow-hidden"><img src="${defaultLogo}" class="w-full h-full object-cover"></div><div class="store-name">Gus Store</div><i class="fas fa-check-circle text-blue-500 text-xs"></i></div><div class="product-title">⭐ ${p.nombre} ✦</div><div class="price-pill">👉 s/ ${p.precio}</div></div>`;
                         grid.appendChild(card);
                     });
                 }
             });
         }
 
-        // ACTIONS
         window.saveProduct = async () => {
             const pPlat = document.getElementById('p-plat-select');
-            if(!pPlat.value) return alert("Selecciona una plataforma");
-            await addDoc(colProd, { 
-                nombre: document.getElementById('p-name').value, 
-                precio: document.getElementById('p-price').value, 
-                stock: document.getElementById('p-stock').value, 
-                renovable: document.getElementById('p-badge').value,
-                desc: document.getElementById('p-desc-admin').value, 
-                cat: document.getElementById('p-cat-select').value, 
-                platId: pPlat.value,
-                img: finalBase64 
-            });
-            alert("Tarjeta Guardada"); location.reload();
+            if(!pPlat.value) return alert("Elige la marca");
+            await addDoc(colProd, { nombre: document.getElementById('p-name').value, precio: document.getElementById('p-price').value, stock: document.getElementById('p-stock').value, renovable: document.getElementById('p-badge').value, desc: document.getElementById('p-desc-admin').value, cat: document.getElementById('p-cat-select').value, platId: pPlat.value, img: finalBase64 });
+            location.reload();
         };
 
         window.addPlat = async () => {
-            await addDoc(colPlat, { 
-                name: document.getElementById('plat-n').value, 
-                cat: document.getElementById('plat-cat-select').value, 
-                logo: finalBase64 
-            });
-            alert("Marca Creada"); location.reload();
+            await addDoc(colPlat, { name: document.getElementById('plat-n').value, cat: document.getElementById('plat-cat-select').value, logo: finalBase64 });
+            location.reload();
         };
 
-        // HELPERS
+        window.addCat = async () => {
+            const n = document.getElementById('new-cat').value.toUpperCase();
+            if(!n) return;
+            await addDoc(colCat, { name: n });
+            document.getElementById('new-cat').value = "";
+        };
+
         window.searchFilter = () => {
             const val = document.getElementById('gus-search').value.toLowerCase();
             document.querySelectorAll('.card-producto').forEach(c => c.style.display = c.innerText.toLowerCase().includes(val) ? 'block' : 'none');
         };
+
         window.switchTab = (id) => { document.querySelectorAll('.admin-sec').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); };
         window.triggerFile = (id, type) => { upType = type; document.getElementById(id).click(); };
         window.startCropping = (input, aspect) => {
@@ -286,7 +257,7 @@
             };
             reader.readAsDataURL(input.files[0]);
         };
-        window.doneCrop = () => { finalBase64 = cropper.getCroppedCanvas().toDataURL('image/jpeg', 0.8); document.getElementById('cropper-modal').style.display = 'none'; document.getElementById(upType === 'plat' ? 'plat-label' : 'p-label').innerText = "✓ IMAGEN LISTA"; };
+        window.doneCrop = () => { finalBase64 = cropper.getCroppedCanvas().toDataURL('image/jpeg', 0.8); document.getElementById('cropper-modal').style.display = 'none'; document.getElementById(upType === 'plat' ? 'plat-label' : 'p-label').innerText = "✓ LISTO"; };
         window.cancelCrop = () => document.getElementById('cropper-modal').style.display='none';
 
         const checkAuth = () => {
