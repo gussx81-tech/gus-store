@@ -19,30 +19,30 @@
         .profile-pic { width: 80px; height: 80px; border-radius: 50%; border: 3px solid #3b82f6; overflow: hidden; background: #111; }
         .profile-pic img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* HERO Y BUSCADOR */
+        /* HERO CENTRADO */
         .hero-section { text-align: center; padding: 0 20px 40px; }
         .hero-title { font-size: 3.5rem; line-height: 0.85; font-weight: 900; font-style: italic; text-transform: uppercase; margin-bottom: 30px; }
         @media (min-width: 768px) { .hero-title { font-size: 7.5rem; } }
         .search-gus { background: #0d0d0d; border: 2px solid #1a1a1a; border-radius: 20px; padding: 22px; width: 100%; max-width: 800px; color: white; outline: none; font-weight: 800; font-size: 18px; text-align: center; display: block; margin: 0 auto 30px; }
 
-        /* PASTILLAS XL */
-        .cat-pill { background: #111; border: 2px solid #222; padding: 18px 45px; border-radius: 100px; cursor: pointer; color: #555; font-weight: 900; font-size: 15px; text-transform: uppercase; white-space: nowrap; transition: 0.3s; }
+        /* PASTILLAS CATEGORIA */
+        .cat-pill { background: #111; border: 2px solid #222; padding: 18px 45px; border-radius: 100px; cursor: pointer; color: #555; font-weight: 900; font-size: 16px; text-transform: uppercase; white-space: nowrap; transition: 0.3s; }
         .cat-pill.active { border-color: #3b82f6; color: white; background: #3b82f6; }
 
-        /* MARCAS (CUADRADITOS CHICOS) */
+        /* MARCAS (CUADRADITOS) */
         #grid-marcas { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 0 5% 40px; }
-        .marca-item { background: #0d0e14; width: 100px; height: 100px; border-radius: 25px; border: 1px solid #1a1b26; cursor: pointer; overflow: hidden; transition: 0.3s; padding: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        .marca-item { background: #0d0e14; width: 100px; height: 100px; border-radius: 25px; border: 1px solid #1a1b26; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.3s; padding: 10px; }
         .marca-item:hover, .marca-item.active { border-color: #3b82f6; background: #1a1b26; transform: scale(1.1); }
-        .marca-item img { width: 50px; height: 50px; object-fit: contain; margin-bottom: 5px; }
-        .marca-item span { font-size: 10px; font-weight: 900; text-transform: uppercase; color: #888; }
+        .marca-item img { width: 45px; height: 45px; object-fit: contain; margin-bottom: 5px; }
+        .marca-item span { font-size: 9px; font-weight: 900; text-transform: uppercase; color: #666; }
         .marca-item.active span { color: white; }
 
-        /* GRID TARJETAS (DERECHA) */
+        /* GRID TARJETAS */
         #grid-productos { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; justify-items: end; padding: 0 5% 60px; max-width: 1400px; margin: 0 auto; }
 
         /* TARJETA RÉPLICA EXACTA */
         .card-producto { background: #0d0e14; width: 320px; border-radius: 45px; padding: 12px; border: 1px solid #1a1b26; cursor: pointer; position: relative; }
-        .card-img-wrap { width: 100%; height: 320px; border-radius: 35px; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative; }
+        .card-img-wrap { width: 100%; height: 320px; border-radius: 35px; background: #000; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; }
         .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
         
         .badge-renovable { position: absolute; top: 18px; right: 18px; background: #ff3b30; color: white; padding: 8px 18px; border-radius: 25px; font-weight: 900; font-size: 12px; text-transform: uppercase; }
@@ -52,10 +52,9 @@
         .product-title { font-weight: 900; font-size: 23px; color: white; margin: 12px 0; text-transform: uppercase; font-style: italic; line-height: 1.1; }
         .price-pill { background: white; color: black; padding: 10px 28px; border-radius: 35px; font-weight: 900; font-size: 18px; display: inline-flex; align-items: center; gap: 8px; }
 
-        /* MENSAJE NO STOCK */
-        .no-stock-full { grid-column: 1 / -1; width: 100%; text-align: center; padding: 100px 20px; color: #ff4444; font-weight: 900; font-size: 24px; text-transform: uppercase; border: 2px dashed #1a1a1a; border-radius: 40px; }
+        .no-stock-full { grid-column: 1 / -1; width: 100%; text-align: center; padding: 80px 20px; color: #ff4444; font-weight: 900; font-size: 20px; border: 2px dashed #1a1a1a; border-radius: 40px; }
 
-        /* MODAL */
+        /* MODALES */
         #product-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 10000; align-items: center; justify-content: center; padding: 20px; }
         #admin-panel { display: none; position: fixed; inset: 0; background: #000; z-index: 9500; }
         #login-screen { position: fixed; inset: 0; background: #000; z-index: 11000; display: none; align-items: center; justify-content: center; }
@@ -68,23 +67,22 @@
 
     <div id="login-screen">
         <div class="bg-[#0d0d0d] p-10 rounded-[40px] border border-zinc-800 w-full max-w-sm text-center">
-            <h2 class="text-3xl font-black text-blue-500 mb-8 italic uppercase">Gus Store Admin</h2>
+            <h2 class="text-3xl font-black text-blue-500 mb-8 italic uppercase">GUS STORE LOGIN</h2>
             <input type="text" id="user-in" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-4 text-white" placeholder="Usuario">
             <input type="password" id="pass-in" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-6 text-white" placeholder="Contraseña">
-            <button onclick="login()" class="w-full bg-blue-600 p-4 rounded-xl font-black uppercase text-white">Entrar</button>
+            <button onclick="login()" class="w-full bg-blue-600 p-4 rounded-xl font-black uppercase text-white">Ingresar</button>
+            <button onclick="window.location.hash=''" class="mt-5 text-zinc-500 text-xs font-bold uppercase">Volver a la tienda</button>
         </div>
     </div>
 
     <div id="product-modal" onclick="closeProductModal()">
         <div class="bg-[#0d0d0d] w-full max-w-lg rounded-[55px] p-10 border border-zinc-800 text-center relative" onclick="event.stopPropagation()">
-            <button onclick="closeProductModal()" class="absolute top-8 right-8 text-zinc-500"><i class="fas fa-times text-2xl"></i></button>
-            <div id="m-img-box" class="w-full h-72 rounded-[35px] overflow-hidden mb-8 bg-black">
-                <img id="m-img" src="" class="w-full h-full object-cover">
-            </div>
+            <button onclick="closeProductModal()" class="absolute top-8 right-8 text-zinc-500 hover:text-white"><i class="fas fa-times text-2xl"></i></button>
+            <div class="w-full h-72 rounded-[35px] overflow-hidden mb-8 bg-black"><img id="m-img" src="" class="w-full h-full object-cover"></div>
             <h2 id="m-title" class="text-3xl font-black italic uppercase mb-2"></h2>
             <div id="m-price" class="text-blue-500 font-black text-3xl mb-5"></div>
-            <div id="m-desc" class="text-zinc-500 text-lg mb-8 bg-zinc-900/50 p-5 rounded-3xl text-left border border-zinc-800"></div>
-            <a id="m-ws-link" href="" target="_blank" class="bg-[#25d366] text-white p-5 rounded-2xl font-black uppercase text-xl block shadow-xl">Pedir por WhatsApp <i class="fab fa-whatsapp ml-2"></i></a>
+            <div id="m-desc" class="text-zinc-500 text-lg mb-8 text-left bg-zinc-900/40 p-6 rounded-3xl border border-zinc-800"></div>
+            <a id="m-ws-link" href="" target="_blank" class="bg-[#25d366] text-white p-5 rounded-2xl font-black uppercase text-xl block">Pedir por WhatsApp</a>
         </div>
     </div>
 
@@ -94,12 +92,10 @@
             <div class="text-3xl font-black italic uppercase tracking-tighter text-white">GUS <span class="text-blue-500">STORE</span></div>
         </header>
 
-        <section class="hero-section text-center">
+        <section class="hero-section">
             <h1 class="hero-title">ENTRETENIMIENTO<br><span class="hero-gradient">SIN LÍMITES</span></h1>
-            <input type="text" id="gus-search" class="search-gus mt-10" placeholder="¿Qué cuenta buscas?" onkeyup="searchFilter()">
-            
+            <input type="text" id="gus-search" class="search-gus mt-5" placeholder="¿Buscas una cuenta específica?" onkeyup="searchFilter()">
             <div id="pills-box" class="flex justify-center gap-4 overflow-x-auto no-scrollbar mb-10"></div>
-            
             <div id="grid-marcas" class="no-scrollbar"></div>
         </section>
 
@@ -108,49 +104,65 @@
 
     <div id="admin-panel" class="flex flex-col md:flex-row">
         <aside class="w-full md:w-80 p-10 border-r border-zinc-900 bg-[#080808]">
-            <div class="text-2xl font-black text-blue-500 mb-12 italic uppercase text-center">Gus Manager</div>
+            <div class="text-2xl font-black text-blue-500 mb-12 italic uppercase text-center">Admin Panel</div>
             <nav class="flex flex-col gap-4">
                 <button onclick="switchTab('tab-prod')" class="text-left p-5 bg-zinc-900 rounded-2xl font-bold uppercase text-xs">📦 Tarjetas</button>
                 <button onclick="switchTab('tab-plat')" class="text-left p-5 bg-zinc-900 rounded-2xl font-bold uppercase text-xs">🖼️ Marcas</button>
                 <button onclick="switchTab('tab-cat')" class="text-left p-5 bg-zinc-900 rounded-2xl font-bold uppercase text-xs">📂 Categorías</button>
-                <button onclick="logout()" class="text-left p-5 mt-10 text-red-500 font-bold uppercase text-xs">Salir</button>
+                <button onclick="logout()" class="text-left p-5 mt-10 text-red-500 font-bold uppercase text-xs">Cerrar Sesión</button>
             </nav>
         </aside>
+        
         <main class="flex-1 p-10 h-screen overflow-y-auto bg-[#050505]">
              <div id="tab-prod" class="admin-sec active">
-                <div class="bg-[#0d0d0d] p-10 rounded-[45px] border border-zinc-800 max-w-2xl">
-                    <h2 class="text-2xl font-black mb-6 uppercase text-blue-500 italic">Nueva Venta</h2>
-                    <div class="bg-zinc-900 p-8 rounded-3xl text-center cursor-pointer mb-5 border border-zinc-800" onclick="triggerFile('file-prod','prod')"><p id="p-label" class="font-bold text-xs uppercase text-zinc-500">Subir Foto Tarjeta</p></div>
+                <div class="bg-[#0d0d0d] p-10 rounded-[45px] border border-zinc-800 max-w-2xl mb-10">
+                    <h2 class="text-2xl font-black mb-6 uppercase italic text-blue-500">Crear Tarjeta de Venta</h2>
+                    <div class="bg-zinc-900 p-8 rounded-3xl text-center cursor-pointer mb-5 border border-zinc-800" onclick="triggerFile('file-prod','prod')"><p id="p-label" class="font-bold text-xs uppercase text-zinc-500">Subir Imagen</p></div>
                     <input type="file" id="file-prod" class="hidden" onchange="startCropping(this,1)">
-                    <input type="text" id="p-name" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-3 text-white font-bold" placeholder="Nombre Tarjeta">
-                    <input type="number" id="p-price" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-3 text-white font-bold" placeholder="Precio S/">
-                    <input type="number" id="p-stock" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-3 text-white font-bold" placeholder="Stock">
-                    <input type="text" id="p-badge" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-3 text-white font-bold" placeholder="Badge (Ej: Renovable)">
-                    <textarea id="p-desc-admin" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-6 text-white h-32" placeholder="Escribe aquí la descripción de la cuenta..."></textarea>
+                    <input type="text" id="p-name" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-3 text-white" placeholder="Nombre (Ej: Netflix 4K)">
+                    <input type="number" id="p-price" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-3 text-white" placeholder="Precio S/">
+                    <input type="number" id="p-stock" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-3 text-white" placeholder="Stock">
+                    <input type="text" id="p-badge" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-3 text-white" placeholder="Badge (Ej: Renovable)">
+                    <textarea id="p-desc-admin" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-6 text-white h-32" placeholder="Escribe aquí los beneficios..."></textarea>
+                    
                     <select id="p-cat-select" class="w-full p-4 bg-zinc-900 rounded-xl border border-zinc-800 mb-4 text-white" onchange="filterPlatByCat(this.value)"></select>
                     <select id="p-plat-select" class="w-full p-4 bg-zinc-900 rounded-xl border border-zinc-800 mb-8 text-white"></select>
-                    <button onclick="saveProduct()" class="bg-blue-600 w-full p-5 rounded-2xl font-black uppercase text-white shadow-lg">Publicar Tarjeta</button>
+                    <button onclick="saveProduct()" class="bg-blue-600 w-full p-5 rounded-2xl font-black uppercase text-white">Publicar</button>
                 </div>
-                <div id="admin-list-prod" class="mt-10 grid gap-3"></div>
+                <div id="admin-list-prod" class="grid gap-3"></div>
              </div>
+
              <div id="tab-plat" class="admin-sec">
-                <div class="bg-[#0d0d0d] p-10 rounded-[45px] border border-zinc-800 max-w-lg">
-                    <div class="bg-zinc-900 p-8 rounded-3xl text-center cursor-pointer mb-5 border border-zinc-800" onclick="triggerFile('file-plat','plat')"><p id="plat-label" class="font-bold text-xs uppercase text-zinc-500">Logo Marca</p></div>
+                <div class="bg-[#0d0d0d] p-10 rounded-[45px] border border-zinc-800 max-w-lg mb-10">
+                    <h2 class="text-2xl font-black mb-6 uppercase italic text-blue-500">Nueva Marca</h2>
+                    <div class="bg-zinc-900 p-8 rounded-3xl text-center cursor-pointer mb-5 border border-zinc-800" onclick="triggerFile('file-plat','plat')"><p id="plat-label" class="font-bold text-xs uppercase text-zinc-500">Logo de Marca</p></div>
                     <input type="file" id="file-plat" class="hidden" onchange="startCropping(this,1)">
-                    <input type="text" id="plat-n" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-4 text-white font-bold" placeholder="Ej: Netflix">
+                    <input type="text" id="plat-n" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-4 text-white" placeholder="Nombre Marca">
                     <select id="plat-cat-select" class="w-full p-4 bg-zinc-900 rounded-xl border border-zinc-800 mb-6 text-white"></select>
-                    <button onclick="addPlat()" class="bg-blue-600 w-full p-4 rounded-xl font-black uppercase text-white">Guardar Marca</button>
+                    <button onclick="addPlat()" class="bg-blue-600 w-full p-4 rounded-xl font-black uppercase text-white">Guardar</button>
                 </div>
                 <div id="admin-list-plat" class="grid gap-2"></div>
              </div>
+
              <div id="tab-cat" class="admin-sec">
-                <div class="bg-[#0d0d0d] p-10 rounded-[45px] border border-zinc-800 max-w-lg">
-                    <input type="text" id="new-cat" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-4 text-white font-bold" placeholder="Ej: STREAMING">
-                    <button onclick="addCat()" class="bg-blue-600 w-full p-4 rounded-xl font-black uppercase text-white">Añadir Categoría</button>
+                <div class="bg-[#0d0d0d] p-10 rounded-[45px] border border-zinc-800 max-w-lg mb-10">
+                    <h2 class="text-2xl font-black mb-6 uppercase italic text-blue-500">Categorías</h2>
+                    <input type="text" id="new-cat" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-4 text-white" placeholder="Nombre Categoría">
+                    <button onclick="addCat()" class="bg-blue-600 w-full p-4 rounded-xl font-black uppercase text-white">Añadir</button>
                 </div>
                 <div id="admin-list-cat" class="grid gap-2"></div>
              </div>
         </main>
+    </div>
+
+    <div id="cropper-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:12000; align-items:center; justify-content:center;">
+        <div class="bg-zinc-900 rounded-[50px] p-10 w-full max-w-lg">
+            <div class="h-80 bg-black rounded-3xl overflow-hidden mb-6"><img id="img-to-crop" style="max-width:100%;"></div>
+            <div class="flex gap-4">
+                <button onclick="cancelCrop()" class="flex-1 p-5 bg-zinc-800 rounded-3xl font-black uppercase">Salir</button>
+                <button onclick="doneCrop()" class="flex-1 p-5 bg-blue-600 rounded-3xl font-black uppercase">Listo</button>
+            </div>
+        </div>
     </div>
 
     <script type="module">
@@ -179,7 +191,7 @@
             if(document.getElementById('user-in').value === 'adminGus' && document.getElementById('pass-in').value === 'GusStore2026') {
                 localStorage.setItem('gus_auth', 'true');
                 window.location.hash = '#admin/panel';
-            } else alert("Acceso Denegado");
+            } else alert("Acceso denegado");
         };
         window.logout = () => { localStorage.removeItem('gus_auth'); window.location.hash = ''; location.reload(); };
 
@@ -187,26 +199,26 @@
         onSnapshot(colCat, snap => {
             const data = snap.docs.map(d => ({id: d.id, ...d.data()}));
             document.getElementById('pills-box').innerHTML = data.map(c => `<div class="cat-pill ${c.name===activeCat?'active':''}" onclick="window.setCat('${c.name}')">${c.name}</div>`).join('');
-            const opts = '<option value="">Elegir Categoría</option>' + data.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+            const opts = '<option value="">Categoría...</option>' + data.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
             document.getElementById('p-cat-select').innerHTML = opts;
             document.getElementById('plat-cat-select').innerHTML = opts;
-            document.getElementById('admin-list-cat').innerHTML = data.map(c => `<div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl"><span>${c.name}</span><button onclick="deleteDoc(doc(db,'categorias','${c.id}'))" class="text-red-500 font-bold">X</button></div>`).join('');
+            document.getElementById('admin-list-cat').innerHTML = data.map(c => `<div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2"><span>${c.name}</span><button onclick="deleteDoc(doc(db,'categorias','${c.id}'))" class="text-red-500 font-bold">BORRAR</button></div>`).join('');
             if(!activeCat && data.length > 0) window.setCat(data[0].name);
         });
         
         onSnapshot(colPlat, snap => { 
             window.allPlats = snap.docs.map(d => ({id: d.id, ...d.data()})); 
             renderPlats();
-            document.getElementById('admin-list-plat').innerHTML = window.allPlats.map(p => `<div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2"><span>${p.name} (${p.cat})</span><button onclick="deleteDoc(doc(db,'plataformas','${p.id}'))" class="text-red-500 font-bold">X</button></div>`).join('');
+            document.getElementById('admin-list-plat').innerHTML = window.allPlats.map(p => `<div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2"><span>${p.name}</span><button onclick="deleteDoc(doc(db,'plataformas','${p.id}'))" class="text-red-500 font-bold">BORRAR</button></div>`).join('');
         });
         
         onSnapshot(colProd, snap => { 
             window.allProds = snap.docs.map(d => ({id: d.id, ...d.data()})); 
             renderGrid();
-            document.getElementById('admin-list-prod').innerHTML = window.allProds.map(p => `<div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2"><span>${p.nombre}</span><button onclick="deleteDoc(doc(db,'productos','${p.id}'))" class="text-red-500 font-bold">X</button></div>`).join('');
+            document.getElementById('admin-list-prod').innerHTML = window.allProds.map(p => `<div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2"><span>${p.nombre}</span><button onclick="deleteDoc(doc(db,'productos','${p.id}'))" class="text-red-500 font-bold">BORRAR</button></div>`).join('');
         });
 
-        // NAVEGACIÓN PÚBLICA
+        // NAVEGACIÓN
         window.setCat = (c) => { activeCat = c; activePlatId = ""; renderPlats(); renderGrid(); };
         window.setPlat = (id) => { activePlatId = id; renderPlats(); renderGrid(); };
 
@@ -220,12 +232,10 @@
         }
 
         function renderGrid() {
-            const grid = document.getElementById('grid-productos'); 
-            grid.innerHTML = ""; 
+            const grid = document.getElementById('grid-productos'); grid.innerHTML = ""; 
             if(!activePlatId) return;
 
             const prodsOfPlat = window.allProds.filter(pr => pr.platId === activePlatId);
-            
             if(prodsOfPlat.length === 0) {
                 grid.innerHTML = `<div class="no-stock-full">NO HAY STOCK DISPONIBLE AUN EN ESTA MARCA</div>`;
             } else {
@@ -234,16 +244,9 @@
                     card.className = 'card-producto';
                     card.onclick = () => openModal(p);
                     card.innerHTML = `
-                        <div class="card-img-wrap">
-                            <img src="${p.img || defaultLogo}">
-                            <div class="badge-dinamico">${p.renovable || 'Renovable'}</div>
-                            <div class="badge-stock"><i class="fas fa-eye"></i> ${p.stock || 0} Con stock</div>
-                        </div>
+                        <div class="card-img-wrap"><img src="${p.img || defaultLogo}"><div class="badge-renovable">${p.renovable || 'Renovable'}</div><div class="badge-stock"><i class="fas fa-eye"></i> ${p.stock || 0} Con stock</div></div>
                         <div class="card-footer">
-                            <div class="store-line flex items-center gap-2">
-                                <div class="store-logo-mini w-10 h-10 rounded-full border border-zinc-800 overflow-hidden"><img src="${defaultLogo}" class="w-full h-full object-cover"></div>
-                                <div class="store-name">Gus Store</div><i class="fas fa-check-circle text-blue-500 text-xs"></i>
-                            </div>
+                            <div class="store-line flex items-center gap-2"><div class="store-logo-mini w-10 h-10 rounded-full border border-zinc-800 overflow-hidden"><img src="${defaultLogo}" class="w-full h-full object-cover"></div><div class="store-name">Gus Store</div><i class="fas fa-check-circle text-blue-500 text-[10px]"></i></div>
                             <div class="product-title">⭐ ${p.nombre} ✦</div>
                             <div class="price-pill">👉 s/ ${p.precio}</div>
                         </div>`;
@@ -252,13 +255,13 @@
             }
         }
 
-        // MODAL Y ACCIONES
+        // MODAL & ADMIN ACTIONS
         window.openModal = (p) => {
             document.getElementById('m-img').src = p.img || defaultLogo;
             document.getElementById('m-title').innerText = p.nombre;
             document.getElementById('m-price').innerText = "S/ " + p.precio;
-            document.getElementById('m-desc').innerText = p.desc || "Sin descripción disponible.";
-            document.getElementById('m-ws-link').href = `https://wa.me/519288632832?text=Hola Gus! Quiero comprar: ${p.nombre}`;
+            document.getElementById('m-desc').innerText = p.desc || "Sin descripción.";
+            document.getElementById('m-ws-link').href = `https://wa.me/519288632832?text=Gus! Quiero comprar: ${p.nombre}`;
             document.getElementById('product-modal').style.display = 'flex';
         };
         window.closeProductModal = () => document.getElementById('product-modal').style.display = 'none';
@@ -266,16 +269,7 @@
         window.saveProduct = async () => {
             const pPlat = document.getElementById('p-plat-select');
             if(!pPlat.value) return alert("Selecciona la marca");
-            await addDoc(colProd, { 
-                nombre: document.getElementById('p-name').value, 
-                precio: document.getElementById('p-price').value, 
-                stock: document.getElementById('p-stock').value, 
-                renovable: document.getElementById('p-badge').value,
-                desc: document.getElementById('p-desc-admin').value, 
-                cat: document.getElementById('p-cat-select').value, 
-                platId: pPlat.value,
-                img: finalBase64 
-            });
+            await addDoc(colProd, { nombre: document.getElementById('p-name').value, precio: document.getElementById('p-price').value, stock: document.getElementById('p-stock').value, renovable: document.getElementById('p-badge').value, desc: document.getElementById('p-desc-admin').value, cat: document.getElementById('p-cat-select').value, platId: pPlat.value, img: finalBase64 });
             alert("Tarjeta Guardada"); location.reload();
         };
 
@@ -285,11 +279,13 @@
         };
 
         window.addCat = async () => {
-            await addDoc(colCat, { name: document.getElementById('new-cat').value.toUpperCase() });
-            alert("Categoría Creada");
+            const n = document.getElementById('new-cat').value.toUpperCase();
+            if(!n) return;
+            await addDoc(colCat, { name: n });
+            document.getElementById('new-cat').value = "";
         };
 
-        // UI HELPERS
+        // HELPERS UI
         window.filterPlatByCat = (c) => {
             const filtered = window.allPlats.filter(p => p.cat === c);
             document.getElementById('p-plat-select').innerHTML = filtered.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
@@ -300,25 +296,27 @@
         };
         window.switchTab = (id) => { document.querySelectorAll('.admin-sec').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); };
         window.triggerFile = (id, type) => { upType = type; document.getElementById(id).click(); };
-        window.startCropping = (input, aspect) => {
+        window.startCropping = (input) => {
             const reader = new FileReader();
             reader.onload = (e) => {
                 document.getElementById('cropper-modal').style.display = 'flex';
                 const img = document.getElementById('img-to-crop'); img.src = e.target.result;
                 if(cropper) cropper.destroy();
-                cropper = new Cropper(img, { aspectRatio: aspect, viewMode: 1 });
+                cropper = new Cropper(img, { aspectRatio: 1, viewMode: 1 });
             };
             reader.readAsDataURL(input.files[0]);
         };
         window.doneCrop = () => { finalBase64 = cropper.getCroppedCanvas().toDataURL('image/jpeg', 0.8); document.getElementById('cropper-modal').style.display = 'none'; document.getElementById(upType === 'plat' ? 'plat-label' : 'p-label').innerText = "✓ LISTO"; };
         window.cancelCrop = () => document.getElementById('cropper-modal').style.display='none';
 
+        // AUTH CHECK
         const checkAuth = () => {
             const h = window.location.hash;
             const isA = localStorage.getItem('gus_auth');
             document.getElementById('login-screen').style.display = (h === '#admin/login') ? 'flex' : 'none';
             document.getElementById('admin-panel').style.display = (h === '#admin/panel' && isA) ? 'flex' : 'none';
             document.getElementById('public-view').style.display = (h === '#admin/login' || h === '#admin/panel') ? 'none' : 'block';
+            if (h === '#admin/panel' && !isA) window.location.hash = '#admin/login';
         };
         window.onhashchange = checkAuth; checkAuth();
     </script>
