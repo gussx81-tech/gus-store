@@ -14,26 +14,14 @@
         body { background: #050505; color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
         .hero-gradient { background: linear-gradient(to right, #3b82f6, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        /* HEADER */
         .main-header { padding: 30px 5%; display: flex; align-items: center; justify-content: flex-start; gap: 15px; }
         .profile-pic { width: 80px; height: 80px; border-radius: 50%; border: 3px solid #3b82f6; overflow: hidden; background: #111; }
         .profile-pic img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* --- MODIFICACIÓN: TÍTULO GIGANTE --- */
+        /* EL GIGA-TÍTULO QUE TE GUSTA */
         .hero-section { text-align: center; padding: 0 20px 40px; }
-        .hero-title { 
-            font-size: 5rem; /* Súper grande en móvil */
-            line-height: 0.8; 
-            font-weight: 900; 
-            font-style: italic; 
-            text-transform: uppercase; 
-            margin-bottom: 40px; 
-            letter-spacing: -3px; 
-        }
-        @media (min-width: 768px) { 
-            .hero-title { font-size: 11rem; } /* Masivo en PC */
-        }
-        /* ------------------------------------ */
+        .hero-title { font-size: 5rem; line-height: 0.8; font-weight: 900; font-style: italic; text-transform: uppercase; margin-bottom: 40px; letter-spacing: -3px; }
+        @media (min-width: 768px) { .hero-title { font-size: 11rem; } }
 
         .search-gus { background: #0d0d0d; border: 2px solid #1a1a1a; border-radius: 20px; padding: 22px; width: 100%; max-width: 800px; color: white; outline: none; font-weight: 800; font-size: 18px; text-align: center; display: block; margin: 0 auto 30px; }
         .cat-pill { background: #111; border: 2px solid #222; padding: 18px 45px; border-radius: 100px; cursor: pointer; color: #555; font-weight: 900; font-size: 16px; text-transform: uppercase; transition: 0.3s; }
@@ -54,6 +42,8 @@
 
         .product-title { font-weight: 900; font-size: 23px; color: white; margin: 12px 0; text-transform: uppercase; font-style: italic; line-height: 1.1; }
         .price-pill { background: white; color: black; padding: 10px 28px; border-radius: 35px; font-weight: 900; font-size: 18px; display: inline-flex; align-items: center; gap: 8px; }
+
+        .no-stock-full { grid-column: 1 / -1; width: 100%; text-align: center; padding: 80px 20px; color: #555; font-weight: 900; font-size: 20px; border: 2px dashed #1a1a1a; border-radius: 40px; text-transform: uppercase; }
 
         #product-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 10000; align-items: center; justify-content: center; padding: 20px; }
         #admin-panel { display: none; position: fixed; inset: 0; background: #000; z-index: 9500; }
@@ -89,7 +79,7 @@
             <div class="profile-pic"><img src="https://files.catbox.moe/nao1lj.jpg"></div>
             <div class="text-3xl font-black italic uppercase tracking-tighter text-white">GUS <span class="text-blue-500">STORE</span></div>
         </header>
-        <section class="hero-section text-center">
+        <section class="hero-section">
             <h1 class="hero-title">ENTRETENIMIENTO<br><span class="hero-gradient">SIN LÍMITES</span></h1>
             <input type="text" id="gus-search" class="search-gus mt-5" placeholder="¿Qué buscas hoy?" onkeyup="searchFilter()">
             <div id="pills-box" class="flex justify-center gap-4 overflow-x-auto no-scrollbar mb-10"></div>
@@ -137,7 +127,7 @@
              </div>
              <div id="tab-cat" class="admin-sec">
                 <div class="bg-[#0d0d0d] p-10 rounded-[45px] border border-zinc-800 max-w-lg mb-10">
-                    <h2 class="text-2xl font-black mb-6 uppercase italic text-blue-500">Categorías</h2>
+                    <h2 class="text-2xl font-black mb-6 uppercase italic text-blue-500 text-white">Categorías</h2>
                     <input type="text" id="new-cat" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-4 text-white" placeholder="Nombre">
                     <button onclick="addCat()" class="bg-blue-600 w-full p-4 rounded-xl font-black uppercase text-white">Añadir</button>
                 </div>
@@ -150,8 +140,8 @@
         <div class="bg-zinc-900 rounded-[50px] p-10 w-full max-w-lg text-white text-center">
             <div class="h-80 bg-black rounded-3xl overflow-hidden mb-6"><img id="img-to-crop" style="max-width:100%;"></div>
             <div class="flex gap-4">
-                <button onclick="cancelCrop()" class="flex-1 p-5 bg-zinc-800 rounded-3xl font-black uppercase">Salir</button>
-                <button onclick="doneCrop()" class="flex-1 p-5 bg-blue-600 rounded-3xl font-black uppercase">Listo</button>
+                <button onclick="cancelCrop()" class="flex-1 p-5 bg-zinc-800 rounded-3xl font-black uppercase text-white">Salir</button>
+                <button onclick="doneCrop()" class="flex-1 p-5 bg-blue-600 rounded-3xl font-black uppercase text-white">Listo</button>
             </div>
         </div>
     </div>
@@ -187,7 +177,7 @@
             const opts = '<option value="">Elegir...</option>' + data.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
             document.getElementById('p-cat-select').innerHTML = opts;
             document.getElementById('plat-cat-select').innerHTML = opts;
-            document.getElementById('admin-list-cat').innerHTML = data.map(c => `<div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2"><span>${c.name}</span><button onclick="deleteDoc(doc(db,'categorias','${c.id}'))" class="text-red-500"><i class="fas fa-trash"></i></button></div>`).join('');
+            document.getElementById('admin-list-cat').innerHTML = data.map(c => `<div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl"><span>${c.name}</span><button onclick="deleteDoc(doc(db,'categorias','${c.id}'))" class="text-red-500"><i class="fas fa-trash"></i></button></div>`).join('');
             if(!activeCat && data.length > 0) window.setCat(data[0].name);
         });
         
@@ -254,11 +244,19 @@
             document.getElementById('grid-marcas').innerHTML = filtered.map(p => `<div class="marca-item ${p.id===activePlatId?'active':''}" onclick="window.setPlat('${p.id}')"><img src="${p.logo||defaultLogo}"></div>`).join('');
         }
 
+        // --- MODIFICACIÓN: FILTRO SOLO STREAMING ---
         function renderGrid() {
             const grid = document.getElementById('grid-productos'); grid.innerHTML = ""; 
             if(!activePlatId) return;
+
+            // Bloqueo: Si no es STREAMING, no mostramos tarjetas
+            if(activeCat.toUpperCase() !== 'STREAMING') {
+                grid.innerHTML = `<div class="no-stock-full">PRÓXIMAMENTE DISPONIBLE</div>`;
+                return;
+            }
+
             const prods = window.allProds.filter(pr => pr.platId === activePlatId);
-            if(prods.length === 0) grid.innerHTML = `<div class="no-stock-full">NO HAY STOCK DISPONIBLE</div>`;
+            if(prods.length === 0) grid.innerHTML = `<div class="no-stock-full">SIN STOCK POR EL MOMENTO</div>`;
             else prods.forEach(p => {
                 const card = document.createElement('div');
                 card.className = 'card-producto';
@@ -267,6 +265,7 @@
                 grid.appendChild(card);
             });
         }
+        // ------------------------------------------
 
         window.openModal = (p) => {
             document.getElementById('m-img').src = p.img || defaultLogo;
