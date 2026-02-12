@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>GUS STORE // OFICIAL</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -14,154 +14,179 @@
         body { background: #050505; color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
         .hero-gradient { background: linear-gradient(to right, #3b82f6, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        .main-header { padding: 30px 5%; display: flex; align-items: center; justify-content: flex-start; gap: 15px; }
-        .profile-pic { width: 80px; height: 80px; border-radius: 50%; border: 3px solid #3b82f6; overflow: hidden; background: #111; }
+        /* HEADER RESPONSIVO */
+        .main-header { padding: 20px 5%; display: flex; align-items: center; justify-content: flex-start; gap: 12px; }
+        .profile-pic { width: 60px; height: 60px; border-radius: 50%; border: 2px solid #3b82f6; overflow: hidden; background: #111; flex-shrink: 0; }
+        @media (min-width: 768px) { .profile-pic { width: 80px; height: 80px; border-width: 3px; } }
         .profile-pic img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* GIGA-TÍTULO */
-        .hero-section { text-align: center; padding: 0 20px 40px; }
-        .hero-title { font-size: 5rem; line-height: 0.8; font-weight: 900; font-style: italic; text-transform: uppercase; margin-bottom: 40px; letter-spacing: -3px; }
-        @media (min-width: 768px) { .hero-title { font-size: 11rem; } }
+        /* GIGA-TÍTULO FLUIDO */
+        .hero-section { text-align: center; padding: 10px 5% 40px; }
+        .hero-title { 
+            font-size: 13vw; /* Ajuste automático según el ancho */
+            line-height: 0.85; font-weight: 900; font-style: italic; text-transform: uppercase; 
+            margin-bottom: 30px; letter-spacing: -2px; 
+        }
+        @media (min-width: 768px) { .hero-title { font-size: 9rem; letter-spacing: -5px; } }
+        @media (min-width: 1200px) { .hero-title { font-size: 11rem; } }
 
-        .search-gus { background: #0d0d0d; border: 2px solid #1a1a1a; border-radius: 20px; padding: 22px; width: 100%; max-width: 800px; color: white; outline: none; font-weight: 800; font-size: 18px; text-align: center; display: block; margin: 0 auto 30px; }
-        .cat-pill { background: #111; border: 2px solid #222; padding: 18px 45px; border-radius: 100px; cursor: pointer; color: #555; font-weight: 900; font-size: 16px; text-transform: uppercase; transition: 0.3s; }
+        /* BUSCADOR */
+        .search-gus { background: #0d0d0d; border: 2px solid #1a1a1a; border-radius: 20px; padding: 18px; width: 100%; max-width: 800px; color: white; outline: none; font-weight: 800; font-size: 16px; text-align: center; display: block; margin: 0 auto 30px; transition: 0.3s; }
+        .search-gus:focus { border-color: #3b82f6; background: #111; }
+
+        /* CATEGORÍAS SCROLLABLE (CELULAR) */
+        #pills-box { display: flex; gap: 10px; overflow-x: auto; padding: 5px 5%; scrollbar-width: none; -ms-overflow-style: none; justify-content: flex-start; }
+        #pills-box::-webkit-scrollbar { display: none; }
+        @media (min-width: 768px) { #pills-box { justify-content: center; } }
+
+        .cat-pill { background: #111; border: 2px solid #222; padding: 12px 25px; border-radius: 100px; cursor: pointer; color: #555; font-weight: 900; font-size: 14px; text-transform: uppercase; white-space: nowrap; transition: 0.3s; }
         .cat-pill.active { border-color: #3b82f6; color: white; background: #3b82f6; }
 
         /* PLATAFORMAS (CUADRADOS) */
-        #grid-marcas { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 0 5% 40px; }
-        .marca-item { background: #0d0e14; width: 100px; height: 100px; border-radius: 25px; border: 1px solid #1a1b26; cursor: pointer; transition: 0.3s; position: relative; overflow: hidden; }
+        #grid-marcas { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; padding: 20px 5% 40px; }
+        .marca-item { background: #0d0e14; width: 85px; height: 85px; border-radius: 20px; border: 1px solid #1a1b26; cursor: pointer; transition: 0.3s; overflow: hidden; flex-shrink: 0; }
+        @media (min-width: 768px) { .marca-item { width: 100px; height: 100px; border-radius: 25px; } }
+        .marca-item:hover, .marca-item.active { border-color: #3b82f6; transform: scale(1.05); }
         .marca-item img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* TARJETAS PREMIUM */
-        #grid-productos { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; justify-items: end; padding: 0 5% 60px; max-width: 1400px; margin: 0 auto; }
-        .card-producto { background: #0d0e14; width: 320px; border-radius: 45px; padding: 12px; border: 1px solid #1a1b26; cursor: pointer; position: relative; }
-        .card-img-wrap { width: 100%; height: 320px; border-radius: 35px; background: #000; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; }
+        /* GRID DE PRODUCTOS DINÁMICO */
+        #grid-productos { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 20px; padding: 0 5% 60px; max-width: 1400px; margin: 0 auto;
+            justify-items: center;
+        }
+
+        /* TARJETA */
+        .card-producto { background: #0d0e14; width: 100%; max-width: 320px; border-radius: 40px; padding: 12px; border: 1px solid #1a1b26; cursor: pointer; position: relative; transition: 0.3s; }
+        .card-producto:hover { transform: translateY(-5px); border-color: #3b82f6; }
+        .card-img-wrap { width: 100%; aspect-ratio: 1/1; border-radius: 30px; background: #000; overflow: hidden; position: relative; }
         .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
         
-        .badge-renovable { position: absolute; top: 18px; right: 18px; background: #ff3b30; color: white; padding: 8px 18px; border-radius: 25px; font-weight: 900; font-size: 12px; text-transform: uppercase; }
-        .badge-stock { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); background: #f2f2f2; color: black; padding: 8px 22px; border-radius: 25px; font-weight: 900; font-size: 13px; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+        .badge-renovable { position: absolute; top: 15px; right: 15px; background: #ff3b30; color: white; padding: 6px 14px; border-radius: 20px; font-weight: 900; font-size: 11px; text-transform: uppercase; }
+        .badge-stock { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); background: #f2f2f2; color: black; padding: 6px 18px; border-radius: 20px; font-weight: 900; font-size: 12px; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); width: max-content; }
 
-        .store-name { color: #00ff88; font-weight: 900; font-size: 19px; text-transform: lowercase; }
-        .product-title { font-weight: 900; font-size: 23px; color: white; margin: 12px 0; text-transform: uppercase; font-style: italic; line-height: 1.1; }
-        .price-pill { background: white; color: black; padding: 10px 28px; border-radius: 35px; font-weight: 900; font-size: 18px; display: inline-flex; align-items: center; gap: 8px; }
+        .store-name { color: #00ff88; font-weight: 900; font-size: 16px; text-transform: lowercase; }
+        .product-title { font-weight: 900; font-size: 20px; color: white; margin: 10px 0; text-transform: uppercase; font-style: italic; line-height: 1.1; }
+        .price-pill { background: white; color: black; padding: 8px 22px; border-radius: 30px; font-weight: 900; font-size: 17px; display: inline-flex; align-items: center; gap: 6px; }
 
-        /* MODAL ANUNCIO */
-        #ads-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); z-index: 20000; align-items: center; justify-content: center; padding: 20px; }
-        .ads-content { position: relative; max-width: 450px; width: 85%; }
-        .ads-img { width: 100%; border-radius: 50px; border: 3px solid #1a1a1a; }
+        /* MODALES BLUR */
+        .modal-blur { 
+            display: none; position: fixed; inset: 0; 
+            background: rgba(0,0,0,0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); 
+            z-index: 10000; align-items: center; justify-content: center; padding: 20px; 
+        }
+        .ads-content { position: relative; max-width: 400px; width: 100%; }
+        .ads-img { width: 100%; border-radius: 40px; border: 2px solid #333; }
         .ads-close { position: absolute; top: -15px; right: -15px; background: #ff3b30; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 3px solid #050505; }
 
-        #product-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 10000; align-items: center; justify-content: center; padding: 20px; }
-        #admin-panel { display: none; position: fixed; inset: 0; background: #000; z-index: 9500; }
-        #login-screen { position: fixed; inset: 0; background: #000; z-index: 11000; display: none; align-items: center; justify-content: center; }
-        .admin-sec { display: none; }
-        .admin-sec.active { display: block; }
-        .no-stock-full { grid-column: 1 / -1; width: 100%; text-align: center; padding: 80px 20px; color: #555; font-weight: 900; font-size: 20px; border: 2px dashed #1a1a1a; border-radius: 40px; }
+        /* PANEL ADMIN RESPONSIVO */
+        #admin-panel { display: none; position: fixed; inset: 0; background: #000; z-index: 15000; overflow-y: auto; }
+        .admin-sidebar { width: 100%; padding: 20px; border-bottom: 1px solid #1a1a1a; }
+        @media (min-width: 1024px) { 
+            #admin-panel { display: none; flex-direction: row; }
+            .admin-sidebar { width: 300px; height: 100vh; border-bottom: none; border-right: 1px solid #1a1a1a; }
+        }
+
+        .no-stock-full { grid-column: 1 / -1; width: 100%; text-align: center; padding: 60px 20px; color: #555; font-weight: 900; font-size: 18px; border: 2px dashed #1a1a1a; border-radius: 30px; }
     </style>
 </head>
 <body>
 
-    <div id="ads-modal">
+    <div id="ads-modal" class="modal-blur">
         <div class="ads-content">
             <div class="ads-close" onclick="closeAds()"><i class="fas fa-times"></i></div>
             <img id="ads-img-view" src="" class="ads-img">
         </div>
     </div>
 
-    <div id="login-screen">
-        <div class="bg-[#0d0d0d] p-10 rounded-[40px] border border-zinc-800 w-full max-w-sm text-center">
-            <h2 class="text-3xl font-black text-blue-500 mb-8 italic uppercase">GUS ADMIN</h2>
-            <input type="text" id="user-in" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-4 text-white" placeholder="Usuario">
-            <input type="password" id="pass-in" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-6 text-white" placeholder="Contraseña">
-            <button onclick="login()" class="w-full bg-blue-600 p-4 rounded-xl font-black uppercase text-white">Entrar</button>
+    <div id="product-modal" class="modal-blur" onclick="closeProductModal()">
+        <div class="bg-[#0d0d0d] w-full max-w-lg rounded-[45px] p-8 border border-zinc-800 text-center relative" onclick="event.stopPropagation()">
+            <button onclick="closeProductModal()" class="absolute top-6 right-6 text-zinc-500 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+            <div class="w-full aspect-video rounded-[30px] overflow-hidden mb-6 bg-black"><img id="m-img" src="" class="w-full h-full object-cover"></div>
+            <h2 id="m-title" class="text-2xl font-black italic uppercase mb-2"></h2>
+            <div id="m-price" class="text-blue-500 font-black text-3xl mb-4"></div>
+            <div id="m-desc" class="text-zinc-500 text-base mb-6 text-left bg-zinc-900/40 p-5 rounded-2xl border border-zinc-800 whitespace-pre-wrap max-h-40 overflow-y-auto"></div>
+            <a id="m-ws-link" href="" target="_blank" class="bg-[#25d366] text-white p-4 rounded-2xl font-black uppercase text-lg block shadow-lg shadow-green-900/20">Pedir por WhatsApp</a>
         </div>
     </div>
 
-    <div id="product-modal" onclick="closeProductModal()">
-        <div class="bg-[#0d0d0d] w-full max-w-lg rounded-[55px] p-10 border border-zinc-800 text-center relative" onclick="event.stopPropagation()">
-            <button onclick="closeProductModal()" class="absolute top-8 right-8 text-zinc-500 hover:text-white"><i class="fas fa-times text-2xl"></i></button>
-            <div class="w-full h-72 rounded-[35px] overflow-hidden mb-8 bg-black"><img id="m-img" src="" class="w-full h-full object-cover"></div>
-            <h2 id="m-title" class="text-3xl font-black italic uppercase mb-2"></h2>
-            <div id="m-price" class="text-blue-500 font-black text-3xl mb-5"></div>
-            <div id="m-desc" class="text-zinc-500 text-lg mb-8 text-left bg-zinc-900/40 p-6 rounded-3xl border border-zinc-800 whitespace-pre-wrap"></div>
-            <a id="m-ws-link" href="" target="_blank" class="bg-[#25d366] text-white p-5 rounded-2xl font-black uppercase text-xl block">WhatsApp <i class="fab fa-whatsapp"></i></a>
+    <div id="login-screen" class="modal-blur" style="display: none;">
+        <div class="bg-[#0d0d0d] p-8 rounded-[40px] border border-zinc-800 w-full max-w-xs text-center">
+            <h2 class="text-2xl font-black text-blue-500 mb-6 italic uppercase">GUS ADMIN</h2>
+            <input type="text" id="user-in" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-4 text-white" placeholder="Usuario">
+            <input type="password" id="pass-in" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-6 text-white" placeholder="Contraseña">
+            <button onclick="login()" class="w-full bg-blue-600 p-4 rounded-xl font-black uppercase text-white">Ingresar</button>
         </div>
     </div>
 
     <div id="public-view">
         <header class="main-header">
             <div class="profile-pic"><img src="https://files.catbox.moe/nao1lj.jpg"></div>
-            <div class="text-3xl font-black italic uppercase tracking-tighter text-white">GUS <span class="text-blue-500">STORE</span></div>
+            <div class="text-2xl md:text-3xl font-black italic uppercase tracking-tighter text-white">GUS <span class="text-blue-500">STORE</span></div>
         </header>
-        <section class="hero-section text-center">
+
+        <section class="hero-section">
             <h1 class="hero-title">ENTRETENIMIENTO<br><span class="hero-gradient">SIN LÍMITES</span></h1>
-            <input type="text" id="gus-search" class="search-gus mt-5" placeholder="¿Qué buscas hoy?" onkeyup="searchFilter()">
-            <div id="pills-box" class="flex justify-center gap-4 overflow-x-auto no-scrollbar mb-10"></div>
-            <div id="grid-marcas" class="no-scrollbar"></div>
+            <input type="text" id="gus-search" class="search-gus" placeholder="¿Qué buscas hoy?" onkeyup="searchFilter()">
+            <div id="pills-box" class="no-scrollbar"></div>
+            <div id="grid-marcas"></div>
         </section>
+
         <div id="grid-productos"></div>
     </div>
 
-    <div id="admin-panel" class="flex flex-col md:flex-row">
-        <aside class="w-full md:w-80 p-10 border-r border-zinc-900 bg-[#080808]">
-            <nav class="flex flex-col gap-4">
-                <button onclick="switchTab('tab-prod')" class="text-left p-5 bg-zinc-900 rounded-2xl font-bold uppercase text-xs">📦 Tarjetas</button>
-                <button onclick="switchTab('tab-plat')" class="text-left p-5 bg-zinc-900 rounded-2xl font-bold uppercase text-xs">🖼️ Plataformas</button>
-                <button onclick="switchTab('tab-cat')" class="text-left p-5 bg-zinc-900 rounded-2xl font-bold uppercase text-xs">📂 Categorías</button>
-                <button onclick="switchTab('tab-ads')" class="text-left p-5 bg-zinc-900 rounded-2xl font-bold uppercase text-xs">📢 Anuncios</button>
-                <button onclick="logout()" class="text-left p-5 mt-10 text-red-500 font-bold uppercase text-xs">Salir</button>
-            </nav>
-        </aside>
-        <main class="flex-1 p-10 h-screen overflow-y-auto bg-[#050505]">
-             <div id="tab-cat" class="admin-sec">
-                <div class="bg-[#0d0d0d] p-10 rounded-[45px] border border-zinc-800 max-w-lg mb-10">
-                    <h2 id="form-title-cat" class="text-2xl font-black mb-6 uppercase italic text-blue-500">Categorías</h2>
-                    <input type="text" id="new-cat" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-4 text-white" placeholder="Nombre">
-                    <button id="btn-save-cat" onclick="addCat()" class="bg-blue-600 w-full p-4 rounded-xl font-black uppercase text-white">Guardar</button>
+    <div id="admin-panel">
+        <div class="admin-sidebar flex flex-row lg:flex-col overflow-x-auto lg:overflow-y-auto gap-2 lg:gap-4 no-scrollbar">
+            <button onclick="switchTab('tab-prod')" class="flex-shrink-0 lg:w-full text-left p-4 bg-zinc-900 rounded-xl font-bold uppercase text-[10px]">📦 Tarjetas</button>
+            <button onclick="switchTab('tab-plat')" class="flex-shrink-0 lg:w-full text-left p-4 bg-zinc-900 rounded-xl font-bold uppercase text-[10px]">🖼️ Plataformas</button>
+            <button onclick="switchTab('tab-cat')" class="flex-shrink-0 lg:w-full text-left p-4 bg-zinc-900 rounded-xl font-bold uppercase text-[10px]">📂 Categorías</button>
+            <button onclick="switchTab('tab-ads')" class="flex-shrink-0 lg:w-full text-left p-4 bg-zinc-900 rounded-xl font-bold uppercase text-[10px]">📢 Anuncios</button>
+            <button onclick="logout()" class="flex-shrink-0 lg:w-full text-left p-4 text-red-500 font-bold uppercase text-[10px]">Salir</button>
+        </div>
+        <main class="flex-1 p-6 lg:p-10 h-full overflow-y-auto bg-[#050505]">
+             <div id="tab-prod" class="admin-sec active">
+                <div class="bg-[#0d0d0d] p-6 lg:p-10 rounded-[40px] border border-zinc-800 max-w-2xl mb-10">
+                    <h2 id="form-title-prod" class="text-xl font-black mb-6 uppercase italic text-blue-500">Gestionar Tarjeta</h2>
+                    <div class="bg-zinc-900 p-6 rounded-2xl text-center cursor-pointer mb-5 border border-zinc-800" onclick="triggerFile('file-prod','prod')"><p id="p-label" class="text-zinc-500 uppercase text-[10px]">Subir Imagen</p></div>
+                    <input type="file" id="file-prod" class="hidden" onchange="startCropping(this)">
+                    <input type="text" id="p-name" class="w-full p-3 bg-black rounded-xl border border-zinc-800 mb-3 text-white" placeholder="Nombre">
+                    <input type="number" id="p-price" class="w-full p-3 bg-black rounded-xl border border-zinc-800 mb-3 text-white" placeholder="Precio S/">
+                    <input type="number" id="p-stock" class="w-full p-3 bg-black rounded-xl border border-zinc-800 mb-3 text-white" placeholder="Stock">
+                    <input type="text" id="p-badge" class="w-full p-3 bg-black rounded-xl border border-zinc-800 mb-3 text-white" placeholder="Badge (Ej: Renovable)">
+                    <textarea id="p-desc-admin" class="w-full p-3 bg-black rounded-xl border border-zinc-800 mb-6 text-white h-24" placeholder="Descripción..."></textarea>
+                    <select id="p-cat-select" class="w-full p-3 bg-zinc-900 rounded-xl border border-zinc-800 mb-3 text-white" onchange="filterPlatByCat(this.value)"></select>
+                    <select id="p-plat-select" class="w-full p-3 bg-zinc-900 rounded-xl border border-zinc-800 mb-6 text-white"></select>
+                    <button id="btn-save-prod" onclick="saveProduct()" class="bg-blue-600 w-full p-4 rounded-xl font-black uppercase text-white">Publicar</button>
                 </div>
-                <div id="admin-list-cat" class="grid gap-2"></div>
+                <div id="admin-list-prod" class="grid gap-2"></div>
              </div>
 
-             <div id="tab-prod" class="admin-sec active">
-                <div class="bg-[#0d0d0d] p-10 rounded-[45px] border border-zinc-800 max-w-2xl mb-10">
-                    <h2 id="form-title-prod" class="text-2xl font-black mb-6 uppercase italic text-blue-500">Gestionar Tarjeta</h2>
-                    <div class="bg-zinc-900 p-8 rounded-3xl text-center cursor-pointer mb-5 border border-zinc-800" onclick="triggerFile('file-prod','prod')"><p id="p-label" class="text-zinc-500 uppercase text-xs">Subir Imagen</p></div>
-                    <input type="file" id="file-prod" class="hidden" onchange="startCropping(this)">
-                    <input type="text" id="p-name" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-3 text-white" placeholder="Nombre">
-                    <input type="number" id="p-price" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-3 text-white" placeholder="Precio S/">
-                    <input type="number" id="p-stock" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-3 text-white" placeholder="Stock">
-                    <input type="text" id="p-badge" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-3 text-white" placeholder="Badge (Ej: Renovable)">
-                    <textarea id="p-desc-admin" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-6 text-white h-32" placeholder="Descripción..."></textarea>
-                    
-                    <p class="text-xs text-zinc-500 mb-1 ml-1 font-bold">CATEGORÍA:</p>
-                    <select id="p-cat-select" class="w-full p-4 bg-zinc-900 rounded-xl border border-zinc-800 mb-4 text-white" onchange="filterPlatByCat(this.value)"></select>
-                    <p class="text-xs text-zinc-500 mb-1 ml-1 font-bold">PLATAFORMA:</p>
-                    <select id="p-plat-select" class="w-full p-4 bg-zinc-900 rounded-xl border border-zinc-800 mb-8 text-white"></select>
-                    
-                    <button id="btn-save-prod" onclick="saveProduct()" class="bg-blue-600 w-full p-5 rounded-2xl font-black uppercase text-white">Publicar</button>
-                </div>
-                <div id="admin-list-prod" class="grid gap-3"></div>
-             </div>
-             
              <div id="tab-plat" class="admin-sec">
-                <div class="bg-[#0d0d0d] p-10 rounded-[45px] border border-zinc-800 max-w-lg mb-10 text-center">
-                    <h2 id="form-title-plat" class="text-2xl font-black mb-6 uppercase italic text-blue-500">Nueva Plataforma</h2>
-                    <div id="plat-upload-box" class="bg-zinc-900 rounded-3xl text-center cursor-pointer mb-5 border border-zinc-800 h-40 flex items-center justify-center overflow-hidden" onclick="triggerFile('file-plat','plat')"><p class="text-zinc-500 uppercase text-xs">Subir Logo</p></div>
+                <div class="bg-[#0d0d0d] p-6 rounded-[30px] border border-zinc-800 max-w-lg mb-10">
+                    <h2 id="form-title-plat" class="text-xl font-black mb-6 uppercase italic text-blue-500">Plataforma</h2>
+                    <div id="plat-upload-box" class="bg-zinc-900 rounded-2xl text-center cursor-pointer mb-5 border border-zinc-800 h-32 flex items-center justify-center" onclick="triggerFile('file-plat','plat')"><p class="text-zinc-500 text-[10px]">Logo</p></div>
                     <input type="file" id="file-plat" class="hidden" onchange="startCropping(this)">
-                    <input type="text" id="plat-n" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-4 text-white" placeholder="Nombre Plataforma">
-                    
-                    <p class="text-xs text-zinc-500 mb-1 ml-1 font-bold text-left">ASIGNAR A CATEGORÍA:</p>
-                    <select id="plat-cat-select" class="w-full p-4 bg-zinc-900 rounded-xl border border-zinc-800 mb-6 text-white"></select>
-                    
+                    <input type="text" id="plat-n" class="w-full p-3 bg-black rounded-xl border border-zinc-800 mb-3 text-white" placeholder="Nombre">
+                    <select id="plat-cat-select" class="w-full p-3 bg-zinc-900 rounded-xl border border-zinc-800 mb-6 text-white"></select>
                     <button id="btn-save-plat" onclick="addPlat()" class="bg-blue-600 w-full p-4 rounded-xl font-black uppercase text-white">Guardar</button>
                 </div>
                 <div id="admin-list-plat" class="grid gap-2"></div>
              </div>
 
+             <div id="tab-cat" class="admin-sec">
+                <div class="bg-[#0d0d0d] p-6 rounded-[30px] border border-zinc-800 max-w-lg mb-10">
+                    <h2 id="form-title-cat" class="text-xl font-black mb-4 uppercase italic text-blue-500">Categorías</h2>
+                    <input type="text" id="new-cat" class="w-full p-3 bg-black rounded-xl border border-zinc-800 mb-4 text-white" placeholder="Nombre">
+                    <button id="btn-save-cat" onclick="addCat()" class="bg-blue-600 w-full p-4 rounded-xl font-black uppercase text-white">Añadir</button>
+                </div>
+                <div id="admin-list-cat" class="grid gap-2"></div>
+             </div>
+
              <div id="tab-ads" class="admin-sec">
-                <div class="bg-[#0d0d0d] p-10 rounded-[45px] border border-zinc-800 max-w-lg mb-10 text-center">
-                    <h2 class="text-2xl font-black mb-6 uppercase italic text-blue-500">Anuncio</h2>
-                    <div id="ads-upload-box" class="bg-zinc-900 rounded-3xl text-center cursor-pointer mb-5 border border-zinc-800 h-60 flex items-center justify-center overflow-hidden" onclick="triggerFile('file-ads','ads')"><p class="text-zinc-500">Imagen</p></div>
+                <div class="bg-[#0d0d0d] p-6 rounded-[30px] border border-zinc-800 max-w-lg mb-10 text-center">
+                    <h2 class="text-xl font-black mb-6 uppercase italic text-blue-500">Anuncio</h2>
+                    <div id="ads-upload-box" class="bg-zinc-900 rounded-2xl text-center cursor-pointer mb-5 border border-zinc-800 h-48 flex items-center justify-center overflow-hidden" onclick="triggerFile('file-ads','ads')"><p class="text-zinc-500">Imagen</p></div>
                     <input type="file" id="file-ads" class="hidden" onchange="startCropping(this)">
                     <button onclick="saveAd()" class="bg-blue-600 w-full p-4 rounded-xl font-black uppercase text-white mb-4">Publicar</button>
                     <button onclick="deleteAd()" class="bg-red-600 w-full p-4 rounded-xl font-black uppercase text-white">Eliminar</button>
@@ -170,12 +195,12 @@
         </main>
     </div>
 
-    <div id="cropper-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:12000; align-items:center; justify-content:center;">
-        <div class="bg-zinc-900 rounded-[50px] p-10 w-full max-w-lg text-white text-center">
-            <div class="h-80 bg-black rounded-3xl overflow-hidden mb-6"><img id="img-to-crop" style="max-width:100%;"></div>
-            <div class="flex gap-4">
-                <button onclick="cancelCrop()" class="flex-1 p-5 bg-zinc-800 rounded-3xl font-black uppercase">Salir</button>
-                <button onclick="doneCrop()" class="flex-1 p-5 bg-blue-600 rounded-3xl font-black uppercase">Listo</button>
+    <div id="cropper-modal" class="modal-blur">
+        <div class="bg-zinc-900 rounded-[40px] p-6 w-full max-w-md text-white text-center">
+            <div class="h-64 bg-black rounded-2xl overflow-hidden mb-6"><img id="img-to-crop" style="max-width:100%;"></div>
+            <div class="flex gap-3">
+                <button onclick="cancelCrop()" class="flex-1 p-4 bg-zinc-800 rounded-2xl font-black uppercase text-sm">Salir</button>
+                <button onclick="doneCrop()" class="flex-1 p-4 bg-blue-600 rounded-2xl font-black uppercase text-sm">Listo</button>
             </div>
         </div>
     </div>
@@ -202,28 +227,19 @@
         const defaultLogo = "https://files.catbox.moe/nao1lj.jpg";
         window.allPlats = [], window.allProds = [], window.allCats = [];
 
-        // --- FUNCIONES DE BORRADO GLOBAL ---
-        window.removeItem = async (col, id) => { 
-            if(confirm("¿Seguro que quieres eliminar este elemento?")) {
-                await deleteDoc(doc(db, col, id)); 
-                alert("Eliminado con éxito");
-            }
-        };
-
-        window.login = () => { if(document.getElementById('user-in').value === 'adminGus' && document.getElementById('pass-in').value === 'GusStore2026') { localStorage.setItem('gus_auth', 'true'); window.location.hash = '#admin/panel'; } else alert("Datos incorrectos"); };
+        window.removeItem = async (c, id) => { if(confirm("¿Borrar?")) await deleteDoc(doc(db, c, id)); };
+        window.login = () => { if(document.getElementById('user-in').value === 'adminGus' && document.getElementById('pass-in').value === 'GusStore2026') { localStorage.setItem('gus_auth', 'true'); window.location.hash = '#admin/panel'; } else alert("Error"); };
         window.logout = () => { localStorage.removeItem('gus_auth'); window.location.hash = ''; location.reload(); };
 
-        // SYNC CATEGORÍAS
+        // SYNC CATEGORIAS
         onSnapshot(colCat, snap => {
             window.allCats = snap.docs.map(d => ({id: d.id, ...d.data()}));
             document.getElementById('pills-box').innerHTML = window.allCats.map(c => `<div class="cat-pill ${c.name===activeCat?'active':''}" onclick="window.setCat('${c.name}')">${c.name}</div>`).join('');
-            
-            const opts = '<option value="">Elegir...</option>' + window.allCats.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+            const opts = '<option value="">Categoría...</option>' + window.allCats.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
             document.getElementById('p-cat-select').innerHTML = opts;
             document.getElementById('plat-cat-select').innerHTML = opts;
-            
             document.getElementById('admin-list-cat').innerHTML = window.allCats.map(c => `
-                <div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2"><span>${c.name}</span><div class="flex gap-4"><button onclick="prepareEditCat('${c.id}')" class="text-blue-500"><i class="fas fa-edit"></i></button><button onclick="removeItem('categorias','${c.id}')" class="text-red-500"><i class="fas fa-trash"></i></button></div></div>`).join('');
+                <div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2"><span>${c.name}</span><div class="flex gap-3"><button onclick="prepareEditCat('${c.id}')" class="text-blue-500"><i class="fas fa-edit"></i></button><button onclick="removeItem('categorias','${c.id}')" class="text-red-500"><i class="fas fa-trash"></i></button></div></div>`).join('');
             if(!activeCat && window.allCats.length > 0) window.setCat(window.allCats[0].name);
         });
 
@@ -245,7 +261,8 @@
         onSnapshot(colPlat, snap => { 
             window.allPlats = snap.docs.map(d => ({id: d.id, ...d.data()})); 
             renderPlats();
-            document.getElementById('admin-list-plat').innerHTML = window.allPlats.map(p => `<div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2"><span>${p.name} (${p.cat})</span><div class="flex gap-4"><button onclick="prepareEditPlat('${p.id}')" class="text-blue-500"><i class="fas fa-edit"></i></button><button onclick="removeItem('plataformas','${p.id}')" class="text-red-500"><i class="fas fa-trash"></i></button></div></div>`).join('');
+            document.getElementById('admin-list-plat').innerHTML = window.allPlats.map(p => `
+                <div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2"><span>${p.name}</span><div class="flex gap-3"><button onclick="prepareEditPlat('${p.id}')" class="text-blue-500"><i class="fas fa-edit"></i></button><button onclick="removeItem('plataformas','${p.id}')" class="text-red-500"><i class="fas fa-trash"></i></button></div></div>`).join('');
         });
 
         window.prepareEditPlat = (id) => {
@@ -269,7 +286,8 @@
         onSnapshot(colProd, snap => { 
             window.allProds = snap.docs.map(d => ({id: d.id, ...d.data()})); 
             renderGrid();
-            document.getElementById('admin-list-prod').innerHTML = window.allProds.map(p => `<div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2"><span>${p.nombre}</span><div class="flex gap-4"><button onclick="prepareEditProd('${p.id}')" class="text-blue-500"><i class="fas fa-edit"></i></button><button onclick="removeItem('productos','${p.id}')" class="text-red-500"><i class="fas fa-trash"></i></button></div></div>`).join('');
+            document.getElementById('admin-list-prod').innerHTML = window.allProds.map(p => `
+                <div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2"><span>${p.nombre}</span><div class="flex gap-3"><button onclick="prepareEditProd('${p.id}')" class="text-blue-500"><i class="fas fa-edit"></i></button><button onclick="removeItem('productos','${p.id}')" class="text-red-500"><i class="fas fa-trash"></i></button></div></div>`).join('');
         });
 
         window.prepareEditProd = (id) => {
@@ -294,7 +312,7 @@
             location.reload();
         };
 
-        // ANUNCIOS
+        // ANUNCIOS LÓGICA
         onSnapshot(colAds, snap => {
             const ads = snap.docs.map(d => d.data());
             if (ads.length > 0 && !window.location.hash.includes('admin')) {
@@ -320,13 +338,13 @@
             const grid = document.getElementById('grid-productos'); grid.innerHTML = ""; 
             let prds = [];
             if (activeCat.toUpperCase() === 'STREAMING') {
-                if(!activePlatId) { grid.innerHTML = `<div class="no-stock-full">ELIGE UNA PLATAFORMA ARRIBA</div>`; return; }
+                if(!activePlatId) { grid.innerHTML = `<div class="no-stock-full">ELIGE UNA PLATAFORMA</div>`; return; }
                 prds = window.allProds.filter(p => p.platId === activePlatId && p.cat === activeCat);
             } else {
                 prds = window.allProds.filter(p => p.cat === activeCat);
             }
 
-            if(prds.length === 0 && activeCat) grid.innerHTML = `<div class="no-stock-full">SIN STOCK POR EL MOMENTO</div>`;
+            if(prds.length === 0 && activeCat) grid.innerHTML = `<div class="no-stock-full">SIN STOCK POR AHORA</div>`;
             
             prds.forEach(p => {
                 const card = document.createElement('div'); card.className = 'card-producto';
@@ -335,12 +353,12 @@
                     <div class="card-img-wrap">
                         <img src="${p.img || defaultLogo}">
                         <div class="badge-renovable">${p.renovable || 'Renovable'}</div>
-                        <div class="badge-stock"><i class="fas fa-eye text-black"></i> ${p.stock || 0} Con stock</div>
+                        <div class="badge-stock"><i class="fas fa-eye"></i> ${p.stock || 0} Stock</div>
                     </div>
                     <div class="card-footer px-2">
                         <div class="flex items-center gap-2 mt-4">
-                            <div class="w-10 h-10 rounded-full border border-zinc-800 overflow-hidden bg-zinc-900"><img src="https://files.catbox.moe/nao1lj.jpg" class="w-full h-full object-cover"></div>
-                            <div class="store-name">Gus Store</div><i class="fas fa-check-circle text-blue-500 text-[10px]"></i>
+                            <div class="w-8 h-8 rounded-full border border-zinc-800 overflow-hidden bg-zinc-900"><img src="https://files.catbox.moe/nao1lj.jpg" class="w-full h-full object-cover"></div>
+                            <span class="store-name">Gus Store</span><i class="fas fa-check-circle text-blue-500 text-[9px]"></i>
                         </div>
                         <div class="product-title">⭐ ${p.nombre} ✦</div>
                         <div class="price-pill">👉 s/ ${p.precio}</div>
@@ -361,10 +379,7 @@
         window.closeProductModal = () => document.getElementById('product-modal').style.display = 'none';
 
         // HELPERS
-        window.filterPlatByCat = (c) => {
-            const filtered = window.allPlats.filter(p => p.cat === c);
-            document.getElementById('p-plat-select').innerHTML = filtered.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
-        };
+        window.filterPlatByCat = (c) => { document.getElementById('p-plat-select').innerHTML = window.allPlats.filter(p => p.cat === c).map(p => `<option value="${p.id}">${p.name}</option>`).join(''); };
         window.triggerFile = (id, type) => { upType = type; document.getElementById(id).click(); };
         window.startCropping = (input) => {
             const reader = new FileReader();
