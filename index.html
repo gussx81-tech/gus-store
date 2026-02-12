@@ -19,6 +19,7 @@
         .profile-pic img { width: 100%; height: 100%; object-fit: cover; }
 
         .card-producto { background: #12141c; width: 310px; border-radius: 32px; padding: 16px; border: 1px solid #232635; transition: 0.3s; }
+        .card-producto:hover { transform: translateY(-8px); border-color: #3b82f6; }
         .card-img-wrap { width: 100%; height: 260px; border-radius: 24px; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
         
@@ -32,16 +33,16 @@
         /* ADMIN UI */
         .input-gus { width: 100%; background: #0d0d0d; border: 1px solid #222; padding: 15px; border-radius: 14px; color: white; outline: none; margin-bottom: 12px; }
         .btn-gus { background: #3b82f6; padding: 15px; border-radius: 14px; font-weight: 900; text-transform: uppercase; cursor: pointer; color: white; border: none; width: 100%; }
-        
-        /* BOTONES LISTA */
-        .btn-edit { background: #facc15; color: #000; padding: 6px 12px; border-radius: 10px; font-weight: 800; font-size: 10px; text-transform: uppercase; }
-        .btn-del { background: #ef4444; color: white; padding: 6px 14px; border-radius: 10px; font-weight: 800; font-size: 10px; }
-
+        .btn-edit { background: #facc15; color: #000; padding: 6px 12px; border-radius: 8px; font-weight: 800; font-size: 10px; text-transform: uppercase; }
+        .btn-del { background: #ef4444; color: white; padding: 6px 14px; border-radius: 8px; font-weight: 800; font-size: 10px; }
         .upload-area { background: #0d0d0d; border: 2px dashed #222; padding: 25px; border-radius: 20px; text-align: center; cursor: pointer; margin-bottom: 15px; }
+        
         .cat-pill { background: #111; border: 1px solid #222; padding: 10px 24px; border-radius: 100px; cursor: pointer; color: #777; font-weight: 800; font-size: 11px; text-transform: uppercase; white-space: nowrap; transition: 0.3s; }
         .cat-pill.active { border-color: #3b82f6; color: #3b82f6; background: rgba(59, 130, 246, 0.05); }
         
+        /* RUTAS */
         #admin-panel { display: none; position: fixed; inset: 0; background: #000; z-index: 5000; }
+        #login-screen { display: none; }
         .admin-sec { display: none; }
         .admin-sec.active { display: block; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -60,7 +61,7 @@
         </div>
     </div>
 
-    <div id="login-screen" class="fixed inset-0 bg-black z-[9000] flex items-center justify-center hidden">
+    <div id="login-screen" class="fixed inset-0 bg-black z-[9000] flex items-center justify-center">
         <div class="w-full max-w-sm p-10 bg-[#0d0d0d] border border-zinc-900 text-center rounded-[45px]">
             <h2 class="text-2xl font-black italic uppercase mb-8 text-blue-500">GUS ADMIN</h2>
             <input type="text" id="u-in" placeholder="Usuario" class="input-gus">
@@ -84,14 +85,14 @@
         <div id="grid-productos" class="max-w-7xl mx-auto px-6 flex flex-wrap gap-8 justify-center pb-20"></div>
     </div>
 
-    <div id="admin-panel" class="flex flex-col md:flex-row">
+    <div id="admin-panel" class="flex-col md:flex-row">
         <aside class="w-full md:w-72 bg-[#080808] p-8 border-r border-zinc-900 h-screen overflow-y-auto">
             <div class="font-black italic text-xl text-blue-500 uppercase mb-12 text-center tracking-tighter">Panel Gus Pro</div>
             <nav class="flex flex-col gap-3">
-                <button onclick="switchTab('tab-prod')" class="text-left p-4 rounded-2xl bg-zinc-900 font-bold text-xs uppercase border border-zinc-800">📦 Tarjetas</button>
-                <button onclick="switchTab('tab-cat')" class="text-left p-4 rounded-2xl bg-zinc-900 font-bold text-xs uppercase border border-zinc-800">📂 Categorías</button>
-                <button onclick="switchTab('tab-plat')" class="text-left p-4 rounded-2xl bg-zinc-900 font-bold text-xs uppercase border border-zinc-800">🖼️ Plataformas</button>
-                <button onclick="switchTab('tab-config')" class="text-left p-4 rounded-2xl bg-zinc-900 font-bold text-xs uppercase border border-zinc-800">⚙️ Mi Logo</button>
+                <button onclick="switchTab('tab-prod')" class="text-left p-4 rounded-2xl bg-zinc-900 font-bold text-xs uppercase border border-zinc-800 hover:border-blue-500">📦 Tarjetas</button>
+                <button onclick="switchTab('tab-cat')" class="text-left p-4 rounded-2xl bg-zinc-900 font-bold text-xs uppercase border border-zinc-800 hover:border-blue-500">📂 Categorías</button>
+                <button onclick="switchTab('tab-plat')" class="text-left p-4 rounded-2xl bg-zinc-900 font-bold text-xs uppercase border border-zinc-800 hover:border-blue-500">🖼️ Plataformas</button>
+                <button onclick="switchTab('tab-config')" class="text-left p-4 rounded-2xl bg-zinc-900 font-bold text-xs uppercase border border-zinc-800 hover:border-blue-500">⚙️ Mi Logo</button>
                 <button onclick="logout()" class="text-left p-4 mt-20 text-red-500 font-bold text-xs uppercase">Salir</button>
             </nav>
         </aside>
@@ -102,7 +103,7 @@
                 <div class="max-w-4xl bg-[#0d0d0d] p-8 rounded-[35px] border border-zinc-900 mb-10">
                     <div class="upload-area" onclick="triggerFile('file-prod', 'prod')">
                         <i class="fas fa-camera text-blue-500 text-2xl mb-2"></i>
-                        <p id="p-file-label" class="text-[10px] font-bold uppercase text-zinc-500">Subir Foto de Tarjeta</p>
+                        <p id="p-file-label" class="text-[10px] font-bold uppercase text-zinc-500">Foto Tarjeta</p>
                         <input type="file" id="file-prod" class="hidden" accept="image/*" onchange="startCropping(this, 1)">
                     </div>
                     <div class="grid grid-cols-2 gap-4">
@@ -116,36 +117,35 @@
             </div>
 
             <div id="tab-cat" class="admin-sec">
-                <h2 id="title-cat" class="text-3xl font-black mb-8 uppercase">Categorías</h2>
+                <h2 class="text-3xl font-black mb-8 uppercase">Categorías</h2>
                 <div class="flex gap-2 max-w-md mb-8">
-                    <input type="text" id="new-cat" class="input-gus" placeholder="STREAMING, JUEGOS...">
-                    <button onclick="addCat()" id="btn-save-cat" class="btn-gus w-32 uppercase">Guardar</button>
+                    <input type="text" id="new-cat" class="input-gus" placeholder="Nombre...">
+                    <button onclick="addCat()" id="btn-save-cat" class="btn-gus w-32">Guardar</button>
                 </div>
                 <div id="admin-list-cat" class="space-y-3"></div>
             </div>
 
             <div id="tab-plat" class="admin-sec">
-                <h2 id="title-plat" class="text-3xl font-black mb-8 uppercase">Plataformas</h2>
+                <h2 class="text-3xl font-black mb-8 uppercase text-blue-500">Plataformas</h2>
                 <div class="bg-[#0d0d0d] p-8 rounded-[35px] border border-zinc-900 max-w-md mb-8">
                     <div class="upload-area" onclick="triggerFile('file-plat', 'plat')">
                         <i class="fas fa-upload text-xl mb-2"></i>
-                        <p id="plat-file-label" class="text-[10px] font-bold uppercase">Logo de Plataforma</p>
+                        <p id="plat-file-label" class="text-[10px] font-bold uppercase">Logo</p>
                         <input type="file" id="file-plat" class="hidden" accept="image/*" onchange="startCropping(this, 1)">
                     </div>
-                    <input type="text" id="plat-n" class="input-gus" placeholder="Nombre (Ej: Netflix)">
+                    <input type="text" id="plat-n" class="input-gus" placeholder="Nombre (Netflix)">
                     <button onclick="addPlat()" id="btn-save-plat" class="btn-gus">Guardar</button>
                 </div>
                 <div id="admin-list-plat" class="space-y-3"></div>
             </div>
 
             <div id="tab-config" class="admin-sec">
-                <h2 class="text-3xl font-black mb-8 uppercase text-blue-500">Logo de Mi Tienda</h2>
+                <h2 class="text-3xl font-black mb-8 uppercase text-blue-500">Logo Tienda</h2>
                 <div class="upload-area max-w-sm" onclick="triggerFile('file-logo', 'logo')">
                     <i class="fas fa-user-circle text-4xl mb-4"></i>
-                    <p class="text-[10px] font-bold uppercase">Cambiar Mi Foto</p>
+                    <p class="text-[10px] font-bold uppercase">Cambiar Foto</p>
                     <input type="file" id="file-logo" class="hidden" accept="image/*" onchange="startCropping(this, 1)">
                 </div>
-                <p class="text-zinc-600 text-xs">Esta foto aparecerá en la cabecera y en cada producto.</p>
             </div>
         </main>
     </div>
@@ -175,9 +175,8 @@
         let editIdProd = null, editIdCat = null, editIdPlat = null;
         let currentUploadType = "";
 
-        // --- RECORTADOR WHATSAPP ---
+        // RECORTADOR
         window.triggerFile = (id, type) => { currentUploadType = type; document.getElementById(id).click(); };
-
         window.startCropping = (input, aspect) => {
             const file = input.files[0];
             if(!file) return;
@@ -191,9 +190,7 @@
             };
             reader.readAsDataURL(file);
         };
-
         window.cancelCrop = () => { document.getElementById('cropper-modal').style.display = 'none'; };
-
         window.doneCrop = async () => {
             finalCroppedBase64 = cropper.getCroppedCanvas().toDataURL('image/jpeg', 0.8);
             document.getElementById('cropper-modal').style.display = 'none';
@@ -201,53 +198,48 @@
                 await setDoc(doc(db, "config", "branding"), { logo: finalCroppedBase64 });
                 location.reload();
             } else if (currentUploadType === 'plat') {
-                document.getElementById('plat-file-label').innerText = "✓ LOGO LISTO";
+                document.getElementById('plat-file-label').innerText = "✓ LISTO";
             } else {
-                document.getElementById('p-file-label').innerText = "✓ IMAGEN LISTA";
+                document.getElementById('p-file-label').innerText = "✓ LISTO";
             }
         };
 
-        // --- DATA REALTIME ---
-        onSnapshot(doc(db, "config", "branding"), d => { if(d.exists()) document.getElementById('shop-logo-view').src = d.data().logo; });
+        // RUTAS Y LOGIN
+        window.login = () => {
+            if(document.getElementById('u-in').value === 'adminGus' && document.getElementById('p-in').value === 'GusStore2026') {
+                localStorage.setItem('gus_auth', 'true');
+                window.location.hash = '#admin/panel';
+            } else alert("Error");
+        };
+        window.logout = () => { localStorage.removeItem('gus_auth'); window.location.hash = ''; location.reload(); };
 
+        const checkAuth = () => {
+            const h = window.location.hash;
+            const isAuthed = localStorage.getItem('gus_auth');
+            
+            document.getElementById('login-screen').style.display = (h === '#admin/login') ? 'flex' : 'none';
+            document.getElementById('admin-panel').style.display = (h === '#admin/panel' && isAuthed) ? 'flex' : 'none';
+            document.getElementById('public-view').style.display = (h === '#admin/login' || h === '#admin/panel') ? 'none' : 'block';
+        };
+        window.onhashchange = checkAuth; checkAuth();
+
+        // DATA REALTIME
+        onSnapshot(doc(db, "config", "branding"), d => { if(d.exists()) document.getElementById('shop-logo-view').src = d.data().logo; });
         onSnapshot(colCat, snap => {
             const data = snap.docs.map(d => ({id: d.id, ...d.data()}));
             document.getElementById('p-cat-select').innerHTML = data.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
             document.getElementById('pills-box').innerHTML = data.map(c => `<div class="cat-pill ${c.name===activeCat?'active':''}" onclick="window.setFilter('${c.name}')">${c.name}</div>`).join('');
             if(activeCat === "" && data.length > 0) activeCat = data[0].name;
-            document.getElementById('admin-list-cat').innerHTML = data.map(d => `
-                <div class="flex justify-between items-center bg-zinc-900 p-4 rounded-2xl mb-2">
-                    <span>${d.name}</span>
-                    <div class="flex gap-2">
-                        <button onclick="window.prepEditCat('${d.id}','${d.name}')" class="btn-edit">Editar</button>
-                        <button onclick="window.delDoc('categorias','${d.id}')" class="btn-del">X</button>
-                    </div>
-                </div>`).join('');
+            document.getElementById('admin-list-cat').innerHTML = data.map(d => `<div class="flex justify-between items-center bg-zinc-900 p-4 rounded-2xl mb-2"><span>${d.name}</span><div class="flex gap-2"><button onclick="window.prepEditCat('${d.id}','${d.name}')" class="btn-edit">Editar</button><button onclick="window.delDoc('categorias','${d.id}')" class="btn-del">X</button></div></div>`).join('');
         });
-
         onSnapshot(colPlat, snap => {
             const data = snap.docs.map(d => ({id: d.id, ...d.data()}));
-            document.getElementById('admin-list-plat').innerHTML = data.map(d => `
-                <div class="flex items-center justify-between bg-zinc-900 p-4 rounded-2xl mb-2">
-                    <div class="flex items-center gap-3"><img src="${d.logo}" class="w-8 h-8 object-contain"><span>${d.name}</span></div>
-                    <div class="flex gap-2">
-                        <button onclick="window.prepEditPlat('${d.id}','${d.name}')" class="btn-edit">Editar</button>
-                        <button onclick="window.delDoc('plataformas','${d.id}')" class="btn-del">X</button>
-                    </div>
-                </div>`).join('');
+            document.getElementById('admin-list-plat').innerHTML = data.map(d => `<div class="flex items-center justify-between bg-zinc-900 p-4 rounded-2xl mb-2"><div class="flex items-center gap-3"><img src="${d.logo}" class="w-8 h-8 object-contain"><span>${d.name}</span></div><div class="flex gap-2"><button onclick="window.prepEditPlat('${d.id}','${d.name}')" class="btn-edit">Editar</button><button onclick="window.delDoc('plataformas','${d.id}')" class="btn-del">X</button></div></div>`).join('');
         });
-
         onSnapshot(colProd, snap => {
             const all = snap.docs.map(d => ({id: d.id, ...d.data()}));
             window.allProducts = all; renderGrid(all);
-            document.getElementById('admin-list-prod').innerHTML = all.map(p => `
-                <div class="flex justify-between items-center bg-zinc-900 p-4 rounded-2xl mb-2">
-                    <span>${p.nombre}</span>
-                    <div class="flex gap-2">
-                        <button onclick="window.prepEditProd('${p.id}')" class="btn-edit">Editar</button>
-                        <button onclick="window.delDoc('productos','${p.id}')" class="btn-del">X</button>
-                    </div>
-                </div>`).join('');
+            document.getElementById('admin-list-prod').innerHTML = all.map(p => `<div class="flex justify-between items-center bg-zinc-900 p-4 rounded-2xl mb-2"><span>${p.nombre}</span><div class="flex gap-2"><button onclick="window.prepEditProd('${p.id}')" class="btn-edit">Editar</button><button onclick="window.delDoc('productos','${p.id}')" class="btn-del">X</button></div></div>`).join('');
         });
 
         window.setFilter = (c) => { activeCat = c; renderGrid(window.allProducts); };
@@ -262,13 +254,13 @@
                             <div class="text-[10px] text-zinc-500 font-bold uppercase tracking-tighter">Gus Store</div>
                             <div class="font-black italic text-sm text-white">${p.nombre}</div>
                             <div class="bg-white text-black px-3 py-1 rounded-full font-black text-[10px] mt-2 inline-block">S/ ${p.precio}</div>
-                            <a href="https://wa.me/519288632832?text=Hola Gus! Quiero comprar: ${p.nombre}" target="_blank" class="btn-ws">Comprar por WhatsApp</a>
+                            <a href="https://wa.me/519288632832?text=Hola Gus! Quiero: ${p.nombre}" target="_blank" class="btn-ws">Pedir por WhatsApp</a>
                         </div>
                     </div>
                 </div>`).join('');
         }
 
-        // --- ACCIONES ---
+        // ACCIONES
         window.saveProduct = async () => {
             const data = { nombre: document.getElementById('p-name').value, precio: document.getElementById('p-price').value, cat: document.getElementById('p-cat-select').value };
             if(finalCroppedBase64) data.img = finalCroppedBase64;
@@ -276,15 +268,12 @@
             else await addDoc(colProd, data);
             location.reload(); 
         };
-
         window.addCat = async () => {
             const n = document.getElementById('new-cat').value.toUpperCase();
-            if(!n) return;
             if(editIdCat) await updateDoc(doc(db, "categorias", editIdCat), {name: n});
             else await addDoc(colCat, {name: n});
             location.reload();
         };
-
         window.addPlat = async () => {
             const data = { name: document.getElementById('plat-n').value };
             if(finalCroppedBase64) data.logo = finalCroppedBase64;
@@ -292,18 +281,11 @@
             else await addDoc(colPlat, data);
             location.reload();
         };
-
         window.prepEditProd = (id) => { const p = window.allProducts.find(x => x.id === id); editIdProd = id; document.getElementById('p-name').value = p.nombre; document.getElementById('p-price').value = p.precio; document.getElementById('btn-save-prod').innerText = "Actualizar"; window.scrollTo(0,0); };
         window.prepEditCat = (id, n) => { editIdCat = id; document.getElementById('new-cat').value = n; document.getElementById('btn-save-cat').innerText = "Update"; };
         window.prepEditPlat = (id, n) => { editIdPlat = id; document.getElementById('plat-n').value = n; document.getElementById('btn-save-plat').innerText = "Update"; };
-
         window.delDoc = (c, id) => { if(confirm("¿Eliminar definitivamente?")) deleteDoc(doc(db, c, id)); };
         window.switchTab = (id) => { document.querySelectorAll('.admin-sec').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); };
-        window.login = () => { if(document.getElementById('u-in').value === 'adminGus' && document.getElementById('p-in').value === 'GusStore2026') { localStorage.setItem('gus_auth', 'true'); window.location.hash = '#admin/panel'; } else alert("Error"); };
-        window.logout = () => { localStorage.removeItem('gus_auth'); window.location.hash = ''; location.reload(); };
-
-        const checkAuth = () => { const h = window.location.hash; document.getElementById('login-screen').classList.toggle('hidden', h !== '#admin/login'); document.getElementById('admin-panel').style.display = (h === '#/admin/panel' && localStorage.getItem('gus_auth')) ? 'flex' : 'none'; };
-        window.onhashchange = checkAuth; checkAuth();
     </script>
 </body>
 </html>
