@@ -60,7 +60,7 @@
         .admin-sidebar { width: 100%; padding: 20px; border-bottom: 1px solid #1a1a1a; display: flex; overflow-x: auto; gap: 10px; }
         @media (min-width: 1024px) { 
             #admin-panel { flex-direction: row; }
-            .admin-sidebar { width: 300px; height: 100vh; flex-direction: column; border-bottom: none; border-right: 1px solid #1a1a1a; overflow-x: hidden; }
+            .admin-sidebar { width: 300px; height: 100vh; flex-direction: column; border-bottom: none; border-right: 1px solid #1a1a1a; }
         }
         .admin-sec { display: none; width: 100%; }
         .admin-sec.active { display: block; }
@@ -200,7 +200,7 @@
 
         let activeCat = "", activePlatId = "", cropper, finalBase64 = "", upType = "";
         let editIdProd = null, editIdPlat = null, editIdCat = null;
-        const defaultLogo = "https://files.catbox.moe/nao1lj.jpg";
+        const defaultLogo = "https://placehold.co/400x400/111/555?text=%2B";
         window.allPlats = [], window.allProds = [], window.allCats = [];
 
         window.switchTab = (id) => {
@@ -210,47 +210,35 @@
             document.getElementById('btn-save-prod').innerText = "Publicar";
             document.getElementById('btn-save-plat').innerText = "Guardar";
             document.getElementById('btn-save-cat').innerText = "Añadir";
-            document.getElementById('p-label-box').innerHTML = `<p class="text-zinc-500 text-[10px] font-black">Subir Imagen Producto</p>`;
+            document.getElementById('p-label-box').innerHTML = `<p class="text-zinc-500 text-[10px] font-black uppercase">Subir Imagen Producto</p>`;
         };
 
         window.removeItem = async (c, id) => { if(confirm("¿Borrar definitivamente?")) await deleteDoc(doc(db, c, id)); };
         window.login = () => { if(document.getElementById('user-in').value === 'adminGus' && document.getElementById('pass-in').value === 'GusStore2026') { localStorage.setItem('gus_auth', 'true'); window.location.hash = '#admin/panel'; } else alert("Error"); };
         window.logout = () => { localStorage.removeItem('gus_auth'); window.location.hash = ''; location.reload(); };
 
-        // --- SNAPSHOTS ---
+        // --- SNAPSHOTS (TIEMPO REAL) ---
         onSnapshot(colCat, snap => {
             window.allCats = snap.docs.map(d => ({id: d.id, ...d.data()}));
             document.getElementById('pills-box').innerHTML = window.allCats.map(c => `<div class="cat-pill ${c.name===activeCat?'active':''}" onclick="window.setCat('${c.name}')">${c.name}</div>`).join('');
             const opts = '<option value="">Categoría...</option>' + window.allCats.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
             document.getElementById('p-cat-select').innerHTML = opts;
             document.getElementById('plat-cat-select').innerHTML = opts;
-            document.getElementById('admin-list-cat').innerHTML = window.allCats.map(c => `
-                <div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2">
-                    <span>${c.name}</span>
-                    <div class="flex gap-4"><button onclick="prepareEditCat('${c.id}')" class="text-blue-500"><i class="fas fa-edit"></i></button><button onclick="removeItem('categorias','${c.id}')" class="text-red-500"><i class="fas fa-trash"></i></button></div>
-                </div>`).join('');
+            document.getElementById('admin-list-cat').innerHTML = window.allCats.map(c => `<div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2"><span>${c.name}</span><div class="flex gap-4"><button onclick="prepareEditCat('${c.id}')" class="text-blue-500"><i class="fas fa-edit"></i></button><button onclick="removeItem('categorias','${c.id}')" class="text-red-500"><i class="fas fa-trash"></i></button></div></div>`).join('');
             if(!activeCat && window.allCats.length > 0) window.setCat(window.allCats[0].name);
         });
 
         onSnapshot(colPlat, snap => { 
             window.allPlats = snap.docs.map(d => ({id: d.id, ...d.data()})); renderPlats();
-            document.getElementById('admin-list-plat').innerHTML = window.allPlats.map(p => `
-                <div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2">
-                    <span>${p.name} (${p.cat})</span>
-                    <div class="flex gap-4"><button onclick="prepareEditPlat('${p.id}')" class="text-blue-500"><i class="fas fa-edit"></i></button><button onclick="removeItem('plataformas','${p.id}')" class="text-red-500"><i class="fas fa-trash"></i></button></div>
-                </div>`).join('');
+            document.getElementById('admin-list-plat').innerHTML = window.allPlats.map(p => `<div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2"><span>${p.name} (${p.cat})</span><div class="flex gap-4"><button onclick="prepareEditPlat('${p.id}')" class="text-blue-500"><i class="fas fa-edit"></i></button><button onclick="removeItem('plataformas','${p.id}')" class="text-red-500"><i class="fas fa-trash"></i></button></div></div>`).join('');
         });
 
         onSnapshot(colProd, snap => { 
             window.allProds = snap.docs.map(d => ({id: d.id, ...d.data()})); renderGrid();
-            document.getElementById('admin-list-prod').innerHTML = window.allProds.map(p => `
-                <div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2">
-                    <span>${p.nombre}</span>
-                    <div class="flex gap-4"><button onclick="prepareEditProd('${p.id}')" class="text-blue-500"><i class="fas fa-edit"></i></button><button onclick="removeItem('productos','${p.id}')" class="text-red-500"><i class="fas fa-trash"></i></button></div>
-                </div>`).join('');
+            document.getElementById('admin-list-prod').innerHTML = window.allProds.map(p => `<div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2"><span>${p.nombre}</span><div class="flex gap-4"><button onclick="prepareEditProd('${p.id}')" class="text-blue-500"><i class="fas fa-edit"></i></button><button onclick="removeItem('productos','${p.id}')" class="text-red-500"><i class="fas fa-trash"></i></button></div></div>`).join('');
         });
 
-        // --- ACCIONES ---
+        // --- ACCIONES ADMIN ---
         window.addCat = async () => {
             const v = document.getElementById('new-cat').value.toUpperCase();
             if(editIdCat) await updateDoc(doc(db, 'categorias', editIdCat), { name: v });
@@ -274,12 +262,7 @@
         };
 
         window.saveProduct = async () => {
-            const dta = { 
-                nombre: document.getElementById('p-name').value, precio: document.getElementById('p-price').value, 
-                stock: document.getElementById('p-stock').value, renovable: document.getElementById('p-badge').value, 
-                desc: document.getElementById('p-desc-admin').value, cat: document.getElementById('p-cat-select').value, 
-                platId: document.getElementById('p-plat-select').value 
-            };
+            const dta = { nombre: document.getElementById('p-name').value, precio: document.getElementById('p-price').value, stock: document.getElementById('p-stock').value, renovable: document.getElementById('p-badge').value, desc: document.getElementById('p-desc-admin').value, cat: document.getElementById('p-cat-select').value, platId: document.getElementById('p-plat-select').value };
             if(finalBase64) dta.img = finalBase64;
             if(editIdProd) await updateDoc(doc(db, 'productos', editIdProd), dta);
             else { dta.img = dta.img || defaultLogo; await addDoc(colProd, dta); }
@@ -296,7 +279,7 @@
             document.getElementById('btn-save-prod').innerText = "Actualizar Cambios";
         };
 
-        // --- RECORTADOR FIX ---
+        // --- SISTEMA DE IMAGEN INSTANTANEO ---
         window.triggerFile = (id, type) => { upType = type; document.getElementById(id).click(); };
         window.startCropping = (input) => {
             const reader = new FileReader();
@@ -317,7 +300,7 @@
         };
         window.cancelCrop = () => document.getElementById('cropper-modal').style.display='none';
 
-        // --- TIENDA ---
+        // --- TIENDA PÚBLICA ---
         window.setCat = (c) => { activeCat = c; activePlatId = ""; renderPlats(); renderGrid(); };
         window.setPlat = (id) => { activePlatId = id; renderPlats(); renderGrid(); };
         function renderPlats() {
@@ -345,7 +328,7 @@
         };
         window.closeProductModal = () => document.getElementById('product-modal').style.display = 'none';
 
-        // --- OTROS ---
+        // --- ANUNCIOS Y OTROS ---
         onSnapshot(colAds, snap => {
             const ads = snap.docs.map(d => d.data());
             if (ads.length > 0 && !window.location.hash.includes('admin')) {
