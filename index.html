@@ -48,6 +48,13 @@
 </head>
 <body>
 
+    <div id="ads-modal" class="modal-blur">
+        <div class="relative max-w-[400px] w-full">
+            <div class="absolute -top-4 -right-4 bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center cursor-pointer border-4 border-black z-50" onclick="closeAds()"><i class="fas fa-times"></i></div>
+            <img id="ads-img-view" src="" class="w-full rounded-[40px] border-2 border-zinc-700 shadow-2xl">
+        </div>
+    </div>
+
     <div id="product-modal" class="modal-blur" onclick="closeProductModal()">
         <div class="bg-[#0d0d0d] w-full max-w-lg rounded-[45px] p-8 border border-zinc-800 text-center relative" onclick="event.stopPropagation()">
             <button onclick="closeProductModal()" class="absolute top-6 right-6 text-zinc-500"><i class="fas fa-times text-xl"></i></button>
@@ -55,7 +62,7 @@
             <h2 id="m-title" class="text-2xl font-black italic uppercase mb-2"></h2>
             <div id="m-price" class="text-blue-500 font-black text-3xl mb-4"></div>
             <div id="m-desc" class="text-zinc-500 text-base mb-6 text-left bg-zinc-900/40 p-5 rounded-2xl border border-zinc-800 max-h-40 overflow-y-auto"></div>
-            <a id="m-ws-link" href="" target="_blank" class="bg-[#25d366] text-white p-4 rounded-2xl font-black uppercase text-lg block">Pedir por WhatsApp</a>
+            <a id="m-ws-link" href="" target="_blank" class="bg-[#25d366] text-white p-4 rounded-2xl font-black uppercase text-lg block shadow-lg">Pedir por WhatsApp</a>
         </div>
     </div>
 
@@ -64,7 +71,7 @@
             <h2 class="text-2xl font-black text-blue-500 mb-6 italic uppercase">GUS ADMIN</h2>
             <input type="text" id="user-in" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-4 text-white" placeholder="Usuario">
             <input type="password" id="pass-in" class="w-full p-4 bg-black rounded-xl border border-zinc-800 mb-6 text-white" placeholder="Contraseña">
-            <button onclick="login()" class="w-full bg-blue-600 p-4 rounded-xl font-black uppercase text-white">Ingresar</button>
+            <button onclick="login()" class="w-full bg-blue-600 p-4 rounded-xl font-black uppercase text-white shadow-lg">Ingresar</button>
         </div>
     </div>
 
@@ -87,66 +94,79 @@
             <button onclick="switchTab('tab-prod')" class="p-4 bg-zinc-900 rounded-xl font-bold uppercase text-[10px]">📦 Tarjetas</button>
             <button onclick="switchTab('tab-plat')" class="p-4 bg-zinc-900 rounded-xl font-bold uppercase text-[10px]">🖼️ Plataformas</button>
             <button onclick="switchTab('tab-cat')" class="p-4 bg-zinc-900 rounded-xl font-bold uppercase text-[10px]">📂 Categorías</button>
+            <button onclick="switchTab('tab-ads')" class="p-4 bg-zinc-900 rounded-xl font-bold uppercase text-[10px]">📢 Anuncio</button>
             <button onclick="logout()" class="p-4 text-red-500 font-bold uppercase text-[10px]">Salir</button>
         </div>
-        <main class="flex-1 p-6 overflow-y-auto">
+        <main class="flex-1 p-6 overflow-y-auto bg-[#050505]">
             <div id="tab-prod" class="admin-sec active">
                 <div class="bg-[#0d0d0d] p-6 rounded-[40px] border border-zinc-800 max-w-xl">
-                    <h2 class="text-blue-500 font-black italic mb-6">NUEVA TARJETA</h2>
-                    <div id="p-upload-box" class="bg-zinc-900 h-40 rounded-2xl border-2 border-dashed border-zinc-800 flex items-center justify-center cursor-pointer mb-4 overflow-hidden" onclick="triggerFile('f-prod','prod')">
-                        <span id="txt-prod" class="text-zinc-500 font-bold text-xs uppercase">Toca para subir foto</span>
+                    <h2 id="form-t-prod" class="text-blue-500 font-black italic mb-6 uppercase">Gestionar Producto</h2>
+                    <div id="p-box" class="bg-zinc-900 h-44 rounded-2xl border-2 border-dashed border-zinc-800 flex items-center justify-center cursor-pointer mb-4 overflow-hidden" onclick="triggerFile('f-prod','prod')">
+                        <span id="txt-prod" class="text-zinc-500 font-bold text-xs">SUBIR IMAGEN</span>
                     </div>
                     <input type="file" id="f-prod" class="hidden" accept="image/*" onchange="startCropping(this)">
                     <input type="text" id="p-name" class="w-full p-3 bg-black rounded-xl border border-zinc-800 mb-2 text-white" placeholder="Nombre">
                     <input type="number" id="p-price" class="w-full p-3 bg-black rounded-xl border border-zinc-800 mb-2 text-white" placeholder="Precio S/">
                     <input type="number" id="p-stock" class="w-full p-3 bg-black rounded-xl border border-zinc-800 mb-2 text-white" placeholder="Stock">
-                    <textarea id="p-desc" class="w-full p-3 bg-black rounded-xl border border-zinc-800 mb-4 text-white" placeholder="Descripción..."></textarea>
+                    <textarea id="p-desc" class="w-full p-3 bg-black rounded-xl border border-zinc-800 mb-4 text-white h-24" placeholder="Descripción..."></textarea>
                     <select id="p-cat-sel" class="w-full p-3 bg-zinc-900 rounded-xl mb-2 text-white" onchange="filterPlatByCat(this.value)"></select>
                     <select id="p-plat-sel" class="w-full p-3 bg-zinc-900 rounded-xl mb-4 text-white"></select>
-                    <button onclick="saveProduct()" class="w-full bg-blue-600 p-4 rounded-xl font-black uppercase">Publicar</button>
+                    <button id="btn-p" onclick="saveProduct()" class="w-full bg-blue-600 p-4 rounded-xl font-black uppercase shadow-lg">Publicar</button>
                 </div>
                 <div id="admin-list-prod" class="mt-8 grid gap-2"></div>
             </div>
 
             <div id="tab-plat" class="admin-sec">
                 <div class="bg-[#0d0d0d] p-6 rounded-[30px] border border-zinc-800 max-w-lg">
-                    <h2 class="text-blue-500 font-black italic mb-4">PLATAFORMA</h2>
-                    <div id="pl-upload-box" class="bg-zinc-900 h-24 rounded-xl border-2 border-dashed border-zinc-800 flex items-center justify-center cursor-pointer mb-4 overflow-hidden" onclick="triggerFile('f-plat','plat')">
+                    <h2 id="form-t-plat" class="text-blue-500 font-black italic mb-4 uppercase">Plataforma</h2>
+                    <div id="pl-box" class="bg-zinc-900 h-28 rounded-xl border-2 border-dashed border-zinc-800 flex items-center justify-center cursor-pointer mb-4 overflow-hidden" onclick="triggerFile('f-plat','plat')">
                         <span id="txt-plat" class="text-zinc-500 font-bold text-xs uppercase">Logo</span>
                     </div>
                     <input type="file" id="f-plat" class="hidden" accept="image/*" onchange="startCropping(this)">
-                    <input type="text" id="pl-name" class="w-full p-3 bg-black rounded-xl border border-zinc-800 mb-2 text-white" placeholder="Nombre">
+                    <input type="text" id="pl-name" class="w-full p-3 bg-black rounded-xl border border-zinc-800 mb-2 text-white" placeholder="Nombre de Marca">
                     <select id="pl-cat-sel" class="w-full p-3 bg-zinc-900 rounded-xl mb-4 text-white"></select>
-                    <button onclick="addPlat()" class="w-full bg-blue-600 p-4 rounded-xl font-black uppercase">Guardar</button>
+                    <button id="btn-pl" onclick="addPlat()" class="w-full bg-blue-600 p-4 rounded-xl font-black uppercase shadow-lg">Guardar</button>
                 </div>
                 <div id="admin-list-plat" class="mt-8 grid gap-2"></div>
             </div>
 
             <div id="tab-cat" class="admin-sec">
                 <div class="bg-[#0d0d0d] p-6 rounded-[30px] border border-zinc-800 max-w-lg">
-                    <h2 class="text-blue-500 font-black italic mb-4">CATEGORÍAS</h2>
-                    <input type="text" id="c-name" class="w-full p-3 bg-black rounded-xl border border-zinc-800 mb-4 text-white" placeholder="Nombre CATEGORIA">
-                    <button onclick="addCat()" class="w-full bg-blue-600 p-4 rounded-xl font-black uppercase">Añadir</button>
+                    <h2 id="form-t-cat" class="text-blue-500 font-black italic mb-4 uppercase">Categorías</h2>
+                    <input type="text" id="c-name" class="w-full p-3 bg-black rounded-xl border border-zinc-800 mb-4 text-white" placeholder="NOMBRE CATEGORIA">
+                    <button id="btn-c" onclick="addCat()" class="w-full bg-blue-600 p-4 rounded-xl font-black uppercase shadow-lg">Añadir</button>
                 </div>
                 <div id="admin-list-cat" class="mt-8 grid gap-2"></div>
+            </div>
+
+            <div id="tab-ads" class="admin-sec">
+                <div class="bg-[#0d0d0d] p-6 rounded-[30px] border border-zinc-800 max-w-lg text-center">
+                    <h2 class="text-blue-500 font-black italic mb-6 uppercase">Anuncio Principal</h2>
+                    <div id="ad-box" class="bg-zinc-900 h-64 rounded-2xl border-2 border-dashed border-zinc-800 flex items-center justify-center cursor-pointer mb-4 overflow-hidden" onclick="triggerFile('f-ad','ads')">
+                        <span class="text-zinc-500 font-bold text-xs">SUBIR IMAGEN DEL ANUNCIO</span>
+                    </div>
+                    <input type="file" id="f-ad" class="hidden" accept="image/*" onchange="startCropping(this)">
+                    <button onclick="saveAd()" class="w-full bg-blue-600 p-4 rounded-xl font-black uppercase mb-3 shadow-lg">Publicar Anuncio</button>
+                    <button onclick="deleteAd()" class="w-full bg-red-600 p-4 rounded-xl font-black uppercase shadow-lg text-sm">Eliminar Anuncio Actual</button>
+                </div>
             </div>
         </main>
     </div>
 
     <div id="cropper-modal" class="modal-blur">
         <div class="bg-zinc-900 rounded-[40px] p-6 w-full max-w-md text-center">
-            <h3 class="font-black italic text-blue-500 mb-4 uppercase">Recorta tu Imagen</h3>
+            <h3 class="font-black italic text-blue-500 mb-4 uppercase">Cuadrar Imagen</h3>
             <div class="h-64 bg-black rounded-2xl overflow-hidden mb-6"><img id="img-to-crop" style="max-width: 100%; display: block;"></div>
             <div class="flex gap-3">
                 <button onclick="cancelCrop()" class="flex-1 p-4 bg-zinc-800 rounded-2xl font-black uppercase text-sm">Salir</button>
-                <button onclick="doneCrop()" class="flex-1 p-4 bg-blue-600 rounded-2xl font-black uppercase text-sm">Listo</button>
+                <button onclick="doneCrop()" class="flex-1 p-4 bg-blue-600 rounded-2xl font-black uppercase text-sm shadow-lg shadow-blue-900/30">Listo</button>
             </div>
         </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBJjWRAi_GUdDOiBeRvtNLUJUUpEG7CSFU",
@@ -159,35 +179,25 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const colProd = collection(db, "productos"), colCat = collection(db, "categorias"), colPlat = collection(db, "plataformas");
+        const colProd = collection(db, "productos"), colCat = collection(db, "categorias"), colPlat = collection(db, "plataformas"), colAds = collection(db, "anuncios");
 
         let activeCat = "", activePlatId = "", cropper = null, finalBase64 = "", upType = "";
+        let editIdP = null, editIdPl = null, editIdC = null;
         const defaultLogo = "https://files.catbox.moe/nao1lj.jpg";
         window.allPlats = [], window.allProds = [], window.allCats = [];
 
-        // --- FUNCIONES DE IMAGEN (ERROR FIX) ---
+        // --- SISTEMA DE IMAGEN (RECORTE INSTANTANEO) ---
         window.triggerFile = (id, type) => { upType = type; document.getElementById(id).click(); };
-        
         window.startCropping = (input) => {
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    const modal = document.getElementById('cropper-modal');
-                    const image = document.getElementById('img-to-crop');
-                    
-                    image.src = e.target.result;
-                    modal.style.display = 'flex'; // Abrir modal antes de iniciar Cropper
-
-                    if (cropper) { cropper.destroy(); }
-                    
-                    // Pequeño retraso para asegurar que la imagen cargó en el DOM
+                    document.getElementById('cropper-modal').style.display = 'flex';
+                    const img = document.getElementById('img-to-crop'); img.src = e.target.result;
+                    if(cropper) { cropper.destroy(); }
                     setTimeout(() => {
-                        cropper = new Cropper(image, {
-                            aspectRatio: 1,
-                            viewMode: 1,
-                            autoCropArea: 1
-                        });
-                    }, 100);
+                        cropper = new Cropper(img, { aspectRatio: 1, viewMode: 1, autoCropArea: 1 });
+                    }, 150);
                 };
                 reader.readAsDataURL(input.files[0]);
             }
@@ -197,114 +207,115 @@
             if (!cropper) return;
             finalBase64 = cropper.getCroppedCanvas().toDataURL('image/jpeg', 0.8);
             document.getElementById('cropper-modal').style.display = 'none';
-            
-            // Visualización en el formulario
-            if(upType === 'prod') document.getElementById('p-upload-box').innerHTML = `<img src="${finalBase64}" class="w-full h-full object-cover">`;
-            if(upType === 'plat') document.getElementById('pl-upload-box').innerHTML = `<img src="${finalBase64}" class="w-full h-full object-cover">`;
-            
-            alert("¡Imagen cargada con éxito! 🎉"); // Mensaje de éxito solicitado
+            if(upType === 'prod') document.getElementById('p-box').innerHTML = `<img src="${finalBase64}" class="w-full h-full object-cover">`;
+            if(upType === 'plat') document.getElementById('pl-box').innerHTML = `<img src="${finalBase64}" class="w-full h-full object-cover">`;
+            if(upType === 'ads') document.getElementById('ad-box').innerHTML = `<img src="${finalBase64}" class="w-full h-full object-cover">`;
+            alert("¡Imagen cuadrada con éxito! ✅");
         };
-
         window.cancelCrop = () => { document.getElementById('cropper-modal').style.display = 'none'; };
 
-        // --- ADMIN LÓGICA ---
+        // --- ADMIN NAVEGACION ---
         window.switchTab = (id) => {
             document.querySelectorAll('.admin-sec').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
+            editIdP = null; editIdPl = null; editIdC = null;
+            document.getElementById('btn-p').innerText = "Publicar";
+            document.getElementById('btn-pl').innerText = "Guardar";
+            document.getElementById('btn-c').innerText = "Añadir";
         };
 
         window.login = () => {
             if(document.getElementById('user-in').value === 'adminGus' && document.getElementById('pass-in').value === 'GusStore2026') {
-                localStorage.setItem('gus_auth', 'true');
-                window.location.hash = '#admin/panel';
+                localStorage.setItem('gus_auth', 'true'); window.location.hash = '#admin/panel';
             } else { alert("Datos incorrectos"); }
         };
-
         window.logout = () => { localStorage.removeItem('gus_auth'); location.reload(); };
 
         // --- FIREBASE SYNC ---
         onSnapshot(colCat, snap => {
             window.allCats = snap.docs.map(d => ({id: d.id, ...d.data()}));
             document.getElementById('pills-box').innerHTML = window.allCats.map(c => `<div class="cat-pill ${c.name===activeCat?'active':''}" onclick="window.setCat('${c.name}')">${c.name}</div>`).join('');
-            const opts = window.allCats.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+            const opts = '<option value="">Categoría...</option>' + window.allCats.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
             document.getElementById('p-cat-sel').innerHTML = opts;
             document.getElementById('pl-cat-sel').innerHTML = opts;
-            document.getElementById('admin-list-cat').innerHTML = window.allCats.map(c => `<div class="bg-zinc-900 p-3 rounded-xl flex justify-between"><span>${c.name}</span><button onclick="removeItem('categorias','${c.id}')" class="text-red-500">X</button></div>`).join('');
+            document.getElementById('admin-list-cat').innerHTML = window.allCats.map(c => `<div class="bg-zinc-900 p-4 rounded-xl flex justify-between"><span>${c.name}</span><div class="flex gap-4"><button onclick="prepareEditCat('${c.id}')" class="text-blue-500"><i class="fas fa-edit"></i></button><button onclick="removeItem('categorias','${c.id}')" class="text-red-500"><i class="fas fa-trash"></i></button></div></div>`).join('');
             if(!activeCat && window.allCats.length > 0) window.setCat(window.allCats[0].name);
         });
 
         onSnapshot(colPlat, snap => {
-            window.allPlats = snap.docs.map(d => ({id: d.id, ...d.data()}));
-            renderPlats();
-            document.getElementById('admin-list-plat').innerHTML = window.allPlats.map(p => `<div class="bg-zinc-900 p-3 rounded-xl flex justify-between"><span>${p.name}</span><button onclick="removeItem('plataformas','${p.id}')" class="text-red-500">X</button></div>`).join('');
+            window.allPlats = snap.docs.map(d => ({id: d.id, ...d.data()})); renderPlats();
+            document.getElementById('admin-list-plat').innerHTML = window.allPlats.map(p => `<div class="bg-zinc-900 p-4 rounded-xl flex justify-between"><span>${p.name}</span><div class="flex gap-4"><button onclick="prepareEditPlat('${p.id}')" class="text-blue-500"><i class="fas fa-edit"></i></button><button onclick="removeItem('plataformas','${p.id}')" class="text-red-500"><i class="fas fa-trash"></i></button></div></div>`).join('');
         });
 
         onSnapshot(colProd, snap => {
-            window.allProds = snap.docs.map(d => ({id: d.id, ...d.data()}));
-            renderGrid();
-            document.getElementById('admin-list-prod').innerHTML = window.allProds.map(p => `<div class="bg-zinc-900 p-3 rounded-xl flex justify-between"><span>${p.nombre}</span><button onclick="removeItem('productos','${p.id}')" class="text-red-500">X</button></div>`).join('');
+            window.allProds = snap.docs.map(d => ({id: d.id, ...d.data()})); renderGrid();
+            document.getElementById('admin-list-prod').innerHTML = window.allProds.map(p => `<div class="bg-zinc-900 p-4 rounded-xl flex justify-between text-xs"><span>${p.nombre}</span><div class="flex gap-4"><button onclick="prepareEditProd('${p.id}')" class="text-blue-500"><i class="fas fa-edit"></i></button><button onclick="removeItem('productos','${p.id}')" class="text-red-500"><i class="fas fa-trash"></i></button></div></div>`).join('');
         });
 
-        window.removeItem = async (c, id) => { if(confirm("¿Seguro de borrar?")) await deleteDoc(doc(db, c, id)); };
+        onSnapshot(colAds, snap => {
+            const ads = snap.docs.map(d => d.data());
+            if (ads.length > 0 && !window.location.hash.includes('admin')) {
+                document.getElementById('ads-img-view').src = ads[0].img; document.getElementById('ads-modal').style.display = 'flex';
+            }
+        });
 
-        window.addCat = async () => { await addDoc(colCat, { name: document.getElementById('c-name').value.toUpperCase() }); document.getElementById('c-name').value = ""; };
-        window.addPlat = async () => { await addDoc(colPlat, { name: document.getElementById('pl-name').value, cat: document.getElementById('pl-cat-sel').value, logo: finalBase64 || defaultLogo }); location.reload(); };
-        window.saveProduct = async () => { 
-            await addDoc(colProd, { 
-                nombre: document.getElementById('p-name').value, precio: document.getElementById('p-price').value, 
-                stock: document.getElementById('p-stock').value, desc: document.getElementById('p-desc').value,
-                cat: document.getElementById('p-cat-sel').value, platId: document.getElementById('p-plat-sel').value,
-                img: finalBase64 || defaultLogo 
-            }); 
-            location.reload(); 
+        // --- FUNCIONES DE EDICION (LAPIZ) ---
+        window.prepareEditCat = (id) => { const c = window.allCats.find(x => x.id === id); editIdC = id; document.getElementById('c-name').value = c.name; document.getElementById('btn-c').innerText = "Actualizar"; };
+        window.prepareEditPlat = (id) => { const p = window.allPlats.find(x => x.id === id); editIdPl = id; document.getElementById('pl-name').value = p.name; document.getElementById('pl-cat-sel').value = p.cat; if(p.logo) document.getElementById('pl-box').innerHTML = `<img src="${p.logo}" class="w-full h-full object-cover">`; document.getElementById('btn-pl').innerText = "Actualizar"; };
+        window.prepareEditProd = (id) => {
+            const p = window.allProds.find(x => x.id === id); editIdP = id;
+            document.getElementById('p-name').value = p.nombre; document.getElementById('p-price').value = p.precio;
+            document.getElementById('p-stock').value = p.stock; document.getElementById('p-desc').value = p.desc || "";
+            document.getElementById('p-cat-sel').value = p.cat; window.filterPlatByCat(p.cat);
+            setTimeout(() => { document.getElementById('p-plat-sel').value = p.platId; }, 100);
+            if(p.img) document.getElementById('p-box').innerHTML = `<img src="${p.img}" class="w-full h-full object-cover">`;
+            document.getElementById('btn-p').innerText = "Guardar Cambios";
         };
 
-        // --- RENDER ---
+        // --- GUARDADO ---
+        window.addCat = async () => { if(editIdC) await updateDoc(doc(db,'categorias',editIdC), { name: document.getElementById('c-name').value.toUpperCase() }); else await addDoc(colCat, { name: document.getElementById('c-name').value.toUpperCase() }); location.reload(); };
+        window.addPlat = async () => { const d = { name: document.getElementById('pl-name').value, cat: document.getElementById('pl-cat-sel').value }; if(finalBase64) d.logo = finalBase64; if(editIdPl) await updateDoc(doc(db,'plataformas',editIdPl), d); else await addDoc(colPlat, d); location.reload(); };
+        window.saveProduct = async () => {
+            const d = { nombre: document.getElementById('p-name').value, precio: document.getElementById('p-price').value, stock: document.getElementById('p-stock').value, desc: document.getElementById('p-desc').value, cat: document.getElementById('p-cat-sel').value, platId: document.getElementById('p-plat-sel').value };
+            if(finalBase64) d.img = finalBase64; if(editIdP) await updateDoc(doc(db,'productos',editIdP), d); else await addDoc(colProd, d); location.reload();
+        };
+        window.saveAd = async () => { if(!finalBase64) return; await setDoc(doc(db, "anuncios", "actual"), { img: finalBase64 }); location.reload(); };
+        window.deleteAd = async () => { await deleteDoc(doc(db, "anuncios", "actual")); location.reload(); };
+        window.closeAds = () => document.getElementById('ads-modal').style.display = 'none';
+        window.removeItem = async (c, id) => { if(confirm("¿Eliminar definitivamente?")) await deleteDoc(doc(db, c, id)); };
+
+        // --- TIENDA LÓGICA ---
         window.setCat = (c) => { activeCat = c; activePlatId = ""; renderPlats(); renderGrid(); };
         window.setPlat = (id) => { activePlatId = id; renderPlats(); renderGrid(); };
-
         function renderPlats() {
-            const box = document.getElementById('grid-marcas');
-            if (activeCat !== 'STREAMING') { box.innerHTML = ""; return; }
+            const box = document.getElementById('grid-marcas'); if (activeCat !== 'STREAMING') { box.innerHTML = ""; return; }
             box.innerHTML = window.allPlats.filter(p => p.cat === activeCat).map(p => `<div class="marca-item ${p.id===activePlatId?'active':''}" onclick="window.setPlat('${p.id}')"><img src="${p.logo||defaultLogo}"></div>`).join('');
         }
-
         function renderGrid() {
             const grid = document.getElementById('grid-productos'); grid.innerHTML = "";
             let prds = activeCat === 'STREAMING' ? window.allProds.filter(p => p.platId === activePlatId && p.cat === activeCat) : window.allProds.filter(p => p.cat === activeCat);
+            if(prds.length === 0 && activeCat) grid.innerHTML = `<div class="no-stock-full">SIN STOCK DISPONIBLE</div>`;
             prds.forEach(p => {
                 const card = document.createElement('div'); card.className = 'card-producto';
                 card.onclick = () => openModal(p);
-                card.innerHTML = `<div class="card-img-wrap"><img src="${p.img || defaultLogo}"><div class="badge-stock">S/ ${p.precio}</div></div><div class="product-title">${p.nombre}</div><div class="price-pill">VER DETALLES</div>`;
+                card.innerHTML = `<div class="card-img-wrap"><img src="${p.img || defaultLogo}"><div class="badge-stock">S/ ${p.precio}</div></div><div class="product-title">${p.nombre}</div><div class="price-pill">VER MÁS</div>`;
                 grid.appendChild(card);
             });
         }
-
         window.openModal = (p) => {
-            document.getElementById('m-img').src = p.img || defaultLogo;
-            document.getElementById('m-title').innerText = p.nombre;
-            document.getElementById('m-price').innerText = "S/ " + p.precio;
-            document.getElementById('m-desc').innerText = p.desc || "...";
+            document.getElementById('m-img').src = p.img || defaultLogo; document.getElementById('m-title').innerText = p.nombre;
+            document.getElementById('m-price').innerText = "S/ " + p.precio; document.getElementById('m-desc').innerText = p.desc || "...";
             const msg = encodeURIComponent(`Hola Gus, quiero comprar ${p.nombre}.`);
             document.getElementById('m-ws-link').href = `https://wa.me/519288632832?text=${msg}`;
             document.getElementById('product-modal').style.display = 'flex';
         };
         window.closeProductModal = () => document.getElementById('product-modal').style.display = 'none';
-
-        window.filterPlatByCat = (c) => { 
-            const filtered = window.allPlats.filter(p => p.cat === c);
-            document.getElementById('p-plat-sel').innerHTML = filtered.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
-        };
-
-        window.searchFilter = () => {
-            const v = document.getElementById('gus-search').value.toLowerCase();
-            document.querySelectorAll('.card-producto').forEach(c => c.style.display = c.innerText.toLowerCase().includes(v) ? 'block' : 'none');
-        };
-
+        window.filterPlatByCat = (c) => { document.getElementById('p-plat-sel').innerHTML = window.allPlats.filter(p => p.cat === c).map(p => `<option value="${p.id}">${p.name}</option>`).join(''); };
+        window.searchFilter = () => { const v = document.getElementById('gus-search').value.toLowerCase(); document.querySelectorAll('.card-producto').forEach(c => c.style.display = c.innerText.toLowerCase().includes(v) ? 'block' : 'none'); };
         const checkAuth = () => {
-            const h = window.location.hash;
-            document.getElementById('login-screen').style.display = (h === '#admin/login') ? 'flex' : 'none';
+            const h = window.location.hash; document.getElementById('login-screen').style.display = (h === '#admin/login') ? 'flex' : 'none';
             document.getElementById('admin-panel').style.display = (h === '#admin/panel' && localStorage.getItem('gus_auth')) ? 'flex' : 'none';
+            document.getElementById('public-view').style.display = (h === '#admin/login' || h === '#admin/panel') ? 'none' : 'block';
         };
         window.onhashchange = checkAuth; checkAuth();
     </script>
