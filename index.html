@@ -13,23 +13,35 @@
     <style>
         body { background: #050505; color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
         .hero-gradient { background: linear-gradient(to right, #3b82f6, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        /* HEADER */
         .main-header { padding: 20px 5%; display: flex; align-items: center; justify-content: flex-start; gap: 12px; }
         .profile-pic { width: 60px; height: 60px; border-radius: 50%; border: 2px solid #3b82f6; overflow: hidden; background: #111; flex-shrink: 0; }
         @media (min-width: 768px) { .profile-pic { width: 80px; height: 80px; border-width: 3px; } }
         .profile-pic img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* GIGA-TITULO */
         .hero-section { text-align: center; padding: 10px 5% 40px; }
         .hero-title { font-size: 13vw; line-height: 0.85; font-weight: 900; font-style: italic; text-transform: uppercase; margin-bottom: 30px; letter-spacing: -2px; }
         @media (min-width: 768px) { .hero-title { font-size: 9rem; letter-spacing: -5px; } }
+
+        /* BUSCADOR */
         .search-gus { background: #0d0d0d; border: 2px solid #1a1a1a; border-radius: 20px; padding: 18px; width: 100%; max-width: 800px; color: white; outline: none; font-weight: 800; font-size: 16px; text-align: center; display: block; margin: 0 auto 30px; transition: 0.3s; }
+
+        /* CATEGORIAS */
         #pills-box { display: flex; gap: 10px; overflow-x: auto; padding: 5px 5%; scrollbar-width: none; -ms-overflow-style: none; justify-content: flex-start; }
         #pills-box::-webkit-scrollbar { display: none; }
         @media (min-width: 768px) { #pills-box { justify-content: center; } }
         .cat-pill { background: #111; border: 2px solid #222; padding: 12px 25px; border-radius: 100px; cursor: pointer; color: #555; font-weight: 900; font-size: 14px; text-transform: uppercase; white-space: nowrap; transition: 0.3s; }
         .cat-pill.active { border-color: #3b82f6; color: white; background: #3b82f6; }
+
+        /* PLATAFORMAS */
         #grid-marcas { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; padding: 20px 5% 40px; }
         .marca-item { background: #0d0e14; width: 85px; height: 85px; border-radius: 20px; border: 1px solid #1a1b26; cursor: pointer; transition: 0.3s; overflow: hidden; flex-shrink: 0; }
         .marca-item.active { border-color: #3b82f6; transform: scale(1.05); }
         .marca-item img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* PRODUCTOS */
         #grid-productos { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 0 5% 60px; max-width: 1400px; margin: 0 auto; justify-items: center; }
         .card-producto { background: #0d0e14; width: 100%; max-width: 320px; border-radius: 40px; padding: 12px; border: 1px solid #1a1b26; cursor: pointer; position: relative; transition: 0.3s; }
         .card-img-wrap { width: 100%; aspect-ratio: 1/1; border-radius: 30px; background: #000; overflow: hidden; position: relative; }
@@ -38,11 +50,18 @@
         .badge-stock { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); background: #f2f2f2; color: black; padding: 6px 18px; border-radius: 20px; font-weight: 900; font-size: 12px; width: max-content; }
         .product-title { font-weight: 900; font-size: 20px; color: white; margin: 10px 0; text-transform: uppercase; font-style: italic; }
         .price-pill { background: white; color: black; padding: 8px 22px; border-radius: 30px; font-weight: 900; font-size: 17px; }
+
+        /* MODALES */
         .modal-blur { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 10000; align-items: center; justify-content: center; padding: 20px; }
         .ads-img { width: 100%; border-radius: 40px; border: 2px solid #333; }
-        #admin-panel { display: none; position: fixed; inset: 0; background: #000; z-index: 15000; }
+
+        /* ADMIN PANEL */
+        #admin-panel { display: none; position: fixed; inset: 0; background: #000; z-index: 15000; flex-direction: column; }
         .admin-sidebar { width: 100%; padding: 20px; border-bottom: 1px solid #1a1a1a; display: flex; overflow-x: auto; gap: 10px; }
-        @media (min-width: 1024px) { #admin-panel { flex-direction: row; } .admin-sidebar { width: 300px; height: 100vh; flex-direction: column; border-bottom: none; border-right: 1px solid #1a1a1a; } }
+        @media (min-width: 1024px) { 
+            #admin-panel { flex-direction: row; }
+            .admin-sidebar { width: 300px; height: 100vh; flex-direction: column; border-bottom: none; border-right: 1px solid #1a1a1a; overflow-x: hidden; }
+        }
         .admin-sec { display: none; width: 100%; }
         .admin-sec.active { display: block; }
         .no-stock-full { grid-column: 1 / -1; width: 100%; text-align: center; padding: 60px 20px; color: #555; font-weight: 900; font-size: 18px; border: 2px dashed #1a1a1a; border-radius: 30px; }
@@ -103,7 +122,9 @@
              <div id="tab-prod" class="admin-sec active">
                 <div class="bg-[#0d0d0d] p-6 rounded-[40px] border border-zinc-800 max-w-2xl mb-10">
                     <h2 id="form-title-prod" class="text-xl font-black mb-6 uppercase text-blue-500">Gestionar Tarjeta</h2>
-                    <div class="bg-zinc-900 p-6 rounded-2xl text-center cursor-pointer mb-5 border border-zinc-800" onclick="triggerFile('file-prod','prod')"><p id="p-label" class="text-zinc-500 text-[10px]">SUBIR IMAGEN</p></div>
+                    <div id="p-label-box" class="bg-zinc-900 h-48 rounded-2xl text-center cursor-pointer mb-5 border border-zinc-800 flex items-center justify-center overflow-hidden" onclick="triggerFile('file-prod','prod')">
+                        <p id="p-label" class="text-zinc-500 text-[10px] font-black uppercase">Subir Imagen Producto</p>
+                    </div>
                     <input type="file" id="file-prod" class="hidden" onchange="startCropping(this)">
                     <input type="text" id="p-name" class="w-full p-3 bg-black rounded-xl border border-zinc-800 mb-3 text-white" placeholder="Nombre">
                     <input type="number" id="p-price" class="w-full p-3 bg-black rounded-xl border border-zinc-800 mb-3 text-white" placeholder="Precio S/">
@@ -120,7 +141,7 @@
              <div id="tab-plat" class="admin-sec">
                 <div class="bg-[#0d0d0d] p-6 rounded-[30px] border border-zinc-800 max-w-lg mb-10">
                     <h2 id="form-title-plat" class="text-xl font-black mb-6 uppercase text-blue-500">Plataforma</h2>
-                    <div id="plat-upload-box" class="bg-zinc-900 rounded-2xl text-center cursor-pointer mb-5 h-32 flex items-center justify-center" onclick="triggerFile('file-plat','plat')"><p class="text-zinc-500 text-[10px]">LOGO</p></div>
+                    <div id="plat-upload-box" class="bg-zinc-900 rounded-2xl text-center cursor-pointer mb-5 h-32 flex items-center justify-center overflow-hidden" onclick="triggerFile('file-plat','plat')"><p class="text-zinc-500 text-[10px]">LOGO</p></div>
                     <input type="file" id="file-plat" class="hidden" onchange="startCropping(this)">
                     <input type="text" id="plat-n" class="w-full p-3 bg-black rounded-xl border border-zinc-800 mb-3 text-white" placeholder="Nombre">
                     <select id="plat-cat-select" class="w-full p-3 bg-zinc-900 rounded-xl border border-zinc-800 mb-6 text-white"></select>
@@ -155,7 +176,7 @@
             <div class="h-64 bg-black rounded-2xl overflow-hidden mb-6"><img id="img-to-crop" style="max-width:100%;"></div>
             <div class="flex gap-3">
                 <button onclick="cancelCrop()" class="flex-1 p-4 bg-zinc-800 rounded-2xl font-black text-sm">SALIR</button>
-                <button onclick="doneCrop()" class="flex-1 p-4 bg-blue-600 rounded-2xl font-black text-sm">LISTO</button>
+                <button onclick="doneCrop()" class="flex-1 p-4 bg-blue-600 rounded-2xl font-black text-sm">RECORTAR</button>
             </div>
         </div>
     </div>
@@ -189,13 +210,14 @@
             document.getElementById('btn-save-prod').innerText = "Publicar";
             document.getElementById('btn-save-plat').innerText = "Guardar";
             document.getElementById('btn-save-cat').innerText = "Añadir";
+            document.getElementById('p-label-box').innerHTML = `<p class="text-zinc-500 text-[10px] font-black">Subir Imagen Producto</p>`;
         };
 
         window.removeItem = async (c, id) => { if(confirm("¿Borrar definitivamente?")) await deleteDoc(doc(db, c, id)); };
         window.login = () => { if(document.getElementById('user-in').value === 'adminGus' && document.getElementById('pass-in').value === 'GusStore2026') { localStorage.setItem('gus_auth', 'true'); window.location.hash = '#admin/panel'; } else alert("Error"); };
         window.logout = () => { localStorage.removeItem('gus_auth'); window.location.hash = ''; location.reload(); };
 
-        // --- GESTION CATEGORÍAS ---
+        // --- SNAPSHOTS ---
         onSnapshot(colCat, snap => {
             window.allCats = snap.docs.map(d => ({id: d.id, ...d.data()}));
             document.getElementById('pills-box').innerHTML = window.allCats.map(c => `<div class="cat-pill ${c.name===activeCat?'active':''}" onclick="window.setCat('${c.name}')">${c.name}</div>`).join('');
@@ -205,52 +227,37 @@
             document.getElementById('admin-list-cat').innerHTML = window.allCats.map(c => `
                 <div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2">
                     <span>${c.name}</span>
-                    <div class="flex gap-4">
-                        <button onclick="prepareEditCat('${c.id}')" class="text-blue-500"><i class="fas fa-edit"></i></button>
-                        <button onclick="removeItem('categorias','${c.id}')" class="text-red-500"><i class="fas fa-trash"></i></button>
-                    </div>
+                    <div class="flex gap-4"><button onclick="prepareEditCat('${c.id}')" class="text-blue-500"><i class="fas fa-edit"></i></button><button onclick="removeItem('categorias','${c.id}')" class="text-red-500"><i class="fas fa-trash"></i></button></div>
                 </div>`).join('');
             if(!activeCat && window.allCats.length > 0) window.setCat(window.allCats[0].name);
         });
 
-        window.prepareEditCat = (id) => {
-            const c = window.allCats.find(x => x.id === id);
-            editIdCat = id; document.getElementById('new-cat').value = c.name;
-            document.getElementById('btn-save-cat').innerText = "Actualizar";
-            document.getElementById('tab-cat').scrollIntoView({ behavior: 'smooth' });
-        };
+        onSnapshot(colPlat, snap => { 
+            window.allPlats = snap.docs.map(d => ({id: d.id, ...d.data()})); renderPlats();
+            document.getElementById('admin-list-plat').innerHTML = window.allPlats.map(p => `
+                <div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2">
+                    <span>${p.name} (${p.cat})</span>
+                    <div class="flex gap-4"><button onclick="prepareEditPlat('${p.id}')" class="text-blue-500"><i class="fas fa-edit"></i></button><button onclick="removeItem('plataformas','${p.id}')" class="text-red-500"><i class="fas fa-trash"></i></button></div>
+                </div>`).join('');
+        });
 
+        onSnapshot(colProd, snap => { 
+            window.allProds = snap.docs.map(d => ({id: d.id, ...d.data()})); renderGrid();
+            document.getElementById('admin-list-prod').innerHTML = window.allProds.map(p => `
+                <div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2">
+                    <span>${p.nombre}</span>
+                    <div class="flex gap-4"><button onclick="prepareEditProd('${p.id}')" class="text-blue-500"><i class="fas fa-edit"></i></button><button onclick="removeItem('productos','${p.id}')" class="text-red-500"><i class="fas fa-trash"></i></button></div>
+                </div>`).join('');
+        });
+
+        // --- ACCIONES ---
         window.addCat = async () => {
             const v = document.getElementById('new-cat').value.toUpperCase();
             if(editIdCat) await updateDoc(doc(db, 'categorias', editIdCat), { name: v });
             else await addDoc(colCat, { name: v });
             document.getElementById('new-cat').value = ""; editIdCat = null;
-            document.getElementById('btn-save-cat').innerText = "Añadir";
         };
-
-        // --- GESTION PLATAFORMAS ---
-        onSnapshot(colPlat, snap => { 
-            window.allPlats = snap.docs.map(d => ({id: d.id, ...d.data()})); 
-            renderPlats();
-            document.getElementById('admin-list-plat').innerHTML = window.allPlats.map(p => `
-                <div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2">
-                    <span>${p.name} (${p.cat})</span>
-                    <div class="flex gap-4">
-                        <button onclick="prepareEditPlat('${p.id}')" class="text-blue-500"><i class="fas fa-edit"></i></button>
-                        <button onclick="removeItem('plataformas','${p.id}')" class="text-red-500"><i class="fas fa-trash"></i></button>
-                    </div>
-                </div>`).join('');
-        });
-
-        window.prepareEditPlat = (id) => {
-            const p = window.allPlats.find(x => x.id === id);
-            editIdPlat = id;
-            document.getElementById('plat-n').value = p.name;
-            document.getElementById('plat-cat-select').value = p.cat;
-            if(p.logo) document.getElementById('plat-upload-box').innerHTML = `<img src="${p.logo}" class="w-full h-full object-cover">`;
-            document.getElementById('btn-save-plat').innerText = "Actualizar";
-            document.getElementById('tab-plat').scrollIntoView({ behavior: 'smooth' });
-        };
+        window.prepareEditCat = (id) => { const c = window.allCats.find(x => x.id === id); editIdCat = id; document.getElementById('new-cat').value = c.name; document.getElementById('btn-save-cat').innerText = "Actualizar"; };
 
         window.addPlat = async () => {
             const dta = { name: document.getElementById('plat-n').value, cat: document.getElementById('plat-cat-select').value };
@@ -259,45 +266,18 @@
             else { dta.logo = dta.logo || defaultLogo; await addDoc(colPlat, dta); }
             location.reload();
         };
-
-        // --- GESTION PRODUCTOS ---
-        onSnapshot(colProd, snap => { 
-            window.allProds = snap.docs.map(d => ({id: d.id, ...d.data()})); 
-            renderGrid();
-            document.getElementById('admin-list-prod').innerHTML = window.allProds.map(p => `
-                <div class="flex justify-between items-center bg-zinc-900 p-4 rounded-xl mb-2">
-                    <span>${p.nombre}</span>
-                    <div class="flex gap-4">
-                        <button onclick="prepareEditProd('${p.id}')" class="text-blue-500"><i class="fas fa-edit"></i></button>
-                        <button onclick="removeItem('productos','${p.id}')" class="text-red-500"><i class="fas fa-trash"></i></button>
-                    </div>
-                </div>`).join('');
-        });
-
-        window.prepareEditProd = (id) => {
-            const p = window.allProds.find(x => x.id === id);
-            editIdProd = id;
-            document.getElementById('p-name').value = p.nombre;
-            document.getElementById('p-price').value = p.precio;
-            document.getElementById('p-stock').value = p.stock;
-            document.getElementById('p-badge').value = p.renovable || "";
-            document.getElementById('p-desc-admin').value = p.desc || "";
-            document.getElementById('p-cat-select').value = p.cat;
-            window.filterPlatByCat(p.cat);
-            setTimeout(() => { document.getElementById('p-plat-select').value = p.platId; }, 100);
-            document.getElementById('p-label').innerText = "✓ IMAGEN CARGADA";
-            document.getElementById('btn-save-prod').innerText = "Actualizar Cambios";
-            document.getElementById('tab-prod').scrollIntoView({ behavior: 'smooth' });
+        window.prepareEditPlat = (id) => {
+            const p = window.allPlats.find(x => x.id === id); editIdPlat = id;
+            document.getElementById('plat-n').value = p.name; document.getElementById('plat-cat-select').value = p.cat;
+            if(p.logo) document.getElementById('plat-upload-box').innerHTML = `<img src="${p.logo}" class="w-full h-full object-cover">`;
+            document.getElementById('btn-save-plat').innerText = "Actualizar";
         };
 
         window.saveProduct = async () => {
             const dta = { 
-                nombre: document.getElementById('p-name').value, 
-                precio: document.getElementById('p-price').value, 
-                stock: document.getElementById('p-stock').value, 
-                renovable: document.getElementById('p-badge').value, 
-                desc: document.getElementById('p-desc-admin').value, 
-                cat: document.getElementById('p-cat-select').value, 
+                nombre: document.getElementById('p-name').value, precio: document.getElementById('p-price').value, 
+                stock: document.getElementById('p-stock').value, renovable: document.getElementById('p-badge').value, 
+                desc: document.getElementById('p-desc-admin').value, cat: document.getElementById('p-cat-select').value, 
                 platId: document.getElementById('p-plat-select').value 
             };
             if(finalBase64) dta.img = finalBase64;
@@ -305,53 +285,18 @@
             else { dta.img = dta.img || defaultLogo; await addDoc(colProd, dta); }
             location.reload();
         };
-
-        // --- ANUNCIOS ---
-        onSnapshot(colAds, snap => {
-            const ads = snap.docs.map(d => d.data());
-            if (ads.length > 0 && !window.location.hash.includes('admin')) {
-                document.getElementById('ads-img-view').src = ads[0].img;
-                document.getElementById('ads-modal').style.display = 'flex';
-            }
-        });
-        window.saveAd = async () => { if(!finalBase64) return; await setDoc(doc(db, "anuncios", "actual"), { img: finalBase64 }); location.reload(); };
-        window.deleteAd = async () => { await deleteDoc(doc(db, "anuncios", "actual")); location.reload(); };
-        window.closeAds = () => document.getElementById('ads-modal').style.display = 'none';
-
-        // --- LÓGICA DE TIENDA ---
-        window.setCat = (c) => { activeCat = c; activePlatId = ""; renderPlats(); renderGrid(); };
-        window.setPlat = (id) => { activePlatId = id; renderPlats(); renderGrid(); };
-
-        function renderPlats() {
-            const box = document.getElementById('grid-marcas');
-            if (activeCat.toUpperCase() !== 'STREAMING') { box.innerHTML = ""; return; }
-            box.innerHTML = window.allPlats.filter(p => p.cat === activeCat).map(p => `<div class="marca-item ${p.id===activePlatId?'active':''}" onclick="window.setPlat('${p.id}')"><img src="${p.logo||defaultLogo}"></div>`).join('');
-        }
-
-        function renderGrid() {
-            const grid = document.getElementById('grid-productos'); grid.innerHTML = ""; 
-            let prds = activeCat.toUpperCase() === 'STREAMING' ? window.allProds.filter(p => p.platId === activePlatId && p.cat === activeCat) : window.allProds.filter(p => p.cat === activeCat);
-            if(prds.length === 0 && activeCat) grid.innerHTML = `<div class="no-stock-full">SIN STOCK POR AHORA</div>`;
-            prds.forEach(p => {
-                const card = document.createElement('div'); card.className = 'card-producto';
-                card.onclick = () => openModal(p);
-                card.innerHTML = `<div class="card-img-wrap"><img src="${p.img || defaultLogo}"><div class="badge-renovable">${p.renovable || 'Renovable'}</div><div class="badge-stock"><i class="fas fa-eye"></i> ${p.stock || 0} Stock</div></div><div class="px-2"><div class="flex items-center gap-2 mt-4"><span class="store-name text-green-400 text-xs font-bold">gus store</span><i class="fas fa-check-circle text-blue-500 text-[9px]"></i></div><div class="product-title">${p.nombre}</div><div class="price-pill">s/ ${p.precio}</div></div>`;
-                grid.appendChild(card);
-            });
-        }
-
-        window.openModal = (p) => {
-            document.getElementById('m-img').src = p.img || defaultLogo;
-            document.getElementById('m-title').innerText = p.nombre;
-            document.getElementById('m-price').innerText = "S/ " + p.precio;
-            document.getElementById('m-desc').innerText = p.desc || "...";
-            const msg = encodeURIComponent(`Hola Gus, quiero comprar ${p.nombre}.`);
-            document.getElementById('m-ws-link').href = `https://wa.me/519288632832?text=${msg}`;
-            document.getElementById('product-modal').style.display = 'flex';
+        window.prepareEditProd = (id) => {
+            const p = window.allProds.find(x => x.id === id); editIdProd = id;
+            document.getElementById('p-name').value = p.nombre; document.getElementById('p-price').value = p.precio;
+            document.getElementById('p-stock').value = p.stock; document.getElementById('p-badge').value = p.renovable || "";
+            document.getElementById('p-desc-admin').value = p.desc || ""; document.getElementById('p-cat-select').value = p.cat;
+            window.filterPlatByCat(p.cat);
+            setTimeout(() => { document.getElementById('p-plat-select').value = p.platId; }, 100);
+            if(p.img) document.getElementById('p-label-box').innerHTML = `<img src="${p.img}" class="w-full h-full object-cover">`;
+            document.getElementById('btn-save-prod').innerText = "Actualizar Cambios";
         };
-        window.closeProductModal = () => document.getElementById('product-modal').style.display = 'none';
 
-        window.filterPlatByCat = (c) => { document.getElementById('p-plat-select').innerHTML = window.allPlats.filter(p => p.cat === c).map(p => `<option value="${p.id}">${p.name}</option>`).join(''); };
+        // --- RECORTADOR FIX ---
         window.triggerFile = (id, type) => { upType = type; document.getElementById(id).click(); };
         window.startCropping = (input) => {
             const reader = new FileReader();
@@ -368,9 +313,49 @@
             document.getElementById('cropper-modal').style.display = 'none'; 
             if(upType === 'plat') document.getElementById('plat-upload-box').innerHTML = `<img src="${finalBase64}" class="w-full h-full object-cover">`; 
             else if(upType === 'ads') document.getElementById('ads-upload-box').innerHTML = `<img src="${finalBase64}" class="w-full h-full object-cover">`; 
-            else document.getElementById('p-label').innerText = "✓ IMAGEN LISTA"; 
+            else if(upType === 'prod') document.getElementById('p-label-box').innerHTML = `<img src="${finalBase64}" class="w-full h-full object-cover">`; 
         };
         window.cancelCrop = () => document.getElementById('cropper-modal').style.display='none';
+
+        // --- TIENDA ---
+        window.setCat = (c) => { activeCat = c; activePlatId = ""; renderPlats(); renderGrid(); };
+        window.setPlat = (id) => { activePlatId = id; renderPlats(); renderGrid(); };
+        function renderPlats() {
+            const box = document.getElementById('grid-marcas');
+            if (activeCat.toUpperCase() !== 'STREAMING') { box.innerHTML = ""; return; }
+            box.innerHTML = window.allPlats.filter(p => p.cat === activeCat).map(p => `<div class="marca-item ${p.id===activePlatId?'active':''}" onclick="window.setPlat('${p.id}')"><img src="${p.logo||defaultLogo}"></div>`).join('');
+        }
+        function renderGrid() {
+            const grid = document.getElementById('grid-productos'); grid.innerHTML = ""; 
+            let prds = activeCat.toUpperCase() === 'STREAMING' ? window.allProds.filter(p => p.platId === activePlatId && p.cat === activeCat) : window.allProds.filter(p => p.cat === activeCat);
+            if(prds.length === 0 && activeCat) grid.innerHTML = `<div class="no-stock-full">SIN STOCK POR AHORA</div>`;
+            prds.forEach(p => {
+                const card = document.createElement('div'); card.className = 'card-producto';
+                card.onclick = () => openModal(p);
+                card.innerHTML = `<div class="card-img-wrap"><img src="${p.img || defaultLogo}"><div class="badge-renovable">${p.renovable || 'Renovable'}</div><div class="badge-stock"><i class="fas fa-eye"></i> ${p.stock || 0} Stock</div></div><div class="px-2"><div class="flex items-center gap-2 mt-4"><span class="store-name text-green-400 text-xs font-bold">gus store</span><i class="fas fa-check-circle text-blue-500 text-[9px]"></i></div><div class="product-title">${p.nombre}</div><div class="price-pill">s/ ${p.precio}</div></div>`;
+                grid.appendChild(card);
+            });
+        }
+        window.openModal = (p) => {
+            document.getElementById('m-img').src = p.img || defaultLogo; document.getElementById('m-title').innerText = p.nombre;
+            document.getElementById('m-price').innerText = "S/ " + p.precio; document.getElementById('m-desc').innerText = p.desc || "...";
+            const msg = encodeURIComponent(`Hola Gus, quiero comprar ${p.nombre}.`);
+            document.getElementById('m-ws-link').href = `https://wa.me/519288632832?text=${msg}`;
+            document.getElementById('product-modal').style.display = 'flex';
+        };
+        window.closeProductModal = () => document.getElementById('product-modal').style.display = 'none';
+
+        // --- OTROS ---
+        onSnapshot(colAds, snap => {
+            const ads = snap.docs.map(d => d.data());
+            if (ads.length > 0 && !window.location.hash.includes('admin')) {
+                document.getElementById('ads-img-view').src = ads[0].img; document.getElementById('ads-modal').style.display = 'flex';
+            }
+        });
+        window.saveAd = async () => { if(!finalBase64) return; await setDoc(doc(db, "anuncios", "actual"), { img: finalBase64 }); location.reload(); };
+        window.deleteAd = async () => { await deleteDoc(doc(db, "anuncios", "actual")); location.reload(); };
+        window.closeAds = () => document.getElementById('ads-modal').style.display = 'none';
+        window.filterPlatByCat = (c) => { document.getElementById('p-plat-select').innerHTML = window.allPlats.filter(p => p.cat === c).map(p => `<option value="${p.id}">${p.name}</option>`).join(''); };
         window.searchFilter = () => {
             const v = document.getElementById('gus-search').value.toLowerCase();
             document.querySelectorAll('.card-producto').forEach(c => c.style.display = c.innerText.toLowerCase().includes(v) ? 'block' : 'none');
